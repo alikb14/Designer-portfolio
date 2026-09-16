@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AsciiEarthCanvas } from "@/components/earth/AsciiEarthCanvas";
+import { TypewriterText } from "@/components/motion/TypewriterText";
 import { SiteHeader } from "@/components/site/SiteHeader";
 
 export default function HomePage() {
@@ -11,9 +12,9 @@ export default function HomePage() {
       <SiteHeader />
       <main className="home-main" id="main-content">
         <h1>
-          Hi I&apos;m Yaad a 2D Motion Designer
-          <br />
-          from planet Earth
+          <TypewriterText
+            text={"Hi I'm Yaad a 2D Motion Designer\nfrom planet Earth"}
+          />
         </h1>
 
         <div className="home-earth">

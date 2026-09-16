@@ -33,7 +33,9 @@ test("primary portfolio routes match the approved information architecture", asy
   ).toBeVisible();
 
   await page.goto("/about");
-  await expect(page.getByText(/i'm yaad, a 2d motion designer/i)).toBeVisible();
+  await expect(
+    page.locator(".about-copy .typewriter-text-live").first(),
+  ).toContainText(/i'm yaad, a 2d motion designer/i);
 });
 
 test("interaction spike exposes non-hover controls", async ({ page }) => {
@@ -73,4 +75,72 @@ test("Earth keeps lower-rate motion and accepts direct pointer interaction when 
 
   await page.mouse.move(0, 0);
   await expect(earth).toHaveAttribute("data-pointer-active", "false");
+});
+
+for (const viewport of [
+  { height: 1080, width: 1920 },
+  { height: 864, width: 1536 },
+  { height: 900, width: 1440 },
+  { height: 768, width: 1366 },
+]) {
+  test(`Play and About fit the initial desktop viewport at ${viewport.width}x${viewport.height}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+    await page.goto("/play");
+    await page.waitForTimeout(1_600);
+
+    const downloads = page.getByRole("button", { name: "DOWNLOAD" });
+    await expect(downloads).toHaveCount(3);
+
+    for (const download of await downloads.all()) {
+      const bounds = await download.boundingBox();
+      expect(bounds?.y).toBeDefined();
+      expect((bounds?.y ?? 0) + (bounds?.height ?? 0)).toBeLessThanOrEqual(
+        viewport.height - 8,
+      );
+    }
+
+    await page.goto("/about");
+    await page.waitForTimeout(1_600);
+    const mediaBounds = await page.locator(".about-media").boundingBox();
+    expect(mediaBounds?.y).toBeDefined();
+    expect(
+      (mediaBounds?.y ?? 0) + (mediaBounds?.height ?? 0),
+    ).toBeLessThanOrEqual(viewport.height - 8);
+  });
+}
+
+test("Play hover copy restarts cleanly and page scrolling remains available", async ({
+  page,
+}) => {
+  await page.goto("/play");
+  const firstCard = page.locator(".play-card").first();
+  const liveCopy = firstCard.locator(".typewriter-text-live");
+
+  await firstCard.hover();
+  await page.waitForTimeout(120);
+  const partialText = await liveCopy.textContent();
+  expect(partialText?.length).toBeGreaterThan(0);
+
+  await page.mouse.move(0, 0);
+  await firstCard.hover();
+  await page.waitForTimeout(120);
+  const restartedText = await liveCopy.textContent();
+  expect(restartedText?.length).toBeGreaterThan(0);
+  expect(restartedText?.length).toBeLessThan(
+    "Project file and description will be published here when the final downloadable asset is ready."
+      .length,
+  );
+
+  await page.setViewportSize({ height: 700, width: 390 });
+  await page.goto("/work");
+  const scrollbarWidth = await page.evaluate(
+    () => getComputedStyle(document.documentElement).scrollbarWidth,
+  );
+  expect(scrollbarWidth).toBe("none");
+  await page.evaluate(() => window.scrollTo(0, 120));
+  await expect
+    .poll(() => page.evaluate(() => window.scrollY))
+    .toBeGreaterThan(0);
 });
