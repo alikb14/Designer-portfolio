@@ -24,8 +24,8 @@ test("primary portfolio routes match the approved information architecture", asy
   page,
 }) => {
   await page.goto("/work");
-  await expect(page.getByText("Project 01")).toBeVisible();
-  await expect(page.getByText("Project 02")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Project 01" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Project 02" })).toBeVisible();
 
   await page.goto("/play");
   await expect(
@@ -127,14 +127,36 @@ for (const viewport of [
 test("Play hover copy restarts cleanly and page scrolling remains available", async ({
   page,
 }) => {
+  await page.setViewportSize({ height: 768, width: 1366 });
   await page.goto("/play");
   const firstCard = page.locator(".play-card").first();
-  const liveCopy = firstCard.locator(".typewriter-text-live");
+  const liveCopy = firstCard.locator(".play-description .typewriter-text-live");
 
-  await firstCard.hover();
+  await page.evaluate(() => window.scrollTo(0, 160));
+  const scrollPositionBeforeHover = await page.evaluate(() => window.scrollY);
+  const scrollHeightBeforeHover = await page.evaluate(
+    () => document.documentElement.scrollHeight,
+  );
+  const art = firstCard.locator(".play-art");
+  const artBounds = await art.boundingBox();
+  expect(artBounds).not.toBeNull();
+  await page.mouse.move(
+    (artBounds?.x ?? 0) + (artBounds?.width ?? 0) / 2,
+    (artBounds?.y ?? 0) + (artBounds?.height ?? 0) / 2,
+  );
   await page.waitForTimeout(120);
   const partialText = await liveCopy.textContent();
   expect(partialText?.length).toBeGreaterThan(0);
+  await expect(firstCard.locator(".play-art")).toHaveCSS("transform", /matrix/);
+  await expect
+    .poll(() => page.evaluate(() => window.scrollY))
+    .toBe(scrollPositionBeforeHover);
+  const scrollHeightAfterHover = await page.evaluate(
+    () => document.documentElement.scrollHeight,
+  );
+  expect(
+    Math.abs(scrollHeightAfterHover - scrollHeightBeforeHover),
+  ).toBeLessThanOrEqual(1);
   const descriptionBounds = await firstCard
     .locator(".play-description")
     .boundingBox();
@@ -146,7 +168,12 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
   );
 
   await page.mouse.move(0, 0);
-  await firstCard.hover();
+  const restartedArtBounds = await art.boundingBox();
+  expect(restartedArtBounds).not.toBeNull();
+  await page.mouse.move(
+    (restartedArtBounds?.x ?? 0) + (restartedArtBounds?.width ?? 0) / 2,
+    (restartedArtBounds?.y ?? 0) + (restartedArtBounds?.height ?? 0) / 2,
+  );
   await page.waitForTimeout(120);
   const restartedText = await liveCopy.textContent();
   expect(restartedText?.length).toBeGreaterThan(0);
@@ -174,7 +201,7 @@ test("page copy types after navigation and Work cards enter smoothly", async ({
   const contactCopy = page
     .locator(".contact-page .typewriter-text-live")
     .first();
-  await page.waitForTimeout(260);
+  await page.waitForTimeout(850);
   const partialCopy = await contactCopy.textContent();
   expect(partialCopy?.length).toBeGreaterThan(0);
   expect(partialCopy?.length).toBeLessThan("Let's make something move.".length);

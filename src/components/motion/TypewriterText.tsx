@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 type TypewriterTextProps = {
   active?: boolean;
@@ -11,9 +12,9 @@ type TypewriterTextProps = {
 const minimumDurationMs = 950;
 const maximumDurationMs = 1_500;
 const millisecondsPerCharacter = 18;
-const typingDelayMs = 150;
+const typingDelayMs = 700;
 
-export function TypewriterText({
+function TypewriterRun({
   active = true,
   delayMs = typingDelayMs,
   text,
@@ -61,5 +62,16 @@ export function TypewriterText({
       </span>
       <span className="sr-only">{text}</span>
     </span>
+  );
+}
+
+export function TypewriterText(props: TypewriterTextProps) {
+  const pathname = usePathname();
+
+  return (
+    <TypewriterRun
+      {...props}
+      key={`${pathname}:${props.active ? "active" : "idle"}:${props.text}`}
+    />
   );
 }
