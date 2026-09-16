@@ -4,14 +4,20 @@ import { useEffect, useState } from "react";
 
 type TypewriterTextProps = {
   active?: boolean;
+  delayMs?: number;
   text: string;
 };
 
-const minimumDurationMs = 800;
+const minimumDurationMs = 950;
 const maximumDurationMs = 1_500;
-const millisecondsPerCharacter = 15;
+const millisecondsPerCharacter = 18;
+const typingDelayMs = 150;
 
-export function TypewriterText({ active = true, text }: TypewriterTextProps) {
+export function TypewriterText({
+  active = true,
+  delayMs = typingDelayMs,
+  text,
+}: TypewriterTextProps) {
   const [visibleCharacters, setVisibleCharacters] = useState(0);
 
   useEffect(() => {
@@ -24,7 +30,7 @@ export function TypewriterText({ active = true, text }: TypewriterTextProps) {
       maximumDurationMs,
       Math.max(minimumDurationMs, text.length * millisecondsPerCharacter),
     );
-    const startedAt = performance.now();
+    const startedAt = performance.now() + delayMs;
     let animationFrame = 0;
 
     const update = (time: number) => {
@@ -33,7 +39,7 @@ export function TypewriterText({ active = true, text }: TypewriterTextProps) {
         return;
       }
 
-      const progress = Math.min(1, (time - startedAt) / duration);
+      const progress = Math.min(1, Math.max(0, (time - startedAt) / duration));
       setVisibleCharacters(Math.round(progress * text.length));
 
       if (progress < 1) {
@@ -43,7 +49,7 @@ export function TypewriterText({ active = true, text }: TypewriterTextProps) {
 
     animationFrame = requestAnimationFrame(update);
     return () => cancelAnimationFrame(animationFrame);
-  }, [active, text]);
+  }, [active, delayMs, text]);
 
   return (
     <span className="typewriter-text">

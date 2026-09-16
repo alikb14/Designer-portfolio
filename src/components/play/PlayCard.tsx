@@ -32,6 +32,7 @@ export function PlayCard({ index }: { index: number }) {
       <p className="play-description">
         <TypewriterText
           active={expanded}
+          delayMs={40}
           key={expanded ? "expanded" : "collapsed"}
           text="Project file and description will be published here when the final downloadable asset is ready."
         />
