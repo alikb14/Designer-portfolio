@@ -1,0 +1,13 @@
+.next
+.vinext
+.open-next
+.wrangler
+coverage
+node_modules
+playwright-report
+test-results
+dist
+.next
+package-lock.json
+.project-engineering/
+docs/project/
