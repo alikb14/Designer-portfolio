@@ -444,15 +444,6 @@ button:focus-visible {
 .play-card {
   min-width: 0;
   position: relative;
-  transform: scale(1);
-  transform-origin: center center;
-  transition: transform 300ms cubic-bezier(0.2, 0.75, 0.25, 1);
-}
-
-.play-card:hover,
-.play-card:focus-within {
-  transform: scale(1.022);
-  z-index: 2;
 }
 
 .play-card:focus-visible {
@@ -464,6 +455,9 @@ button:focus-visible {
   font-size: clamp(1rem, 1.45vw, 1.45rem);
   font-weight: 400;
   margin: 0 0 0.8rem;
+  transform: scale(1);
+  transform-origin: center bottom;
+  transition: transform 300ms cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
 .play-art {
@@ -471,7 +465,11 @@ button:focus-visible {
   filter: grayscale(1);
   overflow: hidden;
   position: relative;
-  transition: filter 280ms ease;
+  transform: scale(1);
+  transform-origin: center center;
+  transition:
+    filter 280ms ease,
+    transform 300ms cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
 .play-art span,
@@ -534,6 +532,7 @@ button:focus-visible {
 .play-card:focus-within .play-art,
 .play-card.is-active .play-art {
   filter: grayscale(0);
+  transform: scale(1.022);
 }
 
 .download-bar {
@@ -548,7 +547,19 @@ button:focus-visible {
   margin: 0;
   opacity: 1;
   position: absolute;
+  transform: scale(1);
+  transform-origin: center bottom;
+  transition: transform 300ms cubic-bezier(0.2, 0.75, 0.25, 1);
   width: 100%;
+}
+
+.play-card:hover h2,
+.play-card:focus-within h2,
+.play-card.is-active h2,
+.play-card:hover .download-bar,
+.play-card:focus-within .download-bar,
+.play-card.is-active .download-bar {
+  transform: scale(1.022);
 }
 
 .play-details-toggle {
@@ -566,23 +577,20 @@ button:focus-visible {
     100% + clamp(2.5rem, 4vh, 3rem) + clamp(4.4rem, 5vw, 5rem) + 0.75rem
   );
   inset-inline: 0;
+  height: 6rem;
   margin: 0;
-  max-height: 0;
+  max-height: none;
   opacity: 0;
-  overflow: hidden;
-  padding-inline: 0.75rem;
+  overflow: clip;
+  padding: 0.75rem;
+  pointer-events: none;
   position: absolute;
-  transition:
-    max-height 220ms ease,
-    opacity 180ms ease,
-    padding 220ms ease;
+  transition: opacity 180ms ease;
 }
 
 .play-card.is-active .play-description,
 .play-card:focus-within .play-description {
-  max-height: 12rem;
   opacity: 1;
-  padding-block: 0.75rem;
 }
 
 .about-page {
@@ -776,8 +784,22 @@ button:focus-visible {
   }
 
   .play-description {
+    height: auto;
     inset: auto;
+    max-height: 0;
+    padding-inline: 0.75rem;
     position: static;
+    transform: none;
+    transition:
+      max-height 220ms ease,
+      opacity 180ms ease,
+      padding 220ms ease;
+  }
+
+  .play-card.is-active .play-description,
+  .play-card:focus-within .play-description {
+    max-height: 12rem;
+    padding-block: 0.75rem;
   }
 
   .work-preview-control,
