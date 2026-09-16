@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { TypewriterText } from "@/components/motion/TypewriterText";
 import { PlayCard } from "@/components/play/PlayCard";
 import { SiteHeader } from "@/components/site/SiteHeader";
 
@@ -9,7 +10,9 @@ export default function PlayPage() {
     <div className="site-shell">
       <SiteHeader />
       <main className="play-page">
-        <h1>You can download my project files here for free.</h1>
+        <h1>
+          <TypewriterText text="You can download my project files here for free." />
+        </h1>
         <div className="play-grid">
           {[1, 2, 3].map((index) => (
             <PlayCard index={index} key={index} />

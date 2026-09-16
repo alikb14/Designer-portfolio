@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { TypewriterText } from "@/components/motion/TypewriterText";
 
 export function PlayCard({ index }: { index: number }) {
   const [expanded, setExpanded] = useState(false);
@@ -29,8 +30,11 @@ export function PlayCard({ index }: { index: number }) {
         {expanded ? "HIDE DETAILS" : "DETAILS"}
       </button>
       <p className="play-description">
-        Project file and description will be published here when the final
-        downloadable asset is ready.
+        <TypewriterText
+          active={expanded}
+          key={expanded ? "expanded" : "collapsed"}
+          text="Project file and description will be published here when the final downloadable asset is ready."
+        />
       </p>
     </article>
   );
