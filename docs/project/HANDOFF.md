@@ -64,4 +64,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Obtain owner visual acceptance of the corrected flat 2D ASCII Earth, then measure it on representative desktop and mobile hardware, including reduced-motion and no-canvas fallback behavior. Keep the supplied full-site and ASCII-Earth recordings as reference evidence only; use only the Project 1 and Project 2 media for Work previews.
+Obtain owner visual acceptance of the corrected Earth motion, Home fold spacing, Work/Play hover treatments, and documented CMS poster-frame workflow; then complete representative physical-device and no-canvas checks. Keep the supplied full-site and ASCII-Earth recordings as reference evidence only; use only the Project 1 and Project 2 media for Work previews.

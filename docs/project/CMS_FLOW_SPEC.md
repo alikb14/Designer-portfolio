@@ -21,9 +21,11 @@ Top-level destinations: Dashboard, Home, Work Projects, Play Items, About, Conta
 selected → validating → uploading → ready / failed / canceled / replaced / archived
 
 - Upload shows filename, size, progress, cancel, and retained draft context.
+- For a ready Work hover-preview, the Editor scrubs the video, chooses “Use current frame,” reviews the extracted still, and may replace that choice before publication. The selected timecode and generated poster asset remain linked to the preview version.
 - Failure preserves the record and offers retry/replace.
 - Validation/upload state explains why publication is not ready.
 - Replacement never removes the active public asset until the new one is ready and published.
+- Replacing a Work preview marks its previous poster-frame selection stale; Publish remains unavailable until a valid frame is selected and the new still is ready.
 - Referenced media cannot be hard-deleted without listing affected content.
 
 ## Preview

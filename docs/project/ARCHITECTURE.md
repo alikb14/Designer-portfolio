@@ -76,8 +76,8 @@ Sanity is the source of truth for structured content and delivery-asset referenc
 
 ### Publish project
 
-1. Editor creates a draft, uploads/selects the poster and short MP4 preview, and enters the full video's Vimeo link/identifier plus captions metadata.
-2. CMS validates required fields, slug, preview metadata/limits, the Vimeo host/identifier/privacy-hash format, availability, alt text, captions policy, and credits.
+1. Editor creates a draft, uploads/selects the short MP4 preview, selects its poster frame through the Studio scrubber, and enters the full video's Vimeo link/identifier plus captions metadata.
+2. Studio uploads the extracted preview-frame still, retains its source timecode, and CMS validates required fields, slug, preview metadata/limits, poster-frame readiness, the Vimeo host/identifier/privacy-hash format, availability, alt text, captions policy, and credits.
 3. Editor opens draft preview.
 4. Editor publishes; a signed webhook triggers bounded route revalidation.
 5. Public routes query only the published version.

@@ -7,9 +7,11 @@ export function PlayCard({ index }: { index: number }) {
 
   return (
     <article
+      aria-label={`Project ${index}`}
       className={expanded ? "play-card is-active" : "play-card"}
       onPointerEnter={() => setExpanded(true)}
       onPointerLeave={() => setExpanded(false)}
+      tabIndex={0}
     >
       <h2>Project Name</h2>
       <div aria-hidden="true" className={`play-art play-art-${index}`}>

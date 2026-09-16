@@ -9,8 +9,10 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - Created a TypeScript Next.js App Router baseline with native Next scripts and a Cloudflare Workers adapter path.
 - Added formatting, linting, type checking, unit tests with coverage, Chromium E2E configuration, a health endpoint, error and not-found boundaries, and CI.
 - Added server-side configuration validation and structured logging that redacts credential-like fields.
-- Replaced the rejected three-dimensional Earth treatment with a flat 2D Canvas character grid matching the supplied reference: geographic `/`, `1`, and `*` masks, ocean dots, local fine-pointer attraction, elastic return, adaptive grid detail, page visibility/intersection pausing, reduced-motion static rendering, and Canvas/no-script fallbacks.
+- Replaced the rejected three-dimensional Earth treatment with a flat 2D Canvas character grid matching the supplied reference: geographic `/`, `1`, and `*` masks, ocean dots, local fine-pointer attraction, elastic return, adaptive grid detail, page visibility/intersection pausing, very gentle reduced-motion rendering, and Canvas/no-script fallbacks. The render loop remains active under reduced motion so direct hover input is never accidentally disabled.
 - Implemented the Work-card behavior with short local muted preview derivatives from the supplied Project 1 and Project 2 videos, fine-pointer start/stop, explicit keyboard-operable start/stop control, and no touch hover dependency.
+- Added clipped internal Work-media zoom and whole-item Play zoom. Play artwork is grayscale at rest and restores project color on hover/focus; transform breathing room plus clipped grid overflow prevents horizontal scrollbar growth.
+- Added the CMS requirement for scrubber-based Work preview poster-frame selection, generated still storage, replacement invalidation, and publication validation.
 - Added reference-aligned Home, Work, Play, About, Contact, and two project-detail page drafts. Placeholder copy and unavailable Download/Contact actions remain explicit instead of inventing owner content.
 
 ## Verified locally
@@ -24,10 +26,13 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - `npm run build:vinext`: passed. Vinext reports a static-analysis limitation for route classification; it does not report a compatibility issue.
 - `npm run test:e2e`: 3 Chromium tests passed, covering the primary portfolio routes, health endpoint, 2D Earth presence, and non-hover preview control.
 - Rendered inspection at 1440×1000 and 390×844 confirmed the flat circular ASCII treatment, responsive composition, and deliberate cropped desktop placement from the supplied Home reference.
+- Browser inspection with `prefers-reduced-motion: reduce` confirmed the corrected Earth render loop, `pointer-active` transition, and visible local attraction. At 1920×918, Reel measured `y=370.8…910.8` and remained inside the initial viewport.
+- At 1920×918, Work preview playback measured `paused=false`, visible opacity, `scale(1.035)`, and no horizontal overflow. Play hover measured `grayscale(0)`, `scale(1.022)`, and no horizontal overflow.
 
 ## Not yet verified
 
-- Cloudflare deployment, production headers in the target runtime, Sanity preview/revalidation, Vimeo embedding, CMS data, responsive device matrix, and production observability.
+- Cloudflare deployment, production headers in the target runtime, Sanity preview/revalidation and poster-frame extraction workflow, Vimeo embedding, CMS data, responsive device matrix, and production observability.
+- The new automated reduced-motion/pointer Playwright case is authored but its local run was blocked by the Windows execution-approval service after the existing 3-test suite had passed; equivalent browser behavior was inspected directly in this session.
 
 ## Constraints and decisions
 

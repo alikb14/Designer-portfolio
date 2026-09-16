@@ -129,6 +129,7 @@ Deliver a faithful, performant portfolio that converts visual references into an
 - **FR-22:** Content changes shall have recoverable revision history through the selected CMS or an equivalent documented mechanism.
 - **FR-23:** Publication events shall update only affected public routes and shall not expose drafts.
 - **FR-24:** Failures during save, upload, media validation/readiness, publication, or revalidation shall preserve user input and provide a safe retry or recovery path.
+- **FR-25:** For each Work hover-preview video, the Editor shall scrub to a desired frame and select it as the public preview poster. The CMS shall retain the selected timecode, generate/store a still image for delivery, invalidate the selection when the video is replaced, and block publication while that still is missing or invalid.
 
 ## 5. Non-Functional Requirements
 
@@ -223,3 +224,4 @@ Analytics is optional and off by default until provider, consent, and retention 
 - **AC-10:** Given CMS/media failure, a valid cached public version remains where architecture supports it, or a clear recoverable state appears; the event is observable.
 - **AC-11:** Given an unauthenticated/unauthorized mutation request, it is denied without leaking drafts or credentials.
 - **AC-12:** Before release, all criteria trace to observed/automated evidence, applicable independent UX/security/QA findings are resolved or accepted, and rollback/restore are exercised.
+- **AC-13:** Given a ready Work hover-preview, the Editor can select and replace its poster frame from a video scrubber; draft preview and the public card use the generated still, and replacing the video requires reconfirming a valid frame.
