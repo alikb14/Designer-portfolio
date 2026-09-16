@@ -7,7 +7,7 @@ Status: **Observed visual evidence**. It does not prove behavior not visible in 
 | File | Evidence extracted |
 |---|---|
 | `full website video sample.mp4` | 20.54 s, 1920×1080. Reveal/theme transition, route order, Work previews, detail layout, Play hover, About. |
-| `ASCII earth animation.mp4` | 2.375 s, 1920×1080. Text/particle resolve and gentle Earth rotation. No pointer interaction shown. |
+| `ASCII earth animation.mp4` | 2.375 s, 1920×1080 at 24 fps. The composition resolves from sparse text/particles in under one second, then keeps a readable geographic drift. No pointer interaction is shown. |
 | `home-page.png`, `home-page-darkMode.png` | Finished Home composition in both themes. |
 | `work page.jpg` | Two-column Work grid and title placement. |
 | `one-of-project's-page.png` | Detail narrative/credits below large media. |
@@ -39,11 +39,11 @@ Status: **Observed visual evidence**. It does not prove behavior not visible in 
 
 ## Motion system
 
-- Brief particle/text entry reveal, not a long loader.
+- Brief staggered particle/text entry reveal, not a long loader; the Earth resolves from scattered glyphs rather than scaling the whole layout.
 - Global theme crossfade/inversion.
 - Work inline motion previews.
 - Play image-state change plus description reveal.
-- Slow continuous Earth rotation.
+- Continuous Earth rotation is visible but remains secondary to the quick particle resolve.
 - Requested pointer attraction/repulsion is new and needs prototype approval.
 
 ## Unknowns that must not be invented

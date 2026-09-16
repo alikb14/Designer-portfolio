@@ -43,7 +43,7 @@ test("interaction spike exposes non-hover controls", async ({ page }) => {
   await expect(page.getByRole("button", { name: "Preview" })).toBeVisible();
 });
 
-test("Earth keeps gentle motion and accepts direct pointer interaction when reduced motion is requested", async ({
+test("Earth keeps lower-rate motion and accepts direct pointer interaction when reduced motion is requested", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -52,7 +52,12 @@ test("Earth keeps gentle motion and accepts direct pointer interaction when redu
   const earth = page.getByRole("img", {
     name: /two-dimensional ascii earth/i,
   });
+  await page.waitForTimeout(500);
   const before = await earth.screenshot();
+  await page.waitForTimeout(700);
+  const afterDrift = await earth.screenshot();
+  expect(afterDrift.equals(before)).toBe(false);
+
   const bounds = await earth.boundingBox();
   expect(bounds).not.toBeNull();
 
@@ -61,10 +66,10 @@ test("Earth keeps gentle motion and accepts direct pointer interaction when redu
     (bounds?.y ?? 0) + (bounds?.height ?? 0) * 0.48,
   );
   await expect(earth).toHaveAttribute("data-pointer-active", "true");
-  await page.waitForTimeout(1_200);
+  await page.waitForTimeout(700);
 
-  const after = await earth.screenshot();
-  expect(after.equals(before)).toBe(false);
+  const afterAttraction = await earth.screenshot();
+  expect(afterAttraction.equals(afterDrift)).toBe(false);
 
   await page.mouse.move(0, 0);
   await expect(earth).toHaveAttribute("data-pointer-active", "false");
