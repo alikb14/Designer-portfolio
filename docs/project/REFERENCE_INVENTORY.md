@@ -14,10 +14,13 @@ This inventory records the source assets inspected on 2026-09-16. Source files r
 | `play-page-hovering-one-of-the-projects.png` | PNG, 1746 x 985 | `ED1D1BA0B2D2280FAD6A56D87EF3D3E59D544613FB1E8D5083DB9443B4214375` |
 | `play-tab.jpg` | JPG, 1138 x 639 | `6760650AB3E799D9AA29284424E6D07B29AB7FDB6BC025B9189827AD6EBB69C9` |
 | `work page.jpg` | JPG, 1140 x 642 | `030E6D9FD07AF1A7687531EFE0FD57D28D6CAABE32C1568B390DA4B678FE9BEA` |
+| `project 1.mp4` | MP4, Work source | `8011BAB54CB4FADCD4B7BCDF75FD9C866B4DA41D675671844DF1A71711F288D1` |
+| `project 2.mp4` | MP4, Work source | `74C4FE4F07E5CDF25C41AFAE438C1541549137C9FADE5F5D46B56D096D4F9B44` |
 
 ## Repository copies
 
-- `public/spikes/earth-reference-preview.mp4`: direct copy of `ASCII earth animation.mp4`; local risk-spike preview only.
+- `public/work/project-1-preview.mp4` and `public/work/project-2-preview.mp4`: six-second silent preview derivatives of the supplied Work source videos.
+- `public/work/project-1-poster00001.png` and `public/work/project-2-poster00001.png`: still poster derivatives of the supplied Work source videos.
 - `public/fonts/IBMPlexMono-Regular.ttf` and `public/fonts/IBMPlexMono-SemiBold.ttf`: extracted from `ofl_fonts.zip`; distributed with the included SIL OFL 1.1 license.
 
-No supplied screen capture is represented as a production page implementation. They remain visual reference evidence for the accepted Experience Design package.
+No supplied website screenshot or full-site reference video is published as portfolio content. Those files remain visual reference evidence for the accepted Experience Design package.

@@ -4,7 +4,7 @@
 
 - `docs/project/` and `.project-engineering/state.json` are the accepted planning package and lifecycle ledger. Preserve their intent; do not redesign accepted screens while the project is in Foundation.
 - This repository is the implementation source of truth. The planning mirror at `C:\Users\ali.masood\.codex\.chatgpt-projects\g-p-6aa99fba8dc8819198e2de4eb6a1ebac\docs\project` is read-only reference material.
-- The Foundation scope is setup plus the two risk spikes only. Page implementation begins after the Foundation gate is evidenced.
+- Foundation remains in progress. The owner explicitly requested a reference-aligned page draft during Foundation; treat those pages as candidate implementation, not evidence that Foundation or production readiness has passed.
 
 ## Commands
 
@@ -28,7 +28,7 @@ npm run test:e2e
 - Never commit `.env*` files except `.env.example`, credentials, Sanity tokens, webhook secrets, or Cloudflare credentials.
 - `NEXT_PUBLIC_*` values are public by design. Keep `SANITY_API_READ_TOKEN` and `SANITY_REVALIDATE_SECRET` server-only.
 - Keep every production header change reviewed. The current CSP baseline is intentionally narrow and must be revisited when Sanity Studio or Vimeo domains are configured.
-- Keep large/full motion work on Vimeo or a CMS-approved host. The repository only contains the provided, short risk-spike MP4.
+- Keep large/full motion work on Vimeo or a CMS-approved host. The repository contains only short, silent preview derivatives of the two user-supplied Work videos; reference recordings are never portfolio content.
 
 ## Quality and accessibility
 

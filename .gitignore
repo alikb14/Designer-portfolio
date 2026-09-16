@@ -13,6 +13,7 @@
 /coverage/
 /playwright-report/
 /test-results/
+/.visual-review/
 
 # Local environment files; commit only the documented example
 .env

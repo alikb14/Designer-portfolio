@@ -1,6 +1,6 @@
 # Yaad Motion Portfolio — Current Engineering Context
 
-Generated: 2026-09-15T22:42:55+00:00
+Generated: 2026-09-16
 Delivery class: `production`
 Project type: `generic`
 Active stage: `foundation`
@@ -15,7 +15,7 @@ Next actionable stage: `foundation`
 | `architecture` | `passed` | human | docs\project\ARCHITECTURE.md<br>docs\project\CONTENT_MODEL.md<br>docs\project\adr\001-cms-and-media-platform.md<br>docs\project\adr\002-earth-renderer.md<br>docs\project\REVIEW_FINDINGS.md<br>docs\project\OWNER_DECISION_PACKET.md |
 | `experience-design` | `passed` | human | docs\project\EXPERIENCE_DESIGN.md<br>docs\project\REFERENCE_ANALYSIS.md<br>docs\project\DESIGN.md<br>docs\project\CMS_FLOW_SPEC.md<br>docs\project\INTERACTION_STATE_MATRIX.md |
 | `delivery-plan` | `passed` | human | docs\project\DELIVERY_PLAN.md |
-| `foundation` | `not_started` | local | — |
+| `foundation` | `in_progress` | imported | docs\project\FOUNDATION_LOG.md<br>docs\project\adr\003-cloudflare-runtime-adapter.md |
 | `implementation` | `not_started` | local | — |
 | `verification` | `not_started` | local | — |
 | `release-readiness` | `not_started` | local | — |
@@ -48,6 +48,12 @@ Next actionable stage: `foundation`
 - Imported evidence: Vertical-slice implementation plan for later Codex workspace; approval pending (2026-09-15T20:12:23+00:00)
 - Owner-approved vertical-slice plan maps dependencies, risk spikes, acceptance evidence, rollout, and rollback; placeholder copy is permitted and remaining account/media/font inputs are assigned to Foundation or slice acceptance. (2026-09-15T22:42:21+00:00)
 
+### foundation
+
+- Repository, locked toolchain, CI, baseline security/configuration, native and Cloudflare-adapter builds, and local interaction tests are established.
+- Owner rejected the initial three-dimensional Earth treatment and explicitly corrected it to a flat 2D ASCII circle with local land-glyph attraction. ADR 002 and the implementation were amended accordingly.
+- Owner-requested Home, Work, Play, About, Contact, and project-detail drafts exist, but Foundation remains in progress and no production-readiness claim is made.
+
 ## Resume protocol
 
 1. Read `AGENTS.md` and the evidence linked above.
@@ -58,4 +64,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Open `CODEX_START_PROMPT.md` in a separate implementation workspace and begin the Foundation stage: inventory the supplied reference archives/media, create the implementation repository and project-level instructions, verify the runtime/package manager, establish Cloudflare Workers Free and Sanity Free environment boundaries without committing secrets, add baseline quality/test/CI commands, and record any unavailable reference filenames precisely. Do not begin broad page implementation until the Earth and Work-hover risk spike is ready to run against representative media.
+Obtain owner visual acceptance of the corrected flat 2D ASCII Earth, then measure it on representative desktop and mobile hardware, including reduced-motion and no-canvas fallback behavior. Keep the supplied full-site and ASCII-Earth recordings as reference evidence only; use only the Project 1 and Project 2 media for Work previews.

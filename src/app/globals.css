@@ -1,9 +1,10 @@
 :root {
-  --canvas: #f5f4f2;
+  --canvas: #f7f6f4;
   --ink: #171717;
   --muted: #676767;
   --line: #171717;
-  --panel: #dfddda;
+  --panel: #545454;
+  --soft-panel: #d7d5d3;
   color-scheme: light dark;
   font-family: "IBM Plex Mono", "Courier New", Courier, monospace;
 }
@@ -25,13 +26,32 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --canvas: #0c0c0c;
     --ink: #f1f0ee;
     --muted: #b6b4b0;
     --line: #f1f0ee;
-    --panel: #242424;
+    --panel: #b8b6b6;
+    --soft-panel: #282828;
   }
+}
+
+:root[data-theme="light"] {
+  --canvas: #f7f6f4;
+  --ink: #171717;
+  --muted: #676767;
+  --line: #171717;
+  --panel: #545454;
+  --soft-panel: #d7d5d3;
+}
+
+:root[data-theme="dark"] {
+  --canvas: #0c0c0c;
+  --ink: #f1f0ee;
+  --muted: #b6b4b0;
+  --line: #f1f0ee;
+  --panel: #b8b6b6;
+  --soft-panel: #282828;
 }
 
 * {
@@ -49,6 +69,15 @@ body {
   min-height: 100vh;
 }
 
+body,
+a,
+button {
+  transition:
+    background-color 260ms ease,
+    color 260ms ease,
+    border-color 260ms ease;
+}
+
 a,
 button {
   color: inherit;
@@ -59,6 +88,520 @@ a:focus-visible,
 button:focus-visible {
   outline: 3px solid currentColor;
   outline-offset: 4px;
+}
+
+.skip-link {
+  background: var(--ink);
+  color: var(--canvas);
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  position: fixed;
+  transform: translateY(-200%);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.sr-only {
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.site-shell {
+  margin-inline: auto;
+  min-height: 100vh;
+  overflow: clip;
+  padding: clamp(1.75rem, 4.1vw, 5rem) clamp(1.5rem, 6vw, 7.5rem);
+}
+
+.site-header {
+  align-items: center;
+  display: grid;
+  font-size: clamp(0.95rem, 1.3vw, 1.4rem);
+  grid-template-columns: minmax(7rem, 1fr) auto auto;
+  min-height: 2.75rem;
+  position: relative;
+  z-index: 20;
+}
+
+.site-header a {
+  text-decoration: none;
+}
+
+.site-header a[aria-current="page"] {
+  font-weight: 600;
+}
+
+.site-nav {
+  align-items: center;
+  display: flex;
+  gap: clamp(2rem, 4.6vw, 5.5rem);
+}
+
+.home-link {
+  justify-self: start;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  cursor: pointer;
+  height: 1.55rem;
+  margin-inline-start: clamp(1.5rem, 3.6vw, 4.25rem);
+  padding: 0.15rem;
+  position: relative;
+  width: 3.2rem;
+}
+
+.theme-toggle-dot {
+  background: currentColor;
+  border-radius: 50%;
+  display: block;
+  height: 1rem;
+  transform: translateX(0);
+  transition: transform 220ms ease;
+  width: 1rem;
+}
+
+:root[data-theme="dark"] .theme-toggle-dot {
+  transform: translateX(1.65rem);
+}
+
+.menu-toggle {
+  background: transparent;
+  border: 0;
+  display: none;
+}
+
+.home-main {
+  min-height: calc(100vh - 8rem);
+  padding-block-start: clamp(6rem, 12vh, 9rem);
+  position: relative;
+}
+
+.home-main h1 {
+  font-size: clamp(1.45rem, 2.45vw, 2.9rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.25;
+  margin: 0;
+  max-width: 26ch;
+  position: relative;
+  z-index: 3;
+}
+
+.home-earth {
+  aspect-ratio: 1;
+  inset-block-start: clamp(1rem, 2vh, 2.5rem);
+  inset-inline-start: 47%;
+  pointer-events: auto;
+  position: absolute;
+  width: min(72vw, 76rem);
+  z-index: 1;
+}
+
+.home-earth .earth-prototype,
+.home-earth .earth-canvas-wrap {
+  height: 100%;
+  width: 100%;
+}
+
+.home-earth .spike-metric {
+  display: none;
+}
+
+.home-reel {
+  align-items: center;
+  aspect-ratio: 16 / 9;
+  background: var(--panel);
+  display: flex;
+  height: auto;
+  inset-block-start: clamp(16rem, 41vh, 27rem);
+  inset-inline-start: 0;
+  justify-content: center;
+  max-width: 60rem;
+  position: absolute;
+  text-decoration: none;
+  width: min(63vw, 60rem);
+  z-index: 4;
+}
+
+.home-reel span {
+  color: color-mix(in srgb, var(--canvas) 48%, transparent);
+  font-size: clamp(2.3rem, 5vw, 5.25rem);
+  font-style: italic;
+}
+
+.home-reel small {
+  inset-block-end: 1rem;
+  inset-inline-start: 1rem;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 180ms ease;
+}
+
+.home-reel:hover small,
+.home-reel:focus-visible small {
+  opacity: 1;
+}
+
+.work-page,
+.play-page,
+.about-page,
+.contact-page,
+.project-page {
+  padding-block: clamp(5rem, 10vw, 9rem) 6rem;
+}
+
+.work-grid {
+  display: grid;
+  gap: clamp(4rem, 7vw, 8rem) clamp(3rem, 11vw, 12rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.work-card {
+  min-width: 0;
+  position: relative;
+}
+
+.work-card-link {
+  display: block;
+  text-decoration: none;
+}
+
+.work-media {
+  aspect-ratio: 16 / 9;
+  background: var(--panel);
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.work-media img,
+.work-media video {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.work-media video {
+  opacity: 0;
+  transition: opacity 140ms linear;
+}
+
+.work-media video.is-playing {
+  opacity: 1;
+}
+
+.work-title {
+  display: block;
+  font-size: clamp(1.05rem, 1.65vw, 1.6rem);
+  padding-block-start: 0.9rem;
+}
+
+.work-preview-control {
+  background: var(--canvas);
+  border: 1px solid currentColor;
+  inset-block-end: -0.1rem;
+  inset-inline-end: 0;
+  min-height: 2.5rem;
+  opacity: 0;
+  padding: 0.4rem 0.65rem;
+  pointer-events: none;
+  position: absolute;
+}
+
+.work-card:focus-within .work-preview-control {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.play-page h1 {
+  font-size: clamp(1.35rem, 2.2vw, 2.35rem);
+  font-weight: 400;
+  margin: 0 0 clamp(5rem, 9vw, 9rem);
+}
+
+.play-grid {
+  display: grid;
+  gap: clamp(2rem, 3.7vw, 4.5rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.play-card h2 {
+  font-size: clamp(1rem, 1.45vw, 1.45rem);
+  font-weight: 400;
+  margin: 0 0 0.8rem;
+}
+
+.play-art {
+  aspect-ratio: 1;
+  background: #656565;
+  overflow: hidden;
+  position: relative;
+  transition: background 200ms ease;
+}
+
+.play-art span,
+.play-art span::after {
+  background: #d5d5d5;
+  content: "";
+  height: 50%;
+  left: 50%;
+  position: absolute;
+  top: 25%;
+  transform: translateX(-50%) skewY(30deg);
+  transition: background 200ms ease;
+  width: 21%;
+}
+
+.play-art span::after {
+  left: 128%;
+  top: 0;
+  transform: skewY(-30deg);
+  width: 100%;
+}
+
+.play-card.is-active .play-art-1,
+.play-card:focus-within .play-art-1 {
+  background: #dce5c9;
+}
+
+.play-card.is-active .play-art-1 span,
+.play-card:focus-within .play-art-1 span {
+  background: #f5cb43;
+}
+
+.play-card.is-active .play-art-1 span::after,
+.play-card:focus-within .play-art-1 span::after {
+  background: #3a1736;
+}
+
+.download-bar {
+  background: #181818;
+  border: 0;
+  color: #f5f5f5;
+  cursor: not-allowed;
+  font-size: clamp(1.05rem, 1.7vw, 1.65rem);
+  min-height: 4.4rem;
+  opacity: 1;
+  width: 100%;
+}
+
+.play-details-toggle {
+  background: transparent;
+  border: 1px solid currentColor;
+  display: none;
+  margin-block-start: 0.75rem;
+  min-height: 2.75rem;
+  width: 100%;
+}
+
+.play-description {
+  background: var(--soft-panel);
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding-inline: 0.75rem;
+  transition:
+    max-height 220ms ease,
+    opacity 180ms ease,
+    padding 220ms ease;
+}
+
+.play-card.is-active .play-description,
+.play-card:focus-within .play-description {
+  max-height: 12rem;
+  opacity: 1;
+  padding-block: 0.75rem;
+}
+
+.about-page {
+  align-items: start;
+  display: grid;
+  gap: clamp(4rem, 16vw, 19rem);
+  grid-template-columns: minmax(17rem, 0.95fr) minmax(20rem, 0.8fr);
+}
+
+.about-media {
+  aspect-ratio: 0.82;
+  background: #1c1a1b;
+}
+
+.about-copy {
+  font-size: clamp(1rem, 1.45vw, 1.55rem);
+  letter-spacing: -0.035em;
+  line-height: 1.13;
+}
+
+.about-copy p {
+  margin: 0 0 1.8rem;
+}
+
+.contact-page h1 {
+  font-size: clamp(2.4rem, 7vw, 7rem);
+  letter-spacing: -0.08em;
+  line-height: 0.95;
+  margin: 0 0 3rem;
+  max-width: 10ch;
+}
+
+.contact-page p {
+  line-height: 1.55;
+  max-width: 50ch;
+}
+
+.project-page h1 {
+  font-size: clamp(1.4rem, 2.5vw, 2.6rem);
+  font-weight: 400;
+  margin: 0 0 1.25rem;
+}
+
+.project-video {
+  aspect-ratio: 16 / 9;
+  background: var(--panel);
+  display: block;
+  object-fit: contain;
+  width: 100%;
+}
+
+.project-copy {
+  display: grid;
+  font-size: clamp(1rem, 1.7vw, 1.65rem);
+  gap: 4rem;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.45fr);
+  line-height: 1.25;
+  padding-block: clamp(4rem, 9vw, 9rem);
+}
+
+.project-copy p {
+  margin: 0;
+}
+
+.project-credits {
+  display: grid;
+  gap: 0.35rem;
+}
+
+@media (max-width: 900px) {
+  .site-header {
+    grid-template-columns: 1fr auto auto;
+  }
+
+  .site-nav {
+    background: var(--canvas);
+    display: none;
+    gap: 1.75rem;
+    inset-block-start: 3.5rem;
+    inset-inline: 0;
+    padding-block: 1.5rem;
+    position: absolute;
+  }
+
+  .site-nav.is-open {
+    display: flex;
+  }
+
+  .menu-toggle {
+    cursor: pointer;
+    display: block;
+  }
+
+  .theme-toggle {
+    margin-inline-start: 1rem;
+  }
+
+  .home-main {
+    padding-block-start: 5rem;
+  }
+
+  .home-earth {
+    inset-block-start: 8rem;
+    inset-inline-start: 34%;
+    width: 90vw;
+  }
+
+  .home-reel {
+    inset-block-start: 26rem;
+    width: 72vw;
+  }
+
+  .play-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-page {
+    gap: 4rem;
+    grid-template-columns: minmax(16rem, 0.85fr) 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .site-shell {
+    padding: 1.25rem;
+  }
+
+  .site-nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .home-main {
+    min-height: 53rem;
+    padding-block-start: 4rem;
+  }
+
+  .home-main h1 {
+    max-width: 20ch;
+  }
+
+  .home-earth {
+    inset-block-start: 12rem;
+    inset-inline-start: 8%;
+    width: 105vw;
+  }
+
+  .home-reel {
+    inset-block-start: 36rem;
+    width: calc(100vw - 2.5rem);
+  }
+
+  .work-grid,
+  .play-grid,
+  .about-page,
+  .project-copy {
+    grid-template-columns: 1fr;
+  }
+
+  .work-preview-control,
+  .play-details-toggle {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    position: static;
+  }
+
+  .work-preview-control {
+    margin-block-start: 0.75rem;
+    width: 100%;
+  }
+
+  .about-media {
+    max-width: 30rem;
+  }
 }
 
 .foundation-shell {

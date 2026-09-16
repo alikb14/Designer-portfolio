@@ -1,18 +1,34 @@
 import Link from "next/link";
+import { AsciiEarthCanvas } from "@/components/earth/AsciiEarthCanvas";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
-export default function FoundationHome() {
+export default function HomePage() {
   return (
-    <main className="foundation-shell">
-      <p className="foundation-kicker">YAAD / FOUNDATION</p>
-      <h1>Motion portfolio engineering is in progress.</h1>
-      <p className="foundation-copy">
-        The approved visual pages are intentionally not implemented yet. This
-        environment exists to verify the runtime, quality gates, and interaction
-        prototypes first.
-      </p>
-      <Link className="foundation-link" href="/spikes/interactions">
-        Open the Earth and preview-card risk spike
-      </Link>
-    </main>
+    <div className="site-shell home-page">
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <SiteHeader />
+      <main className="home-main" id="main-content">
+        <h1>
+          Hi I&apos;m Yaad a 2D Motion Designer
+          <br />
+          from planet Earth
+        </h1>
+
+        <div className="home-earth">
+          <AsciiEarthCanvas />
+        </div>
+
+        <Link
+          aria-label="View selected work"
+          className="home-reel"
+          href="/work"
+        >
+          <span>reels</span>
+          <small>SELECTED WORK</small>
+        </Link>
+      </main>
+    </div>
   );
 }

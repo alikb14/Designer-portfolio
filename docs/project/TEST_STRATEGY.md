@@ -44,7 +44,7 @@ Visual drift, hover-only inaccessible content, poor mobile composition, Earth fr
 - Save/upload/network interruption preserves draft.
 - Media upload/validation failure supports replace/retry.
 - Concurrent updates show conflict handling or a documented deterministic policy.
-- WebGL context loss selects fallback.
+- Canvas initialization failure selects fallback.
 - CMS/Vimeo/preview/download outage degrades as specified.
 - Content and code rollback are exercised.
 

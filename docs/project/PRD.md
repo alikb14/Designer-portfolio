@@ -52,7 +52,7 @@ Deliver a faithful, performant portfolio that converts visual references into an
   2. Visitor opens Work.
   3. Visitor previews or focuses a project card.
   4. Visitor opens the card and plays the detail media.
-- **Alternate / Error Flows:** Reduced-motion/no-WebGL fallback replaces Earth motion; touch uses a non-hover card behavior; media failure retains poster and retry; unpublished/unknown slug shows a branded 404.
+- **Alternate / Error Flows:** Reduced-motion/no-canvas fallback replaces Earth motion; touch uses a non-hover card behavior; media failure retains poster and retry; unpublished/unknown slug shows a branded 404.
 
 ### UC-2 — Download a Play project
 
@@ -109,8 +109,8 @@ Deliver a faithful, performant portfolio that converts visual references into an
 - **FR-2:** The system shall visually distinguish the active route and provide keyboard/touch-operable navigation.
 - **FR-3:** The system shall apply the system theme on first visit, allow manual light/dark selection, persist it on the device, and avoid a wrong-theme flash.
 - **FR-4:** Home shall render CMS-managed introduction and reel content plus a code-driven ASCII/particle Earth.
-- **FR-5:** The Earth shall rotate automatically, respond smoothly to pointer proximity with an approved attraction/repulsion model, and return elastically.
-- **FR-6:** The Earth shall pause offscreen/hidden, adapt quality to device performance, honor reduced motion, and provide no-WebGL fallback.
+- **FR-5:** The Earth shall remain visually two-dimensional, rotate its geographic mask automatically, attract nearby land glyphs smoothly toward pointer proximity, and return elastically.
+- **FR-6:** The Earth shall pause offscreen/hidden, adapt grid detail to device performance, honor reduced motion, and provide a no-canvas/no-script fallback.
 - **FR-7:** Work shall show published projects in Editor-defined order using the reference two-column desktop grid and responsive adaptations.
 - **FR-8:** On fine-pointer hover, a Work card shall automatically replace its poster with a short muted looping preview that behaves visually like a GIF, requires no click, and exposes no video controls. Pointer exit stops/resets the preview and restores the poster. Keyboard focus shall preserve the poster and expose an explicit operable Preview control; coarse touch opens the detail route without relying on hover.
 - **FR-9:** Each published Work project shall expose title, stable slug, main media, narrative, and structured credits.
@@ -212,8 +212,8 @@ Analytics is optional and off by default until provider, consent, and retention 
 ## 9. Acceptance Criteria
 
 - **AC-1:** Given a first-time visit, Home applies system theme without a visible wrong-theme flash and all primary navigation works.
-- **AC-2:** Given pointer input near the Earth, particles displace smoothly and return elastically while approved rotation continues.
-- **AC-3:** Given reduced motion or unavailable WebGL, Home remains composed and usable with an approved static/low-motion Earth.
+- **AC-2:** Given fine-pointer input near the Earth, nearby land glyphs attract locally and return elastically while the flat circular composition and approved rotation continue.
+- **AC-3:** Given reduced motion or unavailable Canvas, Home remains composed and usable with an approved static/low-motion Earth.
 - **AC-4:** Given a Work card with preview, fine-pointer hover automatically starts a muted looping, controller-free preview without a click; pointer exit stops/resets it and restores the poster. Keyboard focus preserves the poster and exposes an explicit Preview control; coarse touch opens the detail without hover dependence.
 - **AC-5:** Given a valid project draft, Editor preview and publish makes the ordered card/detail URL public without code deployment.
 - **AC-6:** Given invalid/oversized media, publication is blocked with a precise correction and the draft remains intact.

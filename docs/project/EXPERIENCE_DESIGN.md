@@ -110,7 +110,7 @@ Sign in → Work Projects → New/Duplicate → guided fields → media upload/v
 ## Degraded/offline and recovery behavior
 
 - Cached public pages remain readable during CMS disruption where the architecture supports it.
-- No-WebGL/reduced-motion users receive a static Earth preserving composition.
+- No-canvas/reduced-motion users receive a static Earth preserving composition.
 - Slow/data-saving connections load posters and avoid aggressive preview fetching.
 - No offline CMS promise.
 

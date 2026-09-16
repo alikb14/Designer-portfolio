@@ -69,7 +69,7 @@ export function WorkPreviewCard() {
           playsInline
           preload="none"
           ref={videoRef}
-          src="/spikes/earth-reference-preview.mp4"
+          src="/work/project-1-preview.mp4"
         />
       </div>
       <div className="preview-card-footer">

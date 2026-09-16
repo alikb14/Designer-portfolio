@@ -10,7 +10,7 @@ Status: **Approved by the owner on 2026-09-16**. This approval records the produ
 4. **Downloads:** launch uses controlled CMS/object-storage assets only. Arbitrary external download URLs are deferred.
 5. **Contact:** launch with editable email and social links; no form until privacy, retention, abuse, and delivery requirements are approved.
 6. **Language:** English/LTR at launch. Mixed-direction names, emails, URLs, and numbers remain readable; full RTL pages are deferred.
-7. **Earth:** local repulsion/displacement with elastic return for fine-pointer devices; automatic rotation only for coarse touch; reduced motion/no-WebGL uses a static or very low-motion equivalent.
+7. **Earth (superseded by owner correction on 2026-09-16):** flat 2D Canvas composition; nearby land glyphs attract toward fine-pointer hover and return elastically; reduced motion/no-canvas uses a static or very low-motion equivalent.
 8. **Responsive interaction:** Work becomes one column on small screens; Play becomes two then one; descriptions remain available without hover; About stacks media then copy; mobile navigation manages focus correctly.
 9. **Theme:** binary light/dark control. First visit follows system; the first explicit selection persists until site storage is cleared.
 10. **Accessibility governance:** meaningful speech/audio requires captions/transcript before publish or a recorded exception; flashing media requires review. The Earth is decorative and hidden from assistive technology.
