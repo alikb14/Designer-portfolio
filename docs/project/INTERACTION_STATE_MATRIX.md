@@ -5,10 +5,10 @@ Status: **Approved planning baseline (2026-09-16)**; implementation behavior rem
 | Surface | Trigger/state | Visible behavior | Retained context | Recovery/action |
 |---|---|---|---|---|
 | Mobile nav | Open | Menu visible; focus moves inside; background is not interactable. | Route/theme. | Escape, close, or route selection returns focus predictably. |
-| Work card | Fine-pointer hover | Short muted loop autoplays without click or visible video controls; layout/title stay stable and the result feels GIF-like. | Poster/link. | Exit stops, resets, and restores poster. |
+| Work card | Fine-pointer hover | Short muted loop autoplays without click or visible video controls; media zooms subtly inside its clipped frame, layout/title stay stable, and the result feels GIF-like. | Editor-selected poster/link. | Exit stops, resets, restores poster, and returns zoom to baseline. |
 | Work card | Keyboard focus | Poster stays stable; explicit preview control may start video. | Focus/link. | Blur/stop restores poster. |
 | Work card | Coarse touch | Direct card action opens detail; no essential hover-only content. | Card context. | Back returns near prior scroll position. |
-| Play card | Hover/focus | Color state and description appear without hiding Download. | Title/action order. | Exit/blur restores reference state. |
+| Play card | Hover/focus | Grayscale artwork returns to color, description appears without hiding Download, and the full item scales subtly without changing grid geometry or scrollbar extent. | Title/action order. | Exit/blur restores reference state. |
 | Play card | Coarse touch | Description is visible or expanded with labeled Details. | Expanded item. | Collapse or Download. |
 | Download | Pending/failure | Duplicate action blocked; progress announced; failure is explicit. | Item context. | Retry or report unavailable; no blank navigation. |
 | Earth | Fine pointer | Nearby land glyphs attract locally and return elastically. | Flat circular grid and geographic-mask rotation. | Pointer exit restores baseline. |

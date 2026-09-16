@@ -29,7 +29,7 @@ Visual drift, hover-only inaccessible content, poor mobile composition, Earth fr
 
 - CMS query shape; published/draft isolation.
 - Signed webhook verification, idempotency, duplicates, and out-of-order safety.
-- Hover-preview upload/validation states and Sanity asset/poster mapping; Vimeo URL/ID parsing, privacy-hash handling, allowlisting, availability, and disabled-embed fallback.
+- Hover-preview upload/validation states, scrubber frame selection, generated-still readiness, replacement invalidation, and Sanity asset/poster mapping; Vimeo URL/ID parsing, privacy-hash handling, allowlisting, availability, and disabled-embed fallback.
 - Download object/redirect headers and missing-object behavior.
 
 ## End-to-end and browser/device tests

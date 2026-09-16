@@ -13,7 +13,7 @@ Introduction lines; reel video, poster, label/caption, optional link; safe Earth
 ## `workProject`
 
 - Title, unique slug, order, and draft/published/archived state.
-- Card poster, separate short delivery-ready muted-loop MP4 preview asset, and accessible preview label. The preview is controller-free on fine-pointer hover and is not the full project video.
+- Card poster, separate short delivery-ready muted-loop MP4 preview asset, Editor-selected preview poster frame, and accessible preview label. The preview is controller-free on fine-pointer hover and is not the full project video.
 - Detail Vimeo URL/video identifier, poster, optional captions/transcript and approved still gallery. Store parsed/validated identifiers, not arbitrary iframe or script markup.
 - Summary, narrative blocks, structured credits, optional year/tags.
 - SEO title/description and optional share image.
@@ -38,11 +38,12 @@ Invitation, email, social links, availability. Form configuration exists only af
 ## Media rules
 
 - Image: file, alt, crop/hotspot, caption/credit, aspect guidance.
-- Hover-preview video: Sanity asset reference, validation/upload state, poster, duration, dimensions, encoded size/format, muted-preview flag, and owner-held original reference.
+- Hover-preview video: Sanity asset reference, validation/upload state, duration, dimensions, encoded size/format, muted-preview flag, owner-held original reference, selected poster-frame timecode, and the generated poster image asset. The Studio exposes a scrubber plus “Use current frame” action; it stores the selected timecode for traceability and uploads the extracted still because the public `<video poster>` contract requires an image URL rather than a runtime time offset.
 - Full video: normalized Vimeo URL/video identifier, optional privacy hash where required, validation/availability state, poster, duration, captions/transcript, and owner-held original reference. Arbitrary embed HTML/JavaScript is rejected.
 - Download: reference, title, safe filename, MIME, size, version, license/readme.
 - Every media field explains purpose, aspect, maximum size/duration, and public placement.
 - Video state follows the architecture lifecycle; a published record can reference only `ready` media.
+- Work publication is blocked when the selected preview-frame timecode is outside the preview duration or its generated poster asset is missing/failed. Replacing the preview invalidates the prior selected frame until the Editor confirms a new one.
 - Meaningful speech/audio requires captions/transcript before publication or an explicitly recorded exception. Editors receive flashing/seizure guidance for motion media.
 - Original video/download bytes have an independently recoverable authoritative copy; processed renditions alone are not a backup.
 

@@ -81,7 +81,10 @@ export function AsciiEarthCanvas() {
       const frameMs = Math.min(50, time - previousTime);
       previousTime = time;
 
-      if (!reducedMotion.matches) rotation += frameMs * 0.0014;
+      // Reduced motion keeps the composition alive at a deliberately gentle
+      // pace instead of disabling the render loop (which also powers the
+      // direct pointer response).
+      rotation += frameMs * (reducedMotion.matches ? 0.0018 : 0.006);
       pointer.strength +=
         ((pointer.active && !coarsePointer.matches ? 1 : 0) -
           pointer.strength) *
@@ -117,8 +120,8 @@ export function AsciiEarthCanvas() {
           const deltaX = pointer.x - x;
           const deltaY = pointer.y - y;
           const distance = Math.hypot(deltaX, deltaY);
-          const influence = Math.max(0, 1 - distance / 0.42) ** 2;
-          const pull = influence * pointer.strength * 0.42;
+          const influence = Math.max(0, 1 - distance / 0.58) ** 2;
+          const pull = influence * pointer.strength * 0.62;
           x += deltaX * pull;
           y += deltaY * pull;
         }
@@ -145,7 +148,7 @@ export function AsciiEarthCanvas() {
         frameCount = 0;
       }
 
-      if (visible && !document.hidden && !reducedMotion.matches) {
+      if (visible && !document.hidden) {
         animationFrame = requestAnimationFrame(draw);
       }
     };
@@ -162,10 +165,12 @@ export function AsciiEarthCanvas() {
       pointer.x = (event.clientX - bounds.left - bounds.width / 2) / size;
       pointer.y = (event.clientY - bounds.top - bounds.height / 2) / size;
       pointer.active = pointer.x ** 2 + pointer.y ** 2 <= 1.25;
+      wrap.dataset.pointerActive = String(pointer.active);
     };
 
     const handlePointerLeave = () => {
       pointer.active = false;
+      wrap.dataset.pointerActive = "false";
     };
 
     const handleVisibility = () => {
@@ -194,7 +199,9 @@ export function AsciiEarthCanvas() {
     window.addEventListener("themechange", handleThemeChange);
     reducedMotion.addEventListener("change", handleMotionChange);
     systemDark.addEventListener("change", handleThemeChange);
-    setStatus("2D Earth · high detail");
+    setStatus(
+      `2D Earth · high detail${reducedMotion.matches ? " · gentle motion" : ""}`,
+    );
     renderOnce();
 
     return () => {

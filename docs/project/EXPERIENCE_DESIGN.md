@@ -60,6 +60,7 @@ Sign in → Work Projects → New/Duplicate → guided fields → media upload/v
 - Two-column desktop grid with generous gaps.
 - Each card is a 16:9 visual followed by a `Project 01`-style title.
 - Fine-pointer hover automatically swaps the poster for a short muted looping preview with no visible player controls and no click requirement, producing a GIF-like effect. Pointer exit stops/resets the preview and restores the poster. Keyboard focus keeps the poster stable and exposes an explicit Preview control; no rounded card chrome.
+- The Work visual receives a restrained internal zoom on hover/focus; the fixed media frame clips the transform so it cannot alter layout or create a scrollbar.
 - Mobile uses one column and a deliberate tap/play behavior instead of hover dependence.
 
 ### Work detail
@@ -73,6 +74,7 @@ Sign in → Work Projects → New/Duplicate → guided fields → media upload/v
 - Editable introduction equivalent to “You can download my project files here for free.”
 - Three-column desktop grid: title, square artwork, black full-width Download bar, optional description.
 - Reference hover changes neutral artwork to color and reveals description beneath Download.
+- The entire Play item (title, artwork, Download bar, and revealed description) receives a subtle scale treatment. Grid breathing room and clipped overflow prevent that transform from changing document geometry or creating a horizontal scrollbar.
 - Implementation must avoid overlap/layout instability. Push-versus-overlay is a bounded prototype choice only if Download remains visible, layout stays stable, and pointer/keyboard/touch expose equivalent information.
 - Mobile uses one column; description is visible or uses an explicit Details control.
 
@@ -91,7 +93,7 @@ Sign in → Work Projects → New/Duplicate → guided fields → media upload/v
 
 - Use stable native components from the selected CMS rather than mimicking the portfolio.
 - Group fields by Card, Detail, Media, Credits, SEO, and Publishing.
-- Media fields show purpose, aspect ratio, size/duration guidance, preview, upload/validation state, and replacement action.
+- Media fields show purpose, aspect ratio, size/duration guidance, preview, upload/validation state, replacement action, and—on Work hover previews—a scrubber-driven “Use current frame” poster selector with an extracted-still preview.
 - Never expose layout JSON or developer terminology to the Editor.
 - Task-level create/upload/preview/publish/reorder/recovery behavior is specified in `CMS_FLOW_SPEC.md`.
 

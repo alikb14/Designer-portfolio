@@ -58,4 +58,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Obtain owner visual acceptance of the corrected flat 2D ASCII Earth, then measure it on representative desktop and mobile hardware, including reduced-motion and no-canvas fallback behavior, before evaluating the Foundation gate.
+Obtain owner visual acceptance of the corrected Earth motion, Home fold spacing, Work/Play hover treatments, and documented CMS poster-frame workflow; then complete representative physical-device and no-canvas checks before evaluating the Foundation gate.
