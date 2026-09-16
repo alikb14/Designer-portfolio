@@ -1,6 +1,6 @@
 # Yaad Motion Portfolio
 
-A production-boundary foundation for Yaad's motion-design portfolio. It is a deliberately minimal Next.js implementation that validates the two riskiest interactions before the accepted Home, Work, Play, About, Contact, and project-detail designs are built.
+A production-boundary foundation and reference-aligned page draft for Yaad's motion-design portfolio. It implements the accepted Home, Work, Play, About, Contact, and project-detail composition while keeping production content and deployment gates explicit.
 
 ## Current lifecycle position
 
@@ -10,8 +10,9 @@ Foundation is in progress. The approved plan is kept in [`docs/project`](docs/pr
 
 - Next.js App Router foundation with TypeScript, ESLint, Prettier, Vitest, Playwright, and a small health endpoint.
 - Cloudflare Workers compatibility spike through the current `vinext` adapter and Wrangler configuration.
-- An interactive ASCII Earth WebGL prototype: adaptive point budgets, pointer displacement, page-visibility and viewport pausing, reduced-motion behavior, and a no-WebGL fallback.
+- A flat, interactive ASCII Earth rendered in 2D Canvas: adaptive grid detail, local land-glyph attraction, elastic return, page-visibility and viewport pausing, reduced-motion behavior, and a no-script fallback.
 - A Work-card MP4 prototype: muted fine-pointer playback, explicit keyboard control, and no hover-only action on touch.
+- Reference-aligned Home, Work, Play, About, Contact, and two local project-detail page drafts using placeholder copy where final content was not supplied.
 - Baseline response headers, safe environment-variable boundaries, structured secret-redacting logs, and CI configuration.
 
 ## Prerequisites
@@ -61,7 +62,7 @@ The runtime target is Cloudflare Workers Free. `vinext` is currently beta and wa
 
 ## Supplied asset provenance
 
-`public/spikes/earth-reference-preview.mp4` is a copy of the user-supplied `ASCII earth animation.mp4`, used only for the local Work-card risk spike. `public/fonts/IBMPlexMono-Regular.ttf` and `public/fonts/IBMPlexMono-SemiBold.ttf` are extracted from the user-supplied `ofl_fonts.zip`; their license is [SIL Open Font License 1.1](public/fonts/LICENSE.txt). Hashes and the full reference inventory are in [`docs/project/REFERENCE_INVENTORY.md`](docs/project/REFERENCE_INVENTORY.md).
+`public/work/project-1-preview.mp4` and `public/work/project-2-preview.mp4` are six-second, silent preview derivatives of the user-supplied Work videos. The original videos remain outside Git and are reserved for the final Vimeo/detail-media workflow. The full-site recording and screenshots are design evidence only and are never published as portfolio media. `public/fonts/IBMPlexMono-Regular.ttf` and `public/fonts/IBMPlexMono-SemiBold.ttf` are extracted from the user-supplied `ofl_fonts.zip`; their license is [SIL Open Font License 1.1](public/fonts/LICENSE.txt). Hashes and the full reference inventory are in [`docs/project/REFERENCE_INVENTORY.md`](docs/project/REFERENCE_INVENTORY.md).
 
 ## Verification
 

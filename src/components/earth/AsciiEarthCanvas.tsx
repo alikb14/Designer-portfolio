@@ -2,348 +2,238 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  createSpherePoints,
-  pointCountByQuality,
+  createAsciiGrid,
+  gridResolutionByQuality,
+  isLand,
   selectQuality,
   type EarthQuality,
-} from "./sphere";
+} from "@/components/earth/sphere";
 
-type EarthMetrics = {
-  frameMs: number | null;
-  quality: EarthQuality;
-  status: "fallback" | "ready" | "reduced-motion";
+type PointerState = {
+  active: boolean;
+  strength: number;
+  x: number;
+  y: number;
 };
 
-const vertexShaderSource = `
-  attribute vec4 aPoint;
-  uniform float uPointerStrength;
-  uniform float uTime;
-  uniform vec2 uPointer;
-  varying float vGlyph;
+const degree = 180 / Math.PI;
+const glyphs = ["/", "1", "*", "/", "1"] as const;
 
-  void main() {
-    float angle = uTime * 0.00012;
-    float cosine = cos(angle);
-    float sine = sin(angle);
-    vec3 point = aPoint.xyz;
-    point = vec3(
-      cosine * point.x - sine * point.z,
-      point.y,
-      sine * point.x + cosine * point.z
-    );
-
-    float depth = (point.z + 1.0) * 0.5;
-    vec2 projected = point.xy * (0.74 + depth * 0.16);
-    vec2 pointerDelta = projected - uPointer;
-    float pointerDistance = length(pointerDelta);
-    float influence = smoothstep(0.58, 0.0, pointerDistance) * uPointerStrength;
-
-    if (pointerDistance > 0.0001) {
-      projected += normalize(pointerDelta) * influence * 0.11;
-    }
-
-    gl_Position = vec4(projected, depth * 0.1, 1.0);
-    gl_PointSize = 1.5 + depth * 2.2;
-    vGlyph = aPoint.w;
-  }
-`;
-
-const fragmentShaderSource = `
-  precision mediump float;
-  uniform vec3 uColor;
-  varying float vGlyph;
-
-  float line(vec2 point, float slope) {
-    return smoothstep(0.09, 0.025, abs(point.y - point.x * slope));
-  }
-
-  void main() {
-    vec2 point = gl_PointCoord - 0.5;
-    float glyph;
-
-    if (vGlyph < 0.5) {
-      glyph = 1.0 - smoothstep(0.12, 0.3, length(point));
-    } else if (vGlyph < 1.5) {
-      glyph = line(point, 0.78);
-    } else if (vGlyph < 2.5) {
-      glyph = max(line(point, 0.0), line(point, 100.0));
-    } else {
-      glyph = max(line(point, 0.78), line(point, -0.78));
-    }
-
-    if (glyph < 0.04) discard;
-    gl_FragColor = vec4(uColor, glyph);
-  }
-`;
-
-function compileShader(
-  context: WebGLRenderingContext,
-  type: number,
-  source: string,
-) {
-  const shader = context.createShader(type);
-
-  if (!shader) {
-    throw new Error("WebGL shader allocation failed.");
-  }
-
-  context.shaderSource(shader, source);
-  context.compileShader(shader);
-
-  if (!context.getShaderParameter(shader, context.COMPILE_STATUS)) {
-    throw new Error(context.getShaderInfoLog(shader) ?? "WebGL shader error.");
-  }
-
-  return shader;
+function wrapLongitude(longitude: number) {
+  return ((longitude + 540) % 360) - 180;
 }
 
-function createProgram(context: WebGLRenderingContext) {
-  const program = context.createProgram();
+function landGlyph(longitude: number, latitude: number, index: number) {
+  const coast =
+    !isLand(wrapLongitude(longitude - 3), latitude) ||
+    !isLand(wrapLongitude(longitude + 3), latitude) ||
+    !isLand(longitude, Math.max(-89, latitude - 3)) ||
+    !isLand(longitude, Math.min(89, latitude + 3));
 
-  if (!program) {
-    throw new Error("WebGL program allocation failed.");
-  }
-
-  const vertex = compileShader(
-    context,
-    context.VERTEX_SHADER,
-    vertexShaderSource,
-  );
-  const fragment = compileShader(
-    context,
-    context.FRAGMENT_SHADER,
-    fragmentShaderSource,
-  );
-
-  context.attachShader(program, vertex);
-  context.attachShader(program, fragment);
-  context.linkProgram(program);
-  context.deleteShader(vertex);
-  context.deleteShader(fragment);
-
-  if (!context.getProgramParameter(program, context.LINK_STATUS)) {
-    throw new Error(context.getProgramInfoLog(program) ?? "WebGL link error.");
-  }
-
-  return program;
+  return coast ? "*" : (glyphs[index % glyphs.length] ?? "*");
 }
 
 export function AsciiEarthCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [metrics, setMetrics] = useState<EarthMetrics>({
-    frameMs: null,
-    quality: "high",
-    status: "ready",
-  });
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [fallback, setFallback] = useState(false);
+  const [status, setStatus] = useState("Preparing 2D Earth");
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    const wrap = wrapRef.current;
+    const context = canvas?.getContext("2d");
 
-    if (!canvas) return;
-
-    const context = canvas.getContext("webgl", {
-      alpha: true,
-      antialias: false,
-      powerPreference: "high-performance",
-    });
-
-    if (!context) {
-      setMetrics({ frameMs: null, quality: "low", status: "fallback" });
+    if (!canvas || !wrap || !context) {
+      setFallback(true);
+      setStatus("Static Earth fallback");
       return;
     }
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const finePointer = window.matchMedia("(pointer: fine)");
-    const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
-    const program = createProgram(context);
-    const buffer = context.createBuffer();
-
-    if (!buffer) {
-      setMetrics({ frameMs: null, quality: "low", status: "fallback" });
-      return;
-    }
-
-    const points = createSpherePoints();
-    const pointer = {
-      active: false,
-      strength: 0,
-      targetX: 0,
-      targetY: 0,
-      x: 0,
-      y: 0,
-    };
-    let animationFrame = 0;
-    let documentVisible = document.visibilityState === "visible";
-    let inViewport = true;
-    let lastFrame = performance.now();
-    let measurementStarted = lastFrame;
-    let renderedFrames = 0;
+    const coarsePointer = window.matchMedia("(pointer: coarse)");
+    const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+    const pointer: PointerState = { active: false, strength: 0, x: 0, y: 0 };
     let quality: EarthQuality = "high";
-    let isRunning = false;
-
-    context.bindBuffer(context.ARRAY_BUFFER, buffer);
-    context.bufferData(context.ARRAY_BUFFER, points, context.STATIC_DRAW);
-    context.useProgram(program);
-
-    const pointAttribute = context.getAttribLocation(program, "aPoint");
-    const timeUniform = context.getUniformLocation(program, "uTime");
-    const pointerUniform = context.getUniformLocation(program, "uPointer");
-    const pointerStrengthUniform = context.getUniformLocation(
-      program,
-      "uPointerStrength",
-    );
-    const colorUniform = context.getUniformLocation(program, "uColor");
-
-    context.enableVertexAttribArray(pointAttribute);
-    context.vertexAttribPointer(pointAttribute, 4, context.FLOAT, false, 0, 0);
-    context.clearColor(0, 0, 0, 0);
+    let points = createAsciiGrid(gridResolutionByQuality[quality]);
+    let width = 1;
+    let height = 1;
+    let visible = true;
+    let animationFrame = 0;
+    let previousTime = performance.now();
+    let rotation = -18;
+    let frameTotal = 0;
+    let frameCount = 0;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const { height, width } = canvas.getBoundingClientRect();
-      const nextHeight = Math.max(1, Math.round(height * dpr));
-      const nextWidth = Math.max(1, Math.round(width * dpr));
-
-      if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
-        canvas.height = nextHeight;
-        canvas.width = nextWidth;
-      }
-
-      context.viewport(0, 0, canvas.width, canvas.height);
+      const bounds = wrap.getBoundingClientRect();
+      const density = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(1, bounds.width);
+      height = Math.max(1, bounds.height);
+      canvas.width = Math.round(width * density);
+      canvas.height = Math.round(height * density);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(density, 0, 0, density, 0, 0);
     };
 
-    const render = (time: number) => {
-      const delta = Math.min(time - lastFrame, 100);
-      lastFrame = time;
-      pointer.x += (pointer.targetX - pointer.x) * Math.min(1, delta * 0.014);
-      pointer.y += (pointer.targetY - pointer.y) * Math.min(1, delta * 0.014);
+    const draw = (time: number) => {
+      const frameMs = Math.min(50, time - previousTime);
+      previousTime = time;
+
+      if (!reducedMotion.matches) rotation += frameMs * 0.0014;
       pointer.strength +=
-        ((pointer.active && finePointer.matches ? 1 : 0) - pointer.strength) *
-        Math.min(1, delta * 0.01);
+        ((pointer.active && !coarsePointer.matches ? 1 : 0) -
+          pointer.strength) *
+        Math.min(1, frameMs * 0.009);
 
-      context.clear(context.COLOR_BUFFER_BIT);
-      context.uniform1f(timeUniform, time);
-      context.uniform2f(pointerUniform, pointer.x, pointer.y);
-      context.uniform1f(pointerStrengthUniform, pointer.strength);
-      context.uniform3f(
-        colorUniform,
-        darkTheme.matches ? 0.94 : 0.08,
-        darkTheme.matches ? 0.94 : 0.08,
-        darkTheme.matches ? 0.94 : 0.08,
-      );
-      context.drawArrays(context.POINTS, 0, pointCountByQuality[quality]);
+      context.clearRect(0, 0, width, height);
 
-      renderedFrames += 1;
-      const elapsed = time - measurementStarted;
+      const size = Math.min(width, height);
+      const radius = size * 0.465;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const fontSize = Math.max(5.5, size / 96);
+      const dark =
+        document.documentElement.dataset.theme === "dark" ||
+        (!document.documentElement.dataset.theme && systemDark.matches);
+      const ink = dark ? "245, 245, 242" : "13, 13, 12";
 
-      if (elapsed >= 1_000) {
-        const averageFrameMs = elapsed / renderedFrames;
-        const nextQuality = selectQuality(quality, averageFrameMs);
+      context.font = `${fontSize}px "IBM Plex Mono", monospace`;
+      context.textAlign = "center";
+      context.textBaseline = "middle";
 
-        if (nextQuality !== quality) {
-          quality = nextQuality;
+      for (const point of points) {
+        const z = Math.sqrt(Math.max(0, 1 - point.x ** 2 - point.y ** 2));
+        const latitude = Math.asin(-point.y) * degree;
+        const longitude = wrapLongitude(
+          Math.atan2(point.x, z) * degree + rotation,
+        );
+        const land = isLand(longitude, latitude);
+        let x = point.x;
+        let y = point.y;
+
+        if (land && pointer.strength > 0.001) {
+          const deltaX = pointer.x - x;
+          const deltaY = pointer.y - y;
+          const distance = Math.hypot(deltaX, deltaY);
+          const influence = Math.max(0, 1 - distance / 0.42) ** 2;
+          const pull = influence * pointer.strength * 0.42;
+          x += deltaX * pull;
+          y += deltaY * pull;
         }
 
-        setMetrics({
-          frameMs: Math.round(averageFrameMs * 10) / 10,
-          quality,
-          status: reducedMotion.matches ? "reduced-motion" : "ready",
-        });
-        measurementStarted = time;
-        renderedFrames = 0;
+        context.fillStyle = `rgba(${ink}, ${land ? 0.92 : 0.58})`;
+        context.fillText(
+          land ? landGlyph(longitude, latitude, point.index) : ".",
+          centerX + x * radius,
+          centerY + y * radius,
+        );
       }
 
-      if (isRunning && !reducedMotion.matches) {
-        animationFrame = requestAnimationFrame(render);
+      frameTotal += frameMs;
+      frameCount += 1;
+
+      if (frameCount >= 90) {
+        const nextQuality = selectQuality(quality, frameTotal / frameCount);
+        if (nextQuality !== quality) {
+          quality = nextQuality;
+          points = createAsciiGrid(gridResolutionByQuality[quality]);
+          setStatus(`2D Earth · ${quality} detail`);
+        }
+        frameTotal = 0;
+        frameCount = 0;
       }
-    };
 
-    const start = () => {
-      if (isRunning || !documentVisible || !inViewport) return;
-
-      isRunning = true;
-      lastFrame = performance.now();
-      measurementStarted = lastFrame;
-      renderedFrames = 0;
-
-      if (reducedMotion.matches) {
-        render(lastFrame);
-        isRunning = false;
-      } else {
-        animationFrame = requestAnimationFrame(render);
+      if (visible && !document.hidden && !reducedMotion.matches) {
+        animationFrame = requestAnimationFrame(draw);
       }
     };
 
-    const stop = () => {
-      isRunning = false;
+    const renderOnce = () => {
       cancelAnimationFrame(animationFrame);
+      previousTime = performance.now();
+      draw(previousTime);
     };
 
-    const onPointerMove = (event: PointerEvent) => {
-      if (!finePointer.matches) return;
-
-      const bounds = canvas.getBoundingClientRect();
-      pointer.targetX = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
-      pointer.targetY = -(
-        ((event.clientY - bounds.top) / bounds.height) * 2 -
-        1
-      );
-      pointer.active = true;
+    const handlePointerMove = (event: PointerEvent) => {
+      const bounds = wrap.getBoundingClientRect();
+      const size = Math.min(bounds.width, bounds.height) * 0.465;
+      pointer.x = (event.clientX - bounds.left - bounds.width / 2) / size;
+      pointer.y = (event.clientY - bounds.top - bounds.height / 2) / size;
+      pointer.active = pointer.x ** 2 + pointer.y ** 2 <= 1.25;
     };
 
-    const onPointerLeave = () => {
+    const handlePointerLeave = () => {
       pointer.active = false;
     };
 
-    const onVisibilityChange = () => {
-      documentVisible = document.visibilityState === "visible";
-
-      if (documentVisible) start();
-      else stop();
+    const handleVisibility = () => {
+      if (!document.hidden && visible) renderOnce();
     };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        inViewport = entry?.isIntersecting ?? false;
+    const handleMotionChange = () => renderOnce();
+    const handleThemeChange = () => renderOnce();
 
-        if (inViewport) start();
-        else stop();
-      },
-      { threshold: 0.01 },
-    );
-    const resizeObserver = new ResizeObserver(resize);
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry?.isIntersecting ?? true;
+      if (visible) renderOnce();
+      else cancelAnimationFrame(animationFrame);
+    });
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+      renderOnce();
+    });
 
     resize();
-    observer.observe(canvas);
-    resizeObserver.observe(canvas);
-    canvas.addEventListener("pointermove", onPointerMove);
-    canvas.addEventListener("pointerleave", onPointerLeave);
-    document.addEventListener("visibilitychange", onVisibilityChange);
-    start();
+    observer.observe(wrap);
+    resizeObserver.observe(wrap);
+    wrap.addEventListener("pointermove", handlePointerMove);
+    wrap.addEventListener("pointerleave", handlePointerLeave);
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("themechange", handleThemeChange);
+    reducedMotion.addEventListener("change", handleMotionChange);
+    systemDark.addEventListener("change", handleThemeChange);
+    setStatus("2D Earth · high detail");
+    renderOnce();
 
     return () => {
-      stop();
+      cancelAnimationFrame(animationFrame);
       observer.disconnect();
       resizeObserver.disconnect();
-      canvas.removeEventListener("pointermove", onPointerMove);
-      canvas.removeEventListener("pointerleave", onPointerLeave);
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-      context.deleteBuffer(buffer);
-      context.deleteProgram(program);
+      wrap.removeEventListener("pointermove", handlePointerMove);
+      wrap.removeEventListener("pointerleave", handlePointerLeave);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("themechange", handleThemeChange);
+      reducedMotion.removeEventListener("change", handleMotionChange);
+      systemDark.removeEventListener("change", handleThemeChange);
     };
   }, []);
 
   return (
     <div className="earth-prototype">
-      <div aria-hidden="true" className="earth-canvas-wrap">
-        <canvas className="earth-canvas" ref={canvasRef} />
-        {metrics.status === "fallback" ? (
-          <pre className="earth-fallback">{`   .-***-.\n .-*#####*-.\n-*##***##*-\n-*##***##*-\n .-*#####*-.\n   .-***-.`}</pre>
+      <div
+        aria-label="Animated two-dimensional ASCII Earth"
+        className="earth-canvas-wrap"
+        ref={wrapRef}
+        role="img"
+      >
+        <canvas aria-hidden="true" className="earth-canvas" ref={canvasRef} />
+        {fallback ? (
+          <pre className="earth-fallback" aria-hidden="true">
+            {
+              ".....***.....\n...//111*....\n..///111**...\n...******....\n.....**......"
+            }
+          </pre>
         ) : null}
+        <noscript>
+          <pre className="earth-fallback" aria-hidden="true">
+            {"....***....\n..///11*...\n....***...."}
+          </pre>
+        </noscript>
       </div>
       <output className="spike-metric" data-testid="earth-status">
-        Earth: {metrics.status}; quality: {metrics.quality}
-        {metrics.frameMs ? `; ${metrics.frameMs}ms/frame` : ""}
+        {status}
       </output>
     </div>
   );

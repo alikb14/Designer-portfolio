@@ -2,6 +2,8 @@
 
 Continue this project from its approved Project Engineering Lifecycle planning package. Do not restart discovery or redesign accepted screens.
 
+> Implementation update, 2026-09-16: Foundation has started in this repository. The owner rejected the initial three-dimensional Earth treatment and explicitly superseded it with a flat 2D ASCII circle whose nearby land glyphs attract toward hover. Follow ADR 002 and `FOUNDATION_LOG.md` for the current decision.
+
 ## Current lifecycle position
 
 - Delivery class: production.
@@ -31,7 +33,7 @@ Continue this project from its approved Project Engineering Lifecycle planning p
 
 - Preserve the supplied visual design, animation character, light/dark themes, and responsive behavior for Home, Work, Play, About, Contact, and reusable project-detail pages.
 - The owner must update copy, projects, ordering, images, Vimeo links, preview videos, posters, and download files through Sanity without programming.
-- The ASCII/particle Earth rotates automatically and uses soft pointer repulsion/displacement with elastic return, adaptive quality, reduced-motion support, and a no-WebGL fallback.
+- The ASCII Earth remains visually flat and circular, rotates its geographic mask automatically, attracts nearby land glyphs toward fine-pointer hover with elastic return, adapts grid detail, honors reduced motion, and provides a no-canvas/no-script fallback.
 - Keep secrets server-side, published and draft content isolated, webhooks signed/replay-safe, and degraded media states usable.
 
 ## Foundation inputs to verify, not invent

@@ -1,23 +1,26 @@
 import { describe, expect, it } from "vitest";
-import { createSpherePoints, selectQuality } from "@/components/earth/sphere";
+import {
+  createAsciiGrid,
+  isLand,
+  selectQuality,
+} from "@/components/earth/sphere";
 
 describe("ASCII Earth point generation", () => {
-  it("creates deterministic points on the unit sphere", () => {
-    const points = createSpherePoints(16);
+  it("creates deterministic points inside a flat circular grid", () => {
+    const points = createAsciiGrid(16);
 
-    expect(points).toHaveLength(64);
+    expect(points.length).toBeGreaterThan(150);
 
-    for (let index = 0; index < points.length; index += 4) {
-      const radius = Math.hypot(
-        points[index] ?? 0,
-        points[index + 1] ?? 0,
-        points[index + 2] ?? 0,
-      );
-
-      expect(radius).toBeCloseTo(1, 5);
-      expect(points[index + 3]).toBeGreaterThanOrEqual(0);
-      expect(points[index + 3]).toBeLessThan(4);
+    for (const point of points) {
+      expect(point.x * point.x + point.y * point.y).toBeLessThanOrEqual(0.985);
     }
+
+    expect(createAsciiGrid(16)).toEqual(points);
+  });
+
+  it("uses geographic land silhouettes instead of a uniform sphere", () => {
+    expect(isLand(20, 5)).toBe(true);
+    expect(isLand(-30, 0)).toBe(false);
   });
 
   it("reduces quality after sustained slow frames and recovers after fast frames", () => {

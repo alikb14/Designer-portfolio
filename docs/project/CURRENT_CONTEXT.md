@@ -58,4 +58,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Measure the Earth spike on representative desktop and mobile hardware, including reduced-motion and no-WebGL fallback behavior, before evaluating the Foundation gate.
+Obtain owner visual acceptance of the corrected flat 2D ASCII Earth, then measure it on representative desktop and mobile hardware, including reduced-motion and no-canvas fallback behavior, before evaluating the Foundation gate.

@@ -1,28 +1,28 @@
 # ADR 002 — ASCII Earth renderer
 
-Status: Accepted on 2026-09-16; disposable spike required before production implementation
+Status: Amended and accepted on 2026-09-16 after owner fidelity correction
 
 ## Context
 
-The Earth must rotate, look like ASCII/particles, and react softly to pointer proximity without severe performance loss.
+The Earth must be visibly flat and minimal, preserve a complete circular ASCII field, show recognizable geographic silhouettes, rotate gently, and attract nearby land glyphs toward pointer proximity without severe performance loss.
 
 ## Decision
 
-Recommend one WebGL canvas using instanced glyph-like sprites/points, shader-based rotation and pointer displacement, bounded DPR/density, visibility pause, adaptive quality, and static/low-motion fallback.
+Use one 2D Canvas with a bounded circular character grid. Project the geographic mask onto that flat grid, rotate only the longitude mask, attract nearby land glyphs locally with elastic return, cap device-pixel ratio, pause when hidden/offscreen, adapt grid resolution from sustained frame time, and provide a static reduced-motion/no-script fallback.
 
 ## Consequences
 
-Avoids thousands of DOM nodes and keeps pointer response GPU-friendly. Requires shader skill, browser/device measurement, accessible fallback, and resource cleanup.
+Avoids thousands of DOM nodes and, unlike the rejected sphere treatment, directly matches the owner's flat reference. The CPU path is simpler but still requires representative device measurement, bounded density, an accessible fallback, and resource cleanup.
 
 ## Alternatives
 
-- Canvas 2D: simpler but likely CPU-bound at reference density.
+- WebGL sphere/point cloud: rejected after implementation review because the depth treatment materially missed the supplied flat reference.
 - DOM characters: rejected for node/layout cost.
 - Pre-rendered video: rejected because it cannot provide interaction.
 
 ## Approval
 
-The owner approved the direction and local repulsion/displacement model on 2026-09-16. It may proceed only to a disposable spike after Foundation begins in the later implementation workspace. Final quality presets require measured evidence; any material visual-direction change requires owner review.
+The owner explicitly corrected the visual direction to a minimal two-dimensional Earth and requested local attraction on 2026-09-16. The 2D Canvas correction may proceed during Foundation, but final quality presets still require measured evidence.
 
 ## Revisit when
 

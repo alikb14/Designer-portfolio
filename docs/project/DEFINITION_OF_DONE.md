@@ -5,7 +5,7 @@ A change is done only when all applicable conditions are satisfied or explicitly
 - Acceptance criteria are met and traced to observed or automated evidence.
 - Reference fidelity is reviewed at 320, 375, 768, 1024, 1440, and 1920 px where applicable.
 - Public behavior and its CMS edit/publish path are completed together for content-driven slices.
-- Hover behavior has keyboard/touch equivalents; reduced-motion and no-WebGL fallbacks are covered.
+- Hover behavior has keyboard/touch equivalents; reduced-motion and no-canvas fallbacks are covered.
 - Videos are poster-backed, lazy/visibility-aware, correctly delivered, and do not all preload.
 - Earth frame time, cleanup, visibility pause, adaptive quality, and context-loss recovery meet approved targets.
 - Drafts/unpublished content cannot leak; every mutation is provider/server authorized.

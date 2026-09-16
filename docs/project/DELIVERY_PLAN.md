@@ -10,7 +10,7 @@ Build later in a separate Codex implementation workspace after planning gates ar
 
 | Slice | User-visible outcome | Dependencies | Acceptance evidence | Rollback |
 |---|---|---|---|---|
-| 0. Risk spike | Demonstrable Earth renderer and one preview card using representative media. | Approved architecture and test devices. | Frame-time trace, reduced-motion/no-WebGL fallback, media loading trace. | Discard spike and revisit approach. |
+| 0. Risk spike | Demonstrable Earth renderer and one preview card using representative media. | Approved architecture and test devices. | Frame-time trace, reduced-motion/no-canvas fallback, media loading trace. | Discard spike and revisit approach. |
 | 1. Foundation/content path | Preview app runs; Editor signs in; one typed draft previews/publishes safely. | Accounts, repo, secrets. | CI baseline, auth denial, schema validation, preview/public isolation. | Revert deployment; retain dataset. |
 | 2. Home | Responsive Home with theme, editable copy/reel, and interactive Earth. | Slice 0 and Home schema. | Visual comparison, keyboard/theme checks, performance profile. | Feature flag Earth to static fallback. |
 | 3. Work | Editor publishes/reorders; visitors preview and open reusable details. | Media pipeline and Work schema. | CMS-to-public E2E, pointer/focus/touch, 404/unpublish, media failure. | Disable previews or revert templates without deleting content. |

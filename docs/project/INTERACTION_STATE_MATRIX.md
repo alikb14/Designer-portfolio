@@ -11,8 +11,8 @@ Status: **Approved planning baseline (2026-09-16)**; implementation behavior rem
 | Play card | Hover/focus | Color state and description appear without hiding Download. | Title/action order. | Exit/blur restores reference state. |
 | Play card | Coarse touch | Description is visible or expanded with labeled Details. | Expanded item. | Collapse or Download. |
 | Download | Pending/failure | Duplicate action blocked; progress announced; failure is explicit. | Item context. | Retry or report unavailable; no blank navigation. |
-| Earth | Fine pointer | Nearby glyphs repel locally and return elastically. | Rotation. | Pointer exit restores baseline. |
-| Earth | Reduced motion/coarse/no WebGL | Static or very low-motion composition; no turbulence. | Home layout. | Navigation/content remain unaffected. |
+| Earth | Fine pointer | Nearby land glyphs attract locally and return elastically. | Flat circular grid and geographic-mask rotation. | Pointer exit restores baseline. |
+| Earth | Reduced motion/coarse/no Canvas | Static or very low-motion composition; no turbulence. | Home layout. | Navigation/content remain unaffected. |
 | Theme | First visit | System theme applies before paint. | No explicit preference. | Toggle creates persistent preference. |
 | Theme | Explicit choice | Binary light/dark persists. | Device preference. | Toggle again or clear site storage to follow system anew. |
 | CMS upload | Failed/canceled | Specific error and retry/replace; public media unchanged. | Draft/prior reference. | Retry, replace, or save draft. |

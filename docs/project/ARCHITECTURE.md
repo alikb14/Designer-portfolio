@@ -90,11 +90,11 @@ Sanity is the source of truth for structured content and delivery-asset referenc
 
 ### Earth rendering
 
-1. Initialization generates bounded sphere points and glyph attributes.
-2. One WebGL canvas renders glyph-like point sprites or instanced quads.
-3. Shader logic applies rotation, depth/luminance glyph choice, and pointer displacement.
-4. Pointer coordinates are smoothed and displacement decays elastically.
-5. Adaptive quality lowers density/DPR when sustained frame time exceeds budget.
+1. Initialization generates a bounded two-dimensional character grid inside a circle.
+2. One 2D Canvas renders ocean dots and geographic `/`, `1`, and `*` glyphs.
+3. Longitude-mask rotation changes geography without introducing visual depth.
+4. Fine-pointer proximity attracts nearby land glyphs and displacement decays elastically.
+5. Adaptive quality lowers grid resolution when sustained frame time exceeds budget.
 
 ## Trust boundaries and authorization
 
@@ -109,7 +109,7 @@ Sanity is the source of truth for structured content and delivery-asset referenc
 | Failure | Public behavior | Editor recovery |
 |---|---|---|
 | JavaScript disabled | Copy/navigation/posters remain; Earth and previews are absent. | CMS can state JavaScript requirement. |
-| WebGL unavailable/context lost | Static or low-motion Earth fallback. | No content impact. |
+| Canvas unavailable or JavaScript disabled | Static/no-script Earth fallback; layout and content remain usable. | No content impact. |
 | Video upload/validation pending or failed | Poster remains; incomplete or invalid video is not published. | Retry or replace without losing the draft. |
 | Vimeo unavailable, private, or embedding disabled | Poster and project narrative remain; the player exposes a clear unavailable state without a broken iframe. | Correct Vimeo privacy/embed settings or replace the Vimeo identifier, then republish. |
 | CMS query unavailable | Cached/generated content remains where possible; otherwise branded retry. | Preserve draft and show service error. |

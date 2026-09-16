@@ -1,15 +1,23 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import FoundationHome from "@/app/page";
+import { describe, expect, it, vi } from "vitest";
+import HomePage from "@/app/page";
 
-describe("foundation home", () => {
-  it("links to the interaction risk spike", () => {
-    render(<FoundationHome />);
+vi.mock("next/navigation", () => ({ usePathname: () => "/" }));
+vi.mock("@/components/earth/AsciiEarthCanvas", () => ({
+  AsciiEarthCanvas: () => (
+    <div aria-label="Animated two-dimensional ASCII Earth" />
+  ),
+}));
+
+describe("portfolio home", () => {
+  it("renders the approved introduction and Work reel link", () => {
+    render(<HomePage />);
 
     expect(
-      screen.getByRole("link", {
-        name: /open the earth and preview-card risk spike/i,
-      }),
-    ).toHaveAttribute("href", "/spikes/interactions");
+      screen.getByRole("heading", { name: /yaad a 2d motion designer/i }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: /view selected work/i }),
+    ).toHaveAttribute("href", "/work");
   });
 });

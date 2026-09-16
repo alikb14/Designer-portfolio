@@ -11,12 +11,12 @@ export function InteractionSpike() {
       </header>
       <section aria-labelledby="earth-heading" className="earth-spike-section">
         <div className="spike-copy">
-          <p className="foundation-kicker">RISK 01 / WEBGL</p>
-          <h1 id="earth-heading">A moving Earth, without a moving page.</h1>
+          <p className="foundation-kicker">RISK 01 / 2D CANVAS</p>
+          <h1 id="earth-heading">A flat ASCII Earth, without a moving page.</h1>
           <p>
-            The globe rotates in one canvas, only applies a local soft force for
-            fine pointers, adapts point density from frame time, and pauses
-            outside the viewport or hidden tab.
+            The disc shifts its geographic mask in one canvas, only attracts
+            nearby land glyphs for fine pointers, adapts detail from frame time,
+            and pauses outside the viewport or hidden tab.
           </p>
         </div>
         <AsciiEarthCanvas />
