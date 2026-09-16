@@ -562,11 +562,16 @@ button:focus-visible {
 
 .play-description {
   background: var(--soft-panel);
+  inset-block-start: calc(
+    100% + clamp(2.5rem, 4vh, 3rem) + clamp(4.4rem, 5vw, 5rem) + 0.75rem
+  );
+  inset-inline: 0;
   margin: 0;
   max-height: 0;
   opacity: 0;
   overflow: hidden;
   padding-inline: 0.75rem;
+  position: absolute;
   transition:
     max-height 220ms ease,
     opacity 180ms ease,
@@ -767,6 +772,11 @@ button:focus-visible {
   .download-bar {
     inset: auto;
     margin-block-start: 1rem;
+    position: static;
+  }
+
+  .play-description {
+    inset: auto;
     position: static;
   }
 

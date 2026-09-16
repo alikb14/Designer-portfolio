@@ -135,6 +135,15 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
   await page.waitForTimeout(120);
   const partialText = await liveCopy.textContent();
   expect(partialText?.length).toBeGreaterThan(0);
+  const descriptionBounds = await firstCard
+    .locator(".play-description")
+    .boundingBox();
+  const downloadBounds = await firstCard
+    .getByRole("button", { name: "DOWNLOAD" })
+    .boundingBox();
+  expect(descriptionBounds?.y).toBeGreaterThanOrEqual(
+    (downloadBounds?.y ?? 0) + (downloadBounds?.height ?? 0),
+  );
 
   await page.mouse.move(0, 0);
   await firstCard.hover();
