@@ -22,10 +22,14 @@ type PointerState = {
 };
 
 const degree = 180 / Math.PI;
-const revealDurationMs = 780;
+const revealDurationMs = 920;
 
 function clamp(value: number, minimum = 0, maximum = 1) {
   return Math.min(maximum, Math.max(minimum, value));
+}
+
+function smoothstep(value: number) {
+  return value * value * (3 - 2 * value);
 }
 
 function pointNoise(index: number, salt: number) {
@@ -159,10 +163,17 @@ export function AsciiEarthCanvas() {
 
       for (const point of points) {
         const revealDelay =
-          pointNoise(point.index, 1) * 0.5 + ((point.x + 1) / 2) * 0.22;
-        const resolved = clamp((revealProgress - revealDelay) / 0.28);
+          pointNoise(point.index, 1) * 0.12 + ((point.x + 1) / 2) * 0.06;
+        const pointResolve = smoothstep(
+          clamp((revealProgress - revealDelay) / 0.78),
+        );
+        // Keep the Earth recognizable from its first visible frame. A faint
+        // global fade provides a coherent silhouette while the small,
+        // deterministic point offset preserves the existing loading texture.
+        const resolved =
+          smoothstep(revealProgress) * (0.76 + pointResolve * 0.24);
 
-        if (resolved <= 0.01) continue;
+        if (resolved <= 0.004) continue;
 
         const z = Math.sqrt(Math.max(0, 1 - point.x ** 2 - point.y ** 2));
         const latitude = Math.asin(-point.y) * degree;
@@ -170,7 +181,7 @@ export function AsciiEarthCanvas() {
           Math.atan2(point.x, z) * degree + rotation,
         );
         const land = isLand(longitude, latitude);
-        const scatter = (1 - resolved) * 0.065;
+        const scatter = (1 - revealProgress) * 0.012;
         const scatterAngle = pointNoise(point.index, 2) * Math.PI * 2;
         let x = point.x + Math.cos(scatterAngle) * scatter;
         let y = point.y + Math.sin(scatterAngle) * scatter;
