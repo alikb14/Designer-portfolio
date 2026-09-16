@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Play" };
 
 export default function PlayPage() {
   return (
-    <div className="site-shell">
+    <div className="site-shell play-shell">
       <SiteHeader />
       <main className="play-page">
         <h1>

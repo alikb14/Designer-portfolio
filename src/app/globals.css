@@ -80,7 +80,7 @@ body {
 }
 
 .page-transition {
-  animation: page-enter 760ms cubic-bezier(0.22, 0.8, 0.25, 1) both;
+  animation: page-enter 650ms cubic-bezier(0.22, 0.8, 0.25, 1) both;
 }
 
 @keyframes page-enter {
@@ -161,6 +161,10 @@ button:focus-visible {
   min-height: 100vh;
   overflow: clip;
   padding: clamp(1.5rem, 2.2vw, 2.75rem) clamp(1.5rem, 6vw, 7.5rem);
+}
+
+.play-shell {
+  overflow: visible;
 }
 
 .site-header {
@@ -274,6 +278,19 @@ button:focus-visible {
   text-decoration: none;
   width: min(63vw, 60rem);
   z-index: 4;
+  animation: reel-enter 680ms cubic-bezier(0.22, 0.8, 0.25, 1) 260ms both;
+}
+
+@keyframes reel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .home-reel span {
@@ -311,8 +328,26 @@ button:focus-visible {
 }
 
 .work-card {
+  animation: work-card-enter 560ms cubic-bezier(0.22, 0.8, 0.25, 1) both;
   min-width: 0;
   position: relative;
+  transition: transform 380ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.work-card:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+@keyframes work-card-enter {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 .work-card-link {
@@ -353,7 +388,12 @@ button:focus-visible {
 .work-card:hover .work-media video,
 .work-card:focus-within .work-media img,
 .work-card:focus-within .work-media video {
-  transform: scale(1.035);
+  transform: scale(1.025);
+}
+
+.work-card:hover,
+.work-card:focus-within {
+  transform: scale(1.014);
 }
 
 .work-title {
@@ -386,21 +426,24 @@ button:focus-visible {
 }
 
 .play-page {
+  display: flex;
+  flex-direction: column;
   min-height: calc(100dvh - 5.5rem);
-  padding-block: clamp(2.5rem, 5vh, 4rem) clamp(1.5rem, 3vh, 2.5rem);
+  padding-block: clamp(2.5rem, 5vh, 4rem) clamp(0.5rem, 1.25vh, 1rem);
 }
 
 .play-grid {
   display: grid;
   gap: clamp(2rem, 3.7vw, 4.5rem);
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: -1rem;
-  overflow: clip;
-  padding: 1rem;
+  margin: auto -1rem 0;
+  overflow: visible;
+  padding: 1rem 1rem 0.5rem;
 }
 
 .play-card {
   min-width: 0;
+  position: relative;
   transform: scale(1);
   transform-origin: center center;
   transition: transform 300ms cubic-bezier(0.2, 0.75, 0.25, 1);
@@ -500,8 +543,11 @@ button:focus-visible {
   cursor: not-allowed;
   font-size: clamp(1.05rem, 1.7vw, 1.65rem);
   min-height: 4.4rem;
-  margin-block-start: clamp(0.85rem, 1.65vh, 1.2rem);
+  inset-inline: 0;
+  inset-block-start: calc(100% + clamp(2.5rem, 4vh, 3rem));
+  margin: 0;
   opacity: 1;
+  position: absolute;
   width: 100%;
 }
 
@@ -705,6 +751,23 @@ button:focus-visible {
   .about-page,
   .project-copy {
     grid-template-columns: 1fr;
+  }
+
+  .play-page {
+    display: block;
+    min-height: 0;
+    padding-block-end: 4rem;
+  }
+
+  .play-grid {
+    margin: -1rem;
+    padding: 1rem;
+  }
+
+  .download-bar {
+    inset: auto;
+    margin-block-start: 1rem;
+    position: static;
   }
 
   .work-preview-control,
@@ -994,5 +1057,12 @@ button:focus-visible {
 
   .page-transition {
     animation: none;
+  }
+
+  .home-reel,
+  .work-card {
+    animation: none;
+    opacity: 1;
+    translate: none;
   }
 }

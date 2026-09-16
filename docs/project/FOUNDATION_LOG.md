@@ -14,7 +14,7 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - Added clipped internal Work-media zoom and whole-item Play zoom. Play artwork is grayscale at rest and restores project color on hover/focus; transform breathing room plus clipped grid overflow prevents horizontal scrollbar growth.
 - Added the CMS requirement for scrubber-based Work preview poster-frame selection, generated still storage, replacement invalidation, and publication validation.
 - Added reference-aligned Home, Work, Play, About, Contact, and two project-detail page drafts. Placeholder copy and unavailable Download/Contact actions remain explicit instead of inventing owner content.
-- Added a shared page-enter motion and reserved-space typewriter treatment for prominent copy; Play hover descriptions restart cleanly on each interaction. Hidden cross-browser scrollbars preserve ordinary wheel, touch, keyboard, and trackpad scrolling. Desktop Play/About spacing now uses the initial viewport more efficiently without imposing fixed-height behavior on small screens.
+- Added a shared page-enter motion and reserved-space typewriter treatment for prominent copy; its short post-fade delay keeps the typing visibly distinct from page entry, and Play hover descriptions restart cleanly on each interaction. Reel has a delayed fade-in and Work cards use a small staggered loading settle plus smooth hover scale. Hidden cross-browser scrollbars preserve ordinary wheel, touch, keyboard, and trackpad scrolling. Desktop Play now anchors complete artwork near the viewport bottom while keeping Download controls below the initial viewport; small screens retain natural document flow.
 
 ## Verified locally
 
