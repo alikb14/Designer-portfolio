@@ -15,6 +15,7 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - Added the CMS requirement for scrubber-based Work preview poster-frame selection, generated still storage, replacement invalidation, and publication validation.
 - Added reference-aligned Home, Work, Play, About, Contact, and two project-detail page drafts. Placeholder copy and unavailable Download/Contact actions remain explicit instead of inventing owner content.
 - Added a shared page-enter motion and reserved-space typewriter treatment for prominent copy; its short post-fade delay keeps the typing visibly distinct from page entry, and Play hover descriptions restart cleanly on each interaction. Reel has a delayed fade-in and Work cards use a small staggered loading settle plus smooth hover scale. Hidden cross-browser scrollbars preserve ordinary wheel, touch, keyboard, and trackpad scrolling. Desktop Play now anchors complete artwork near the viewport bottom while keeping Download controls below the initial viewport; small screens retain natural document flow.
+- Rechecked the supplied full website reference with ffprobe/FFmpeg on 2026-09-17. Its Play-hover order is artwork, Download, then the explanatory text; the desktop description layer now follows that order while preserving the owner-requested below-fold Download placement.
 
 ## Verified locally
 
