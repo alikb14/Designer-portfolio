@@ -1,0 +1,63 @@
+{
+  "name": "yaad-motion-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "build:vinext": "vinext build",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build",
+    "deploy:vinext": "vinext-cloudflare deploy --config dist/server/wrangler.json",
+    "dev": "next dev",
+    "dev:vinext": "vinext dev --port 3001",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings=0",
+    "start": "next start",
+    "start:vinext": "wrangler dev --config dist/server/wrangler.json",
+    "test": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:watch": "vitest",
+    "typecheck": "next typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^16.3.5",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-server-dom-webpack": "^19.3.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.54.10",
+    "@playwright/test": "^1.63.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
+    "@types/node": "^22.20.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vinext/cloudflare": "^1.0.0-beta.8",
+    "@vitejs/plugin-react": "^6.1.1",
+    "@vitejs/plugin-rsc": "^0.5.35",
+    "@vitest/coverage-v8": "^5.0.1",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.5",
+    "jsdom": "^30.0.1",
+    "prettier": "^3.9.7",
+    "prettier-plugin-packagejson": "^3.0.2",
+    "typescript": "^6.0.3",
+    "vinext": "^1.0.0-beta.10",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1",
+    "wrangler": "^4.132.0"
+  },
+  "packageManager": "npm@11.16.0",
+  "engines": {
+    "node": ">=22 <25",
+    "npm": ">=10 <12"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "unrs-resolver@1.12.2": true,
+    "workerd@1.20260915.1": true
+  }
+}

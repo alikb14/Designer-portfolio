@@ -1,0 +1,33 @@
+# Dependencies
+/node_modules/
+
+# Next.js and Cloudflare build output
+/.next/
+/out/
+/.vinext/
+/.open-next/
+/.wrangler/
+/.dev.vars
+
+# Tests and coverage
+/coverage/
+/playwright-report/
+/test-results/
+
+# Local environment files; commit only the documented example
+.env
+.env.*
+!.env.example
+
+# Logs and local tooling
+*.log
+.eslintcache
+.turbo/
+.vercel/
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+/dist/

@@ -1,0 +1,562 @@
+{
+  "schema_version": 1,
+  "project_name": "Yaad Motion Portfolio",
+  "delivery_class": "production",
+  "project_type": "generic",
+  "created_at": "2026-09-15T19:51:59+00:00",
+  "updated_at": "2026-09-16T11:34:24+00:00",
+  "active_stage": "foundation",
+  "stages": {
+    "ideation": {
+      "status": "passed",
+      "source": "human",
+      "evidence": [
+        {
+          "kind": "file",
+          "location": "docs\\project\\PROJECT_BRIEF.md",
+          "added_at": "2026-09-15T20:12:22+00:00",
+          "imported": true,
+          "source": "local",
+          "note": "Draft synthesized from owner request and supplied references; approval pending"
+        }
+      ],
+      "notes": [
+        {
+          "at": "2026-09-15T20:12:22+00:00",
+          "text": "Imported evidence: Draft synthesized from owner request and supplied references; approval pending"
+        },
+        {
+          "at": "2026-09-15T22:15:03+00:00",
+          "text": "Owner approved the project brief, zero-cost launch outcome, scope, non-goals, and proceed decision on 2026-09-16."
+        }
+      ],
+      "waiver": null,
+      "updated_at": "2026-09-15T22:15:03+00:00"
+    },
+    "requirements": {
+      "status": "passed",
+      "source": "human",
+      "evidence": [
+        {
+          "kind": "file",
+          "location": "docs\\project\\PRD.md",
+          "added_at": "2026-09-15T20:12:22+00:00",
+          "imported": true,
+          "source": "local",
+          "note": "Complete proposed PRD; consequential scope decisions pending"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\OWNER_DECISION_PACKET.md",
+          "added_at": "2026-09-15T20:22:12+00:00",
+          "note": "Consolidated consequential decisions awaiting owner approval"
+        }
+      ],
+      "notes": [
+        {
+          "at": "2026-09-15T20:12:22+00:00",
+          "text": "Imported evidence: Complete proposed PRD; consequential scope decisions pending"
+        },
+        {
+          "at": "2026-09-15T22:15:05+00:00",
+          "text": "Owner approved the PRD and zero-cost Sanity limitations on 2026-09-16; remaining media/font/account values are assigned Foundation or slice inputs."
+        }
+      ],
+      "waiver": null,
+      "updated_at": "2026-09-15T22:15:05+00:00"
+    },
+    "architecture": {
+      "status": "passed",
+      "source": "human",
+      "evidence": [
+        {
+          "kind": "file",
+          "location": "docs\\project\\ARCHITECTURE.md",
+          "added_at": "2026-09-15T20:12:23+00:00",
+          "imported": true,
+          "source": "local",
+          "note": "Architecture recommendation and ADRs drafted; owner approval pending"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\CONTENT_MODEL.md",
+          "added_at": "2026-09-15T20:13:50+00:00",
+          "note": "Proposed structured CMS domain model"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\adr\\001-cms-and-media-platform.md",
+          "added_at": "2026-09-15T20:13:50+00:00",
+          "note": "Proposed CMS/media ADR"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\adr\\002-earth-renderer.md",
+          "added_at": "2026-09-15T20:13:50+00:00",
+          "note": "Proposed Earth renderer ADR"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\REVIEW_FINDINGS.md",
+          "added_at": "2026-09-15T20:22:12+00:00",
+          "note": "Independent architecture and security review summary"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\OWNER_DECISION_PACKET.md",
+          "added_at": "2026-09-15T22:38:45+00:00",
+          "note": "Owner approved Vimeo for full videos, separate lightweight MP4 hover previews, posters, and placeholder copy on 2026-09-16; Cloudflare runtime choice remains pending."
+        }
+      ],
+      "notes": [
+        {
+          "at": "2026-09-15T20:12:23+00:00",
+          "text": "Imported evidence: Architecture recommendation and ADRs drafted; owner approval pending"
+        },
+        {
+          "at": "2026-09-15T20:22:12+00:00",
+          "text": "Blocked: Owner approval and real media traffic cost credential ownership and recovery inputs are required before committing ADR 001"
+        },
+        {
+          "at": "2026-09-15T22:15:09+00:00",
+          "text": "Blocked: Sanity Free architecture and limitations are approved; owner choice is still required between Cloudflare Workers Free for server-side preview/webhooks/revalidation and a static Cloudflare Pages rebuild model."
+        },
+        {
+          "at": "2026-09-15T22:42:21+00:00",
+          "text": "Owner approved Cloudflare Workers Free on 2026-09-16; architecture, security, deployment topology, hybrid Vimeo media model, failure modes, and ADRs satisfy the planning gate."
+        }
+      ],
+      "waiver": null,
+      "updated_at": "2026-09-15T22:42:21+00:00"
+    },
+    "experience-design": {
+      "status": "passed",
+      "source": "human",
+      "evidence": [
+        {
+          "kind": "file",
+          "location": "docs\\project\\EXPERIENCE_DESIGN.md",
+          "added_at": "2026-09-15T20:12:23+00:00",
+          "imported": true,
+          "source": "local",
+          "note": "Reconstructed from supplied videos/images plus responsive and accessibility proposal"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\REFERENCE_ANALYSIS.md",
+          "added_at": "2026-09-15T20:13:51+00:00",
+          "note": "Observed supplied screenshot/video evidence"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\DESIGN.md",
+          "added_at": "2026-09-15T20:13:51+00:00",
+          "note": "Proposed durable design contract"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\CMS_FLOW_SPEC.md",
+          "added_at": "2026-09-15T20:22:12+00:00",
+          "note": "Critical nontechnical editor flow specification"
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\INTERACTION_STATE_MATRIX.md",
+          "added_at": "2026-09-15T20:22:12+00:00",
+          "note": "Pointer touch keyboard and recovery state matrix"
+        }
+      ],
+      "notes": [
+        {
+          "at": "2026-09-15T20:12:23+00:00",
+          "text": "Imported evidence: Reconstructed from supplied videos/images plus responsive and accessibility proposal"
+        },
+        {
+          "at": "2026-09-15T22:42:21+00:00",
+          "text": "Owner-approved reference direction plus independent UX re-review PASS; critical journeys, responsive/input behavior, accessibility, CMS states, Vimeo playback, MP4 hover preview, and recovery are documented."
+        }
+      ],
+      "waiver": null,
+      "updated_at": "2026-09-15T22:42:21+00:00"
+    },
+    "delivery-plan": {
+      "status": "passed",
+      "source": "human",
+      "evidence": [
+        {
+          "kind": "file",
+          "location": "docs\\project\\DELIVERY_PLAN.md",
+          "added_at": "2026-09-15T20:12:23+00:00",
+          "imported": true,
+          "source": "local",
+          "note": "Vertical-slice implementation plan for later Codex workspace; approval pending"
+        }
+      ],
+      "notes": [
+        {
+          "at": "2026-09-15T20:12:23+00:00",
+          "text": "Imported evidence: Vertical-slice implementation plan for later Codex workspace; approval pending"
+        },
+        {
+          "at": "2026-09-15T22:42:21+00:00",
+          "text": "Owner-approved vertical-slice plan maps dependencies, risk spikes, acceptance evidence, rollout, and rollback; placeholder copy is permitted and remaining account/media/font inputs are assigned to Foundation or slice acceptance."
+        }
+      ],
+      "waiver": null,
+      "updated_at": "2026-09-15T22:42:21+00:00"
+    },
+    "foundation": {
+      "status": "in_progress",
+      "source": "imported",
+      "evidence": [
+        {
+          "kind": "file",
+          "location": "docs\\project\\FOUNDATION_LOG.md",
+          "added_at": "2026-09-16T11:34:24+00:00",
+          "note": "Local setup, risk spikes, and verification evidence on 2026-09-16."
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\adr\\003-cloudflare-runtime-adapter.md",
+          "added_at": "2026-09-16T11:34:24+00:00",
+          "note": "Cloudflare adapter decision and compatibility boundary."
+        }
+      ],
+      "notes": [],
+      "waiver": null,
+      "updated_at": "2026-09-16T11:34:24+00:00"
+    },
+    "implementation": {
+      "status": "not_started",
+      "source": "local",
+      "evidence": [],
+      "notes": [],
+      "waiver": null,
+      "updated_at": "2026-09-15T19:51:59+00:00"
+    },
+    "verification": {
+      "status": "not_started",
+      "source": "local",
+      "evidence": [],
+      "notes": [],
+      "waiver": null,
+      "updated_at": "2026-09-15T19:51:59+00:00"
+    },
+    "release-readiness": {
+      "status": "not_started",
+      "source": "local",
+      "evidence": [],
+      "notes": [],
+      "waiver": null,
+      "updated_at": "2026-09-15T19:51:59+00:00"
+    },
+    "operations": {
+      "status": "not_started",
+      "source": "local",
+      "evidence": [],
+      "notes": [],
+      "waiver": null,
+      "updated_at": "2026-09-15T19:51:59+00:00"
+    }
+  },
+  "history": [
+    {
+      "at": "2026-09-15T19:51:59+00:00",
+      "action": "init",
+      "stage": "ideation",
+      "created_files": [
+        "docs\\project\\ARCHITECTURE.md",
+        "docs\\project\\DECISIONS.md",
+        "docs\\project\\DEFINITION_OF_DONE.md",
+        "docs\\project\\DELIVERY_PLAN.md",
+        "docs\\project\\EXPERIENCE_DESIGN.md",
+        "docs\\project\\OPERATIONS.md",
+        "docs\\project\\PRD.md",
+        "docs\\project\\PROJECT_BRIEF.md",
+        "docs\\project\\README_PEL.md",
+        "docs\\project\\SECURITY.md",
+        "docs\\project\\TEST_STRATEGY.md",
+        "docs\\project\\adr\\000-template.md"
+      ]
+    },
+    {
+      "at": "2026-09-15T20:12:22+00:00",
+      "action": "import",
+      "stage": "ideation",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\PROJECT_BRIEF.md",
+        "added_at": "2026-09-15T20:12:22+00:00",
+        "imported": true,
+        "source": "local",
+        "note": "Draft synthesized from owner request and supplied references; approval pending"
+      },
+      "source": "local"
+    },
+    {
+      "at": "2026-09-15T20:12:22+00:00",
+      "action": "import",
+      "stage": "requirements",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\PRD.md",
+        "added_at": "2026-09-15T20:12:22+00:00",
+        "imported": true,
+        "source": "local",
+        "note": "Complete proposed PRD; consequential scope decisions pending"
+      },
+      "source": "local"
+    },
+    {
+      "at": "2026-09-15T20:12:23+00:00",
+      "action": "import",
+      "stage": "architecture",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\ARCHITECTURE.md",
+        "added_at": "2026-09-15T20:12:23+00:00",
+        "imported": true,
+        "source": "local",
+        "note": "Architecture recommendation and ADRs drafted; owner approval pending"
+      },
+      "source": "local"
+    },
+    {
+      "at": "2026-09-15T20:12:23+00:00",
+      "action": "import",
+      "stage": "experience-design",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\EXPERIENCE_DESIGN.md",
+        "added_at": "2026-09-15T20:12:23+00:00",
+        "imported": true,
+        "source": "local",
+        "note": "Reconstructed from supplied videos/images plus responsive and accessibility proposal"
+      },
+      "source": "local"
+    },
+    {
+      "at": "2026-09-15T20:12:23+00:00",
+      "action": "import",
+      "stage": "delivery-plan",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\DELIVERY_PLAN.md",
+        "added_at": "2026-09-15T20:12:23+00:00",
+        "imported": true,
+        "source": "local",
+        "note": "Vertical-slice implementation plan for later Codex workspace; approval pending"
+      },
+      "source": "local"
+    },
+    {
+      "at": "2026-09-15T20:13:50+00:00",
+      "action": "attach",
+      "stage": "architecture",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\CONTENT_MODEL.md",
+        "added_at": "2026-09-15T20:13:50+00:00",
+        "note": "Proposed structured CMS domain model"
+      }
+    },
+    {
+      "at": "2026-09-15T20:13:50+00:00",
+      "action": "attach",
+      "stage": "architecture",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\adr\\001-cms-and-media-platform.md",
+        "added_at": "2026-09-15T20:13:50+00:00",
+        "note": "Proposed CMS/media ADR"
+      }
+    },
+    {
+      "at": "2026-09-15T20:13:50+00:00",
+      "action": "attach",
+      "stage": "architecture",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\adr\\002-earth-renderer.md",
+        "added_at": "2026-09-15T20:13:50+00:00",
+        "note": "Proposed Earth renderer ADR"
+      }
+    },
+    {
+      "at": "2026-09-15T20:13:51+00:00",
+      "action": "attach",
+      "stage": "experience-design",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\REFERENCE_ANALYSIS.md",
+        "added_at": "2026-09-15T20:13:51+00:00",
+        "note": "Observed supplied screenshot/video evidence"
+      }
+    },
+    {
+      "at": "2026-09-15T20:13:51+00:00",
+      "action": "attach",
+      "stage": "experience-design",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\DESIGN.md",
+        "added_at": "2026-09-15T20:13:51+00:00",
+        "note": "Proposed durable design contract"
+      }
+    },
+    {
+      "at": "2026-09-15T20:22:12+00:00",
+      "action": "attach",
+      "stage": "requirements",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\OWNER_DECISION_PACKET.md",
+        "added_at": "2026-09-15T20:22:12+00:00",
+        "note": "Consolidated consequential decisions awaiting owner approval"
+      }
+    },
+    {
+      "at": "2026-09-15T20:22:12+00:00",
+      "action": "attach",
+      "stage": "architecture",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\REVIEW_FINDINGS.md",
+        "added_at": "2026-09-15T20:22:12+00:00",
+        "note": "Independent architecture and security review summary"
+      }
+    },
+    {
+      "at": "2026-09-15T20:22:12+00:00",
+      "action": "attach",
+      "stage": "experience-design",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\CMS_FLOW_SPEC.md",
+        "added_at": "2026-09-15T20:22:12+00:00",
+        "note": "Critical nontechnical editor flow specification"
+      }
+    },
+    {
+      "at": "2026-09-15T20:22:12+00:00",
+      "action": "attach",
+      "stage": "experience-design",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\INTERACTION_STATE_MATRIX.md",
+        "added_at": "2026-09-15T20:22:12+00:00",
+        "note": "Pointer touch keyboard and recovery state matrix"
+      }
+    },
+    {
+      "at": "2026-09-15T20:22:12+00:00",
+      "action": "block",
+      "stage": "architecture",
+      "reason": "Owner approval and real media traffic cost credential ownership and recovery inputs are required before committing ADR 001"
+    },
+    {
+      "at": "2026-09-15T20:22:40+00:00",
+      "action": "handoff",
+      "output": "docs\\project\\HANDOFF.md"
+    },
+    {
+      "at": "2026-09-15T22:15:03+00:00",
+      "action": "pass",
+      "stage": "ideation",
+      "source": "human",
+      "note": "Owner approved the project brief, zero-cost launch outcome, scope, non-goals, and proceed decision on 2026-09-16.",
+      "attested": true
+    },
+    {
+      "at": "2026-09-15T22:15:05+00:00",
+      "action": "pass",
+      "stage": "requirements",
+      "source": "human",
+      "note": "Owner approved the PRD and zero-cost Sanity limitations on 2026-09-16; remaining media/font/account values are assigned Foundation or slice inputs.",
+      "attested": true
+    },
+    {
+      "at": "2026-09-15T22:15:09+00:00",
+      "action": "block",
+      "stage": "architecture",
+      "reason": "Sanity Free architecture and limitations are approved; owner choice is still required between Cloudflare Workers Free for server-side preview/webhooks/revalidation and a static Cloudflare Pages rebuild model."
+    },
+    {
+      "at": "2026-09-15T22:38:45+00:00",
+      "action": "attach",
+      "stage": "architecture",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\OWNER_DECISION_PACKET.md",
+        "added_at": "2026-09-15T22:38:45+00:00",
+        "note": "Owner approved Vimeo for full videos, separate lightweight MP4 hover previews, posters, and placeholder copy on 2026-09-16; Cloudflare runtime choice remains pending."
+      }
+    },
+    {
+      "at": "2026-09-15T22:42:21+00:00",
+      "action": "pass",
+      "stage": "architecture",
+      "source": "human",
+      "note": "Owner approved Cloudflare Workers Free on 2026-09-16; architecture, security, deployment topology, hybrid Vimeo media model, failure modes, and ADRs satisfy the planning gate.",
+      "attested": true
+    },
+    {
+      "at": "2026-09-15T22:42:21+00:00",
+      "action": "pass",
+      "stage": "experience-design",
+      "source": "human",
+      "note": "Owner-approved reference direction plus independent UX re-review PASS; critical journeys, responsive/input behavior, accessibility, CMS states, Vimeo playback, MP4 hover preview, and recovery are documented.",
+      "attested": true
+    },
+    {
+      "at": "2026-09-15T22:42:21+00:00",
+      "action": "pass",
+      "stage": "delivery-plan",
+      "source": "human",
+      "note": "Owner-approved vertical-slice plan maps dependencies, risk spikes, acceptance evidence, rollout, and rollback; placeholder copy is permitted and remaining account/media/font inputs are assigned to Foundation or slice acceptance.",
+      "attested": true
+    },
+    {
+      "at": "2026-09-15T22:42:55+00:00",
+      "action": "handoff",
+      "output": "docs\\project\\HANDOFF.md"
+    },
+    {
+      "at": "2026-09-16T11:29:48+00:00",
+      "action": "start",
+      "stage": "foundation"
+    },
+    {
+      "at": "2026-09-16T11:34:02+00:00",
+      "action": "handoff",
+      "output": "docs\\project\\CURRENT_CONTEXT.md"
+    },
+    {
+      "at": "2026-09-16T11:34:24+00:00",
+      "action": "attach",
+      "stage": "foundation",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\FOUNDATION_LOG.md",
+        "added_at": "2026-09-16T11:34:24+00:00",
+        "note": "Local setup, risk spikes, and verification evidence on 2026-09-16."
+      }
+    },
+    {
+      "at": "2026-09-16T11:34:24+00:00",
+      "action": "attach",
+      "stage": "foundation",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\adr\\003-cloudflare-runtime-adapter.md",
+        "added_at": "2026-09-16T11:34:24+00:00",
+        "note": "Cloudflare adapter decision and compatibility boundary."
+      }
+    },
+    {
+      "at": "2026-09-16T11:34:24+00:00",
+      "action": "handoff",
+      "output": "docs\\project\\CURRENT_CONTEXT.md"
+    }
+  ]
+}
