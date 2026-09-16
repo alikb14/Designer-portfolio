@@ -5,6 +5,7 @@ import {
   createAsciiGrid,
   gridResolutionByQuality,
   isLand,
+  selectLandGlyph,
   selectQuality,
   type EarthQuality,
 } from "@/components/earth/sphere";
@@ -21,7 +22,6 @@ type PointerState = {
 };
 
 const degree = 180 / Math.PI;
-const glyphs = ["/", "1", "*", "/", "1"] as const;
 const revealDurationMs = 780;
 
 function clamp(value: number, minimum = 0, maximum = 1) {
@@ -37,14 +37,19 @@ function wrapLongitude(longitude: number) {
   return ((longitude + 540) % 360) - 180;
 }
 
-function landGlyph(longitude: number, latitude: number, index: number) {
+function landGlyph(
+  longitude: number,
+  latitude: number,
+  index: number,
+  elapsedMs: number,
+) {
   const coast =
     !isLand(wrapLongitude(longitude - 3), latitude) ||
     !isLand(wrapLongitude(longitude + 3), latitude) ||
     !isLand(longitude, Math.max(-89, latitude - 3)) ||
     !isLand(longitude, Math.min(89, latitude + 3));
 
-  return coast ? "*" : (glyphs[index % glyphs.length] ?? "*");
+  return selectLandGlyph(longitude, latitude, index, elapsedMs, coast);
 }
 
 export function AsciiEarthCanvas() {
@@ -108,7 +113,7 @@ export function AsciiEarthCanvas() {
       // The reference establishes a clearly readable geographic drift rather
       // than an almost-static globe. Reduced motion keeps that orientation cue
       // at a lower rate without disabling the pointer-driven render loop.
-      rotation += frameMs * (reducedMotion.matches ? 0.0048 : 0.0095);
+      rotation -= frameMs * (reducedMotion.matches ? 0.0048 : 0.0095);
 
       const pointerTarget = pointer.active && !coarsePointer.matches ? 1 : 0;
       const seconds = frameMs / 1_000;
@@ -182,7 +187,7 @@ export function AsciiEarthCanvas() {
 
         context.fillStyle = `rgba(${ink}, ${(land ? 0.92 : 0.58) * resolved})`;
         context.fillText(
-          land ? landGlyph(longitude, latitude, point.index) : ".",
+          land ? landGlyph(longitude, latitude, point.index, time) : ".",
           centerX + x * radius,
           centerY + y * radius,
         );

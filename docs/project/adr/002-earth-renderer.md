@@ -8,7 +8,7 @@ The Earth must be visibly flat and minimal, preserve a complete circular ASCII f
 
 ## Decision
 
-Use one 2D Canvas with a bounded circular character grid. Project the geographic mask onto that flat grid, rotate only the longitude mask, attract nearby land glyphs locally with elastic return, cap device-pixel ratio, pause when hidden/offscreen, adapt grid resolution from sustained frame time, and provide a static reduced-motion/no-script fallback.
+Use one 2D Canvas with a bounded circular character grid. Project a slightly reduced, deterministic fragmented geographic mask onto that flat grid; rotate the longitude mask left-to-right; and mutate each land glyph through a seeded, staggered time window rather than randomizing per frame. Keep local hover attraction/elastic return, device-pixel capping, hidden/offscreen pausing, adaptive grid resolution, and the static reduced-motion/no-script fallback.
 
 ## Consequences
 
