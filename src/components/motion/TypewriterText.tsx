@@ -9,9 +9,9 @@ type TypewriterTextProps = {
   text: string;
 };
 
-const minimumDurationMs = 950;
-const maximumDurationMs = 1_500;
-const millisecondsPerCharacter = 18;
+const minimumDurationMs = 1_600;
+const maximumDurationMs = 2_200;
+const millisecondsPerCharacter = 30;
 const typingDelayMs = 700;
 
 function TypewriterRun({
