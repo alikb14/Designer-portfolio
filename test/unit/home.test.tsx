@@ -10,14 +10,15 @@ vi.mock("@/components/earth/AsciiEarthCanvas", () => ({
 }));
 
 describe("portfolio home", () => {
-  it("renders the approved introduction and Work reel link", () => {
+  it("renders the approved introduction and Vimeo reel", () => {
     render(<HomePage />);
 
     expect(
       screen.getByRole("heading", { name: /yaad a 2d motion designer/i }),
     ).toBeVisible();
-    expect(
-      screen.getByRole("link", { name: /view selected work/i }),
-    ).toHaveAttribute("href", "/work");
+    expect(screen.getByTitle("You got hacked 4k final")).toHaveAttribute(
+      "src",
+      "https://player.vimeo.com/video/1227330980?badge=0&autopause=0&player_id=0&app_id=58479",
+    );
   });
 });

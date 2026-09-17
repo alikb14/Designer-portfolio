@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { AsciiEarthCanvas } from "@/components/earth/AsciiEarthCanvas";
 import { TypewriterText } from "@/components/motion/TypewriterText";
 import { SiteHeader } from "@/components/site/SiteHeader";
@@ -23,14 +22,15 @@ export default function HomePage() {
           <AsciiEarthCanvas />
         </div>
 
-        <Link
-          aria-label="View selected work"
-          className="home-reel"
-          href="/work"
-        >
-          <span>reels</span>
-          <small>SELECTED WORK</small>
-        </Link>
+        <div aria-label="Motion design reel" className="home-reel">
+          <iframe
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            frameBorder={0}
+            referrerPolicy="strict-origin-when-cross-origin"
+            src="https://player.vimeo.com/video/1227330980?badge=0&autopause=0&player_id=0&app_id=58479"
+            title="You got hacked 4k final"
+          />
+        </div>
       </main>
     </div>
   );
