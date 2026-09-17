@@ -477,11 +477,28 @@ button:focus-visible {
   animation: play-grid-enter 720ms cubic-bezier(0.22, 0.8, 0.25, 1) 700ms both;
 }
 
+/* Keep the first row's artwork and actions in the reference rhythm when a
+   fourth project creates a second desktop row. */
+.play-grid:has(> .play-card:nth-child(4)) {
+  transform: translateY(clamp(6rem, 14vh, 10rem));
+}
+
+.play-grid:has(> .play-card:nth-child(4)) .download-bar {
+  inset-block-start: calc(100% + clamp(8.5rem, 12vh, 10rem));
+}
+
+.play-grid:has(> .play-card:nth-child(4)) .play-description {
+  inset-block-start: calc(
+    100% + clamp(8.5rem, 12vh, 10rem) + clamp(4.4rem, 5vw, 5rem) + 0.75rem
+  );
+}
+
 .play-card {
   min-width: 0;
   position: relative;
   transform: scale(1);
   transition: transform 300ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  z-index: 1;
 }
 
 @keyframes play-grid-enter {
@@ -604,9 +621,12 @@ button:focus-visible {
   min-height: 4.4rem;
   inset-inline: 0;
   inset-block-start: calc(100% + clamp(2.5rem, 4vh, 3rem));
+  justify-content: center;
   margin: 0;
   opacity: 1;
+  padding-inline: 1rem;
   position: absolute;
+  text-align: center;
   transform: scale(1);
   transform-origin: center bottom;
   transition: transform 300ms cubic-bezier(0.2, 0.75, 0.25, 1);
@@ -626,6 +646,24 @@ button:focus-visible {
 .play-card:focus-within .download-bar,
 .play-card.is-active .download-bar {
   transform: scale(1.022);
+}
+
+.play-card:hover,
+.play-card:focus-within,
+.play-card.is-active {
+  z-index: 4;
+}
+
+@media (min-width: 681px) {
+  .play-card:nth-child(n + 4) {
+    top: clamp(6rem, 10vh, 9rem);
+  }
+}
+
+@media (min-width: 681px) and (max-width: 900px) {
+  .play-card:nth-child(n + 3) {
+    top: clamp(6rem, 10vh, 9rem);
+  }
 }
 
 .play-details-toggle {
@@ -776,6 +814,7 @@ button:focus-visible {
     inset-inline: 0;
     padding-block: 1.5rem;
     position: absolute;
+    z-index: 2;
   }
 
   .site-nav.is-open {
@@ -862,6 +901,15 @@ button:focus-visible {
   .play-grid {
     margin: -1rem;
     padding: 1rem;
+    row-gap: 2rem;
+  }
+
+  .play-grid:has(> .play-card:nth-child(4)) {
+    transform: none;
+  }
+
+  .play-card:nth-child(n + 4) {
+    top: 0;
   }
 
   .download-bar {
@@ -881,6 +929,10 @@ button:focus-visible {
       max-height 220ms ease,
       opacity 180ms ease,
       padding 220ms ease;
+  }
+
+  .play-grid:has(> .play-card:nth-child(4)) .play-description {
+    inset: auto;
   }
 
   .play-card.is-active .play-description,

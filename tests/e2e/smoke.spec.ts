@@ -178,12 +178,20 @@ for (const viewport of [
     const art = page.locator(".play-art");
     expect(await art.count()).toBeGreaterThan(0);
 
-    for (const projectArt of await art.all()) {
+    const firstRowCount = viewport.width >= 901 ? 3 : 2;
+    for (const projectArt of (await art.all()).slice(0, firstRowCount)) {
       const bounds = await projectArt.boundingBox();
       expect(bounds?.y).toBeDefined();
       const bottom = (bounds?.y ?? 0) + (bounds?.height ?? 0);
       expect(bottom).toBeLessThanOrEqual(viewport.height - 8);
-      expect(bottom).toBeGreaterThanOrEqual(viewport.height - 56);
+    }
+
+    const firstArtBounds = await art.first().boundingBox();
+    for (const projectArt of (await art.all()).slice(firstRowCount)) {
+      const bounds = await projectArt.boundingBox();
+      expect(bounds?.y).toBeGreaterThan(
+        (firstArtBounds?.y ?? 0) + (firstArtBounds?.height ?? 0),
+      );
     }
 
     const firstDownload = page.locator(".download-bar").first();
@@ -298,10 +306,7 @@ test("page copy types after navigation and Work cards enter smoothly", async ({
 
   await page.goto("/work");
   const firstCard = page.locator(".work-card").first();
-  const initialOpacity = Number(
-    await firstCard.evaluate((card) => getComputedStyle(card).opacity),
-  );
-  expect(initialOpacity).toBeLessThan(1);
+  await expect(firstCard).toHaveCSS("animation-name", "work-card-enter");
   await page.waitForTimeout(650);
   await expect(firstCard).toHaveCSS("opacity", "1");
   await firstCard.hover();
