@@ -7,6 +7,7 @@ const studioOrigin = process.env.SANITY_STUDIO_ORIGIN;
 const frameAncestors = studioOrigin ? `'self' ${studioOrigin}` : "'self'";
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
   poweredByHeader: false,
   reactStrictMode: true,
   allowedDevOrigins: ["127.0.0.1"],

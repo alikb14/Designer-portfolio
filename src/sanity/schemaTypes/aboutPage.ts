@@ -3,6 +3,12 @@ import { defineField, defineType } from "sanity";
 export const aboutPage = defineType({
   fields: [
     defineField({
+      name: "heading",
+      title: "Page heading (H1)",
+      type: "string",
+      validation: (Rule) => Rule.max(100),
+    }),
+    defineField({
       name: "portrait",
       title: "Portrait or still",
       type: "image",

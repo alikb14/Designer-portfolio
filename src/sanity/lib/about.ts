@@ -7,17 +7,20 @@ type SanityBlock = {
 
 type SanityAboutPage = {
   biography?: readonly SanityBlock[];
+  heading?: string;
   portraitAlt?: string;
   portraitUrl?: string;
 };
 
 export type PublishedAboutPage = {
   biography: string;
+  heading?: string;
   portraitAlt?: string;
   portraitUrl?: string;
 };
 
 const aboutPageQuery = `*[_type == "aboutPage"][0]{
+  heading,
   "portraitUrl": portrait.asset->url,
   "portraitAlt": portrait.alt,
   biography[]{children[]{text}}
@@ -48,6 +51,7 @@ export async function getPublishedAboutPage(): Promise<PublishedAboutPage | null
 
     return {
       biography: paragraphs.join("\n\n"),
+      heading: entry.heading?.trim() || undefined,
       portraitAlt: entry.portraitAlt?.trim() || undefined,
       portraitUrl: isSanityAssetUrl(entry.portraitUrl, "/images/")
         ? entry.portraitUrl
