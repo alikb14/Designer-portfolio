@@ -48,7 +48,7 @@
     "jsdom": "^30.0.1",
     "prettier": "^3.9.7",
     "prettier-plugin-packagejson": "^3.0.2",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vinext": "^1.0.0-beta.10",
     "vite": "^8.3.0",
     "vitest": "^5.0.1",
