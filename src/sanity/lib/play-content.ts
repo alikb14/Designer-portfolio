@@ -1,3 +1,5 @@
+import { isSanityAssetUrl } from "@/sanity/lib/assets";
+
 type SanityPlayItem = {
   _id: string;
   artworkAlt?: string;
@@ -17,23 +19,6 @@ export type PublishedPlayItem = {
   licenseNote?: string;
   title: string;
 };
-
-function isSanityAssetUrl(value: unknown, prefix: "/images/" | "/files/") {
-  if (typeof value !== "string") {
-    return false;
-  }
-
-  try {
-    const url = new URL(value);
-    return (
-      url.protocol === "https:" &&
-      url.hostname === "cdn.sanity.io" &&
-      url.pathname.startsWith(prefix)
-    );
-  } catch {
-    return false;
-  }
-}
 
 export function toPublishedPlayItems(
   entries: readonly SanityPlayItem[],

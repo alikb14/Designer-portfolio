@@ -1,8 +1,10 @@
 export type WorkProject = {
   credits: readonly string[];
   description: string;
+  detailVimeoUrl?: string;
   poster: string;
-  preview: string;
+  posterAlt?: string;
+  preview?: string;
   slug: string;
   title: string;
 };

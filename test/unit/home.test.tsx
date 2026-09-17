@@ -8,10 +8,13 @@ vi.mock("@/components/earth/AsciiEarthCanvas", () => ({
     <div aria-label="Animated two-dimensional ASCII Earth" />
   ),
 }));
+vi.mock("@/sanity/lib/home", () => ({
+  getPublishedHomePage: vi.fn().mockResolvedValue(null),
+}));
 
 describe("portfolio home", () => {
-  it("renders the approved introduction and Vimeo reel", () => {
-    render(<HomePage />);
+  it("renders the approved introduction and Vimeo reel", async () => {
+    render(await HomePage());
 
     expect(
       screen.getByRole("heading", { name: /yaad a 2d motion designer/i }),

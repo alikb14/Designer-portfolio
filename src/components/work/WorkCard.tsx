@@ -43,29 +43,33 @@ export function WorkCard({ project }: { project: WorkProject }) {
       <Link className="work-card-link" href={`/work/${project.slug}`}>
         <span className="work-media">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img alt="" src={project.poster} />
-          <video
-            aria-hidden="true"
-            className={playing ? "is-playing" : undefined}
-            loop
-            muted
-            playsInline
-            poster={project.poster}
-            preload="none"
-            ref={videoRef}
-            src={project.preview}
-          />
+          <img alt={project.posterAlt ?? ""} src={project.poster} />
+          {project.preview ? (
+            <video
+              aria-hidden="true"
+              className={playing ? "is-playing" : undefined}
+              loop
+              muted
+              playsInline
+              poster={project.poster}
+              preload="none"
+              ref={videoRef}
+              src={project.preview}
+            />
+          ) : null}
         </span>
         <span className="work-title">{project.title}</span>
       </Link>
-      <button
-        aria-pressed={playing}
-        className="work-preview-control"
-        onClick={() => (playing ? stop() : void start())}
-        type="button"
-      >
-        {playing ? "STOP PREVIEW" : "PREVIEW"}
-      </button>
+      {project.preview ? (
+        <button
+          aria-pressed={playing}
+          className="work-preview-control"
+          onClick={() => (playing ? stop() : void start())}
+          type="button"
+        >
+          {playing ? "STOP PREVIEW" : "PREVIEW"}
+        </button>
+      ) : null}
     </article>
   );
 }

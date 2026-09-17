@@ -55,6 +55,8 @@ Next actionable stage: `foundation`
 - Automated Chromium coverage now verifies the no-Canvas Earth fallback, Vimeo frame-origin policy, and no horizontal overflow across six primary routes at 320, 375, 768, 1024, 1440, and 1920 px; 18 E2E tests pass.
 - The official `next-sanity` integration now provides a noindex embedded `/studio` route, validated constrained schemas, and a public-only client. Both Sanity datasets are reachable; CORS credential origins for local development and `https://design-portfolio.yaadworld.workers.dev` were verified in a real browser.
 - Published Play records now render from Sanity with controlled asset URLs, preserving the accepted reveal, hover, and typewriter interactions. Chromium confirmed the owner-published test item and artwork render with no console errors.
+- Home, Work listing/detail, About, and Contact now read published Sanity records with strict URL/asset normalization and local fixture fallbacks when no usable record exists. The existing visual system and motion remain code-owned; draft preview, signed webhook revalidation, and poster-frame extraction are not yet implemented.
+- After the all-page CMS slice, formatting, lint, TypeScript, unit tests (7 files / 11 tests), native production build, Cloudflare adapter build, and 19 Chromium E2E scenarios passed. The adapter's existing RxJS optimize-import warnings are non-blocking.
 - Foundation remains in progress. The owner selected the free Cloudflare `workers.dev` subdomain, confirmed IBM Plex Mono, and deferred Vimeo-domain allowlisting and final Vimeo media links. Physical desktop/mobile interaction evidence and real Cloudflare deployment configuration are still required; no deployment or production-readiness claim is made.
 
 ## Resume protocol
@@ -67,4 +69,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Implement the next public CMS slice using published-only reads (Home, Work, About, or Contact), then retain draft preview and signed webhook/revalidation as separate server-side slices.
+Implement signed draft preview and webhook/revalidation as separate server-side slices, then verify poster-frame extraction and production deployment configuration.

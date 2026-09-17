@@ -1,6 +1,6 @@
 # Yaad Motion Portfolio — Current Engineering Context
 
-Generated: 2026-09-17T20:58:15+00:00
+Generated: 2026-09-17T22:59:42+00:00
 Delivery class: `production`
 Project type: `generic`
 Active stage: `foundation`
@@ -15,7 +15,7 @@ Next actionable stage: `foundation`
 | `architecture` | `passed` | human | docs\project\ARCHITECTURE.md<br>docs\project\CONTENT_MODEL.md<br>docs\project\adr\001-cms-and-media-platform.md<br>docs\project\adr\002-earth-renderer.md<br>docs\project\REVIEW_FINDINGS.md<br>docs\project\OWNER_DECISION_PACKET.md |
 | `experience-design` | `passed` | human | docs\project\EXPERIENCE_DESIGN.md<br>docs\project\REFERENCE_ANALYSIS.md<br>docs\project\DESIGN.md<br>docs\project\CMS_FLOW_SPEC.md<br>docs\project\INTERACTION_STATE_MATRIX.md |
 | `delivery-plan` | `passed` | human | docs\project\DELIVERY_PLAN.md |
-| `foundation` | `in_progress` | local | docs\project\FOUNDATION_LOG.md<br>docs\project\adr\003-cloudflare-runtime-adapter.md<br>docs\project\FOUNDATION_LOG.md |
+| `foundation` | `in_progress` | local | docs\project\FOUNDATION_LOG.md<br>docs\project\adr\003-cloudflare-runtime-adapter.md<br>docs\project\FOUNDATION_LOG.md<br>docs\project\FOUNDATION_LOG.md |
 | `implementation` | `not_started` | local | — |
 | `verification` | `not_started` | local | — |
 | `release-readiness` | `not_started` | local | — |
@@ -48,6 +48,12 @@ Next actionable stage: `foundation`
 - Imported evidence: Vertical-slice implementation plan for later Codex workspace; approval pending (2026-09-15T20:12:23+00:00)
 - Owner-approved vertical-slice plan maps dependencies, risk spikes, acceptance evidence, rollout, and rollback; placeholder copy is permitted and remaining account/media/font inputs are assigned to Foundation or slice acceptance. (2026-09-15T22:42:21+00:00)
 
+### foundation
+- Repository, locked toolchain, CI, baseline configuration, native and Cloudflare-adapter builds, and local interaction tests are established.
+- Published-only Sanity reads now power Home, Work listing/detail, Play, About, and Contact with strict asset/Vimeo/email normalization and local fixture fallbacks where applicable. Draft preview, signed webhook revalidation, and poster-frame extraction remain separate later slices.
+- Formatting, lint, TypeScript, 7 unit-test files / 11 unit tests, native production build, Cloudflare adapter build, and 19 Chromium E2E scenarios passed. The adapter's existing RxJS optimize-import warnings are non-blocking.
+- Foundation remains in progress because physical desktop/mobile evidence, production Cloudflare configuration, Vimeo privacy/domain settings, preview/revalidation, and observability are not yet verified.
+
 ## Resume protocol
 
 1. Read `AGENTS.md` and the evidence linked above.
@@ -58,4 +64,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-<!-- Add the smallest concrete next action before handoff. -->
+Implement signed draft preview and webhook/revalidation as separate server-side slices, then verify poster-frame extraction and production deployment configuration.

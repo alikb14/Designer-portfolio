@@ -671,6 +671,14 @@ button:focus-visible {
 .about-media {
   aspect-ratio: 0.82;
   background: #1c1a1b;
+  overflow: hidden;
+  position: relative;
+}
+
+.about-media img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
 }
 
 .about-copy {
@@ -711,6 +719,17 @@ button:focus-visible {
   max-width: 50ch;
 }
 
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin-top: 3rem;
+}
+
+.contact-links a {
+  text-underline-offset: 0.25em;
+}
+
 .project-page h1 {
   font-size: clamp(1.4rem, 2.5vw, 2.6rem);
   font-weight: 400;
@@ -720,6 +739,7 @@ button:focus-visible {
 .project-video {
   aspect-ratio: 16 / 9;
   background: var(--panel);
+  border: 0;
   display: block;
   object-fit: contain;
   width: 100%;

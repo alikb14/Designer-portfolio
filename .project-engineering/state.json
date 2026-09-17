@@ -4,7 +4,7 @@
   "delivery_class": "production",
   "project_type": "generic",
   "created_at": "2026-09-15T19:51:59+00:00",
-  "updated_at": "2026-09-17T20:58:15+00:00",
+  "updated_at": "2026-09-17T22:59:42+00:00",
   "active_stage": "foundation",
   "stages": {
     "ideation": {
@@ -226,11 +226,17 @@
           "location": "docs\\project\\FOUNDATION_LOG.md",
           "added_at": "2026-09-17T20:58:15+00:00",
           "note": "2026-09-17 Play CMS slice: owner CORS configuration and published-item browser evidence; public Play now renders validated published Sanity data."
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\FOUNDATION_LOG.md",
+          "added_at": "2026-09-17T22:59:42+00:00",
+          "note": "All public Home, Work, About, and Contact routes now use published-only Sanity reads with strict normalization and fallbacks; verification passed."
         }
       ],
       "notes": [],
       "waiver": null,
-      "updated_at": "2026-09-17T20:58:15+00:00"
+      "updated_at": "2026-09-17T22:59:42+00:00"
     },
     "implementation": {
       "status": "not_started",
@@ -582,6 +588,22 @@
     },
     {
       "at": "2026-09-17T20:58:15+00:00",
+      "action": "handoff",
+      "output": "docs\\project\\CURRENT_CONTEXT.md"
+    },
+    {
+      "at": "2026-09-17T22:59:42+00:00",
+      "action": "attach",
+      "stage": "foundation",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\FOUNDATION_LOG.md",
+        "added_at": "2026-09-17T22:59:42+00:00",
+        "note": "All public Home, Work, About, and Contact routes now use published-only Sanity reads with strict normalization and fallbacks; verification passed."
+      }
+    },
+    {
+      "at": "2026-09-17T22:59:42+00:00",
       "action": "handoff",
       "output": "docs\\project\\CURRENT_CONTEXT.md"
     }
