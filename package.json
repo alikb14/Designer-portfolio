@@ -43,7 +43,7 @@
     "@vitejs/plugin-react": "^6.1.1",
     "@vitejs/plugin-rsc": "^0.5.35",
     "@vitest/coverage-v8": "^5.0.1",
-    "eslint": "^9.39.5",
+    "eslint": "^10.10.0",
     "eslint-config-next": "^16.3.5",
     "jsdom": "^30.0.1",
     "prettier": "^3.9.7",
