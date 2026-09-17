@@ -16,7 +16,7 @@ Status: **Approved design baseline (2026-09-16)** from supplied references. Exac
 - Spacing: large canvas-like outer margins and generous inter-section whitespace.
 - Radius/elevation: square media/cards; no routine shadows; pill reserved for the theme switch.
 - Breakpoints: content-driven, with acceptance captures at 320/375/768/1024/1440/1920 px.
-- Motion: brief purposeful fades/particle resolves; visible slow Earth rotation (very gentle—not fully disabled—under reduced motion); local land-glyph attraction on fine-pointer hover; media preview only on intent; restrained Work media zoom and whole-item Play zoom that never change layout geometry.
+- Motion: brief purposeful fades/particle resolves; visible slow Earth rotation; local land-glyph attraction on fine-pointer hover; media preview only on intent; restrained Work media zoom and whole-item Play zoom that never change layout geometry. The owner explicitly requires this portfolio motion to remain enabled when the operating system reports reduced motion.
 - Directionality: LTR at launch. Future RTL needs logical properties and explicit mirrored review.
 
 ## Components and patterns

@@ -26,7 +26,6 @@ function TypewriterRun({
       return;
     }
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const duration = Math.min(
       maximumDurationMs,
       Math.max(minimumDurationMs, text.length * millisecondsPerCharacter),
@@ -35,11 +34,6 @@ function TypewriterRun({
     let animationFrame = 0;
 
     const update = (time: number) => {
-      if (reduceMotion.matches) {
-        setVisibleCharacters(text.length);
-        return;
-      }
-
       const progress = Math.min(1, Math.max(0, (time - startedAt) / duration));
       setVisibleCharacters(Math.round(progress * text.length));
 

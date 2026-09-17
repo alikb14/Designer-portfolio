@@ -33,7 +33,7 @@ Continue this project from its approved Project Engineering Lifecycle planning p
 
 - Preserve the supplied visual design, animation character, light/dark themes, and responsive behavior for Home, Work, Play, About, Contact, and reusable project-detail pages.
 - The owner must update copy, projects, ordering, images, Vimeo links, preview videos, posters, and download files through Sanity without programming.
-- The ASCII Earth remains visually flat and circular, rotates its geographic mask automatically, attracts nearby land glyphs toward fine-pointer hover with elastic return, adapts grid detail, honors reduced motion, and provides a no-canvas/no-script fallback.
+- The ASCII Earth remains visually flat and circular, rotates its geographic mask automatically, attracts nearby land glyphs toward fine-pointer hover with elastic return, adapts grid detail, and provides a no-canvas/no-script fallback. The owner explicitly requires portfolio motion to remain enabled even when the operating system reports reduced motion.
 - Keep secrets server-side, published and draft content isolated, webhooks signed/replay-safe, and degraded media states usable.
 
 ## Foundation inputs to verify, not invent
