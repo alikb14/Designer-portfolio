@@ -22,6 +22,8 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - Restricted embedded frames through the response Content Security Policy to the application itself and Vimeo's official player origin.
 - On 2026-09-17, the owner selected Cloudflare's free `workers.dev` subdomain for the initial release, confirmed IBM Plex Mono as the final font, deferred Vimeo-domain allowlisting until a production domain exists, and deferred replacing local Work media with Vimeo links until the media is ready.
 - The local `.env.local` was validated on 2026-09-17 without printing or tracking its values: all required public/server variables were present and non-placeholder, no credential-like value used a public prefix, and a native production build loaded the file successfully.
+- Added the official `next-sanity` integration, an embedded noindex `/studio` shell, public-only Sanity client configuration, CLI configuration, and constrained schemas for site settings, Home, Work, Play, About, and Contact. Schema validation reports 0 errors and 0 warnings. The public portfolio still uses its existing local fixture content; draft preview, webhooks/revalidation, and public-page CMS reads remain later slices.
+- Verified both `development` and `production` datasets are Public and reachable with and without the server Viewer token. The Studio shell is reachable locally, but interactive Studio login is not yet verified because Sanity must allow `http://localhost:3000` with credentials in its CORS settings. The future `workers.dev` origin must be added after deployment identity exists.
 
 ## Verified locally
 
@@ -33,6 +35,9 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - `npm run build`: passed with the expected native Next.js routes.
 - `npm run build:vinext`: passed. Vinext reports a static-analysis limitation for route classification; it does not report a compatibility issue.
 - `npm run test:e2e`: 18 Chromium tests passed, covering the primary portfolio routes, health endpoint, 2D Earth presence, owner-approved motion under reduced-motion preferences, direct pointer attraction, non-hover preview control, static Earth fallback when Canvas initialization is unavailable, Vimeo frame-origin policy, and horizontal-overflow checks for six routes at 320, 375, 768, 1024, 1440, and 1920 px.
+- `npx sanity schema validate`: passed with 0 errors and 0 warnings for the embedded Studio schemas.
+- `npm run test`: 5 files / 8 tests passed after the Studio foundation was added; 85.71% statements, 73.75% branches, 81.08% functions, and 86.29% lines.
+- `npm run test:e2e`: 19 Chromium tests passed after the Studio foundation was added, including the served noindex Studio shell and the existing public-route matrix.
 - Rendered inspection at 1440×1000 and 390×844 confirmed the flat circular ASCII treatment, responsive composition, and deliberate cropped desktop placement from the supplied Home reference.
 - Browser inspection with `prefers-reduced-motion: reduce` confirmed the sub-second glyph resolve, faster geographic drift, spring-follow attraction, `pointer-active` transition, and elastic return. At 1920×918, Reel measured `y=370.8…910.8` and remained inside the initial viewport.
 - At 1920×918, Work preview playback measured `paused=false`, visible opacity, `scale(1.035)`, and no horizontal overflow. Play hover measured `grayscale(0)`, `scale(1.022)`, and no horizontal overflow.
@@ -40,7 +45,7 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 
 ## Not yet verified
 
-- Cloudflare deployment, production headers in the target runtime, Sanity preview/revalidation and poster-frame extraction workflow, production Vimeo privacy/domain configuration, CMS data, physical-device interaction quality, and production observability.
+- Cloudflare deployment, production headers in the target runtime, Sanity CORS credential-origin configuration and interactive Studio login, Sanity preview/revalidation and poster-frame extraction workflow, production Vimeo privacy/domain configuration, CMS data, physical-device interaction quality, and production observability.
 
 ## Constraints and decisions
 
@@ -52,5 +57,5 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 ## Required next gate evidence
 
 1. Record measured Earth interaction quality on representative physical desktop and mobile hardware. Automated browser coverage now includes the approved motion policy, no-canvas fallback, and the complete viewport-width matrix.
-2. Obtain the Sanity project/dataset and token setup, create the owner's initial `workers.dev` deployment identity, and complete the deferred Vimeo media inventory when final links are available.
+2. Add the local Studio origin to Sanity CORS with credentials, verify owner login at `/studio`, create the owner's initial `workers.dev` deployment identity, and complete the deferred Vimeo media inventory when final links are available.
 3. Update lifecycle evidence and handoff; only then evaluate Foundation as passed.

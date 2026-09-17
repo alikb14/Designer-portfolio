@@ -43,6 +43,15 @@ test("Home provides a static Earth fallback when Canvas is unavailable", async (
   await expect(page.locator(".earth-fallback").first()).toBeVisible();
 });
 
+test("Sanity Studio shell is served from a noindex route", async ({
+  request,
+}) => {
+  const response = await request.get("/studio");
+
+  expect(response.ok()).toBe(true);
+  expect(await response.text()).toMatch(/noindex/i);
+});
+
 for (const viewport of [
   { height: 568, width: 320 },
   { height: 667, width: 375 },
@@ -235,9 +244,9 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
     (artBounds?.x ?? 0) + (artBounds?.width ?? 0) / 2,
     (artBounds?.y ?? 0) + (artBounds?.height ?? 0) / 2,
   );
-  await page.waitForTimeout(220);
-  const partialText = await liveCopy.textContent();
-  expect(partialText?.length).toBeGreaterThan(0);
+  await expect
+    .poll(async () => (await liveCopy.textContent())?.trim().length ?? 0)
+    .toBeGreaterThan(0);
   await expect(firstCard).toHaveCSS("transform", /matrix\(1\.022/);
   await expect
     .poll(() => page.evaluate(() => window.scrollY))

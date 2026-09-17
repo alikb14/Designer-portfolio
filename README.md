@@ -57,6 +57,12 @@ Copy [`.env.example`](.env.example) to a local `.env` only when the relevant ser
 | `SANITY_STUDIO_ORIGIN`          | Server only | Studio origin permitted by the CSP frame-ancestor policy            |
 | `ENABLE_RISK_SPIKES`            | Server only | Enables Foundation spikes in production for controlled verification |
 
+## Sanity Studio
+
+The embedded Studio is available locally at `http://localhost:3000/studio`. It is intentionally excluded from search indexing and does not alter the public portfolio routes.
+
+Before signing in, add `http://localhost:3000` under **Sanity Manage → Settings → API settings → CORS Origins** and enable **Allow credentials**. Add the future `https://<worker>.<account-subdomain>.workers.dev` origin with credentials before using the deployed Studio. Never add a token to a `NEXT_PUBLIC_*` variable.
+
 ## Deployment boundary
 
 The runtime target is Cloudflare Workers Free. `vinext` is currently beta and was selected by the current Cloudflare Next.js Workers guidance; its compatibility report is recorded in [ADR 003](docs/project/adr/003-cloudflare-runtime-adapter.md). Do not deploy until the Cloudflare account, Sanity project, Vimeo domains, CSP, cache/revalidation behavior, and release-readiness evidence are configured and reviewed.
