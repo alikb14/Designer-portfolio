@@ -156,6 +156,22 @@ button:focus-visible {
   visibility: hidden;
 }
 
+.typewriter-period {
+  animation: typewriter-period-blink 1s steps(2, start) infinite;
+}
+
+@keyframes typewriter-period-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
 .site-shell {
   margin-inline: auto;
   min-height: 100vh;
@@ -164,7 +180,7 @@ button:focus-visible {
 }
 
 .play-shell {
-  overflow: clip;
+  overflow: visible;
 }
 
 .site-header {
@@ -239,7 +255,7 @@ button:focus-visible {
   letter-spacing: -0.055em;
   line-height: 1.25;
   margin: 0;
-  max-width: 26ch;
+  max-width: 38ch;
   position: relative;
   z-index: 3;
 }
@@ -428,7 +444,6 @@ button:focus-visible {
 .play-page {
   display: flex;
   flex-direction: column;
-  margin-block-end: clamp(4.5rem, 8vh, 6rem);
   min-height: calc(100dvh - 5.5rem);
   padding-block: clamp(2.5rem, 5vh, 4rem) clamp(0.5rem, 1.25vh, 1rem);
 }
@@ -607,7 +622,7 @@ button:focus-visible {
   margin: 0;
   max-height: none;
   opacity: 0;
-  overflow: visible;
+  overflow: clip;
   padding: 0.75rem;
   pointer-events: none;
   position: absolute;
@@ -640,7 +655,8 @@ button:focus-visible {
 }
 
 .about-copy p {
-  margin: 0 0 1.8rem;
+  margin: 0;
+  white-space: pre-wrap;
 }
 
 @media (min-width: 681px) {

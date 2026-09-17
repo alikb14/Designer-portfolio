@@ -153,7 +153,7 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
     (artBounds?.x ?? 0) + (artBounds?.width ?? 0) / 2,
     (artBounds?.y ?? 0) + (artBounds?.height ?? 0) / 2,
   );
-  await page.waitForTimeout(120);
+  await page.waitForTimeout(220);
   const partialText = await liveCopy.textContent();
   expect(partialText?.length).toBeGreaterThan(0);
   await expect(firstCard).toHaveCSS("transform", /matrix\(1\.022/);
@@ -177,7 +177,7 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
     (restartedArtBounds?.x ?? 0) + (restartedArtBounds?.width ?? 0) / 2,
     (restartedArtBounds?.y ?? 0) + (restartedArtBounds?.height ?? 0) / 2,
   );
-  await page.waitForTimeout(120);
+  await page.waitForTimeout(220);
   const restartedText = await liveCopy.textContent();
   expect(restartedText?.length).toBeGreaterThan(0);
   expect(restartedText?.length).toBeLessThan(

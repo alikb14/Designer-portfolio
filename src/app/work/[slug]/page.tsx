@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { TypewriterText } from "@/components/motion/TypewriterText";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { getWorkProject, workProjects } from "@/lib/content/projects";
 
@@ -24,7 +25,9 @@ export default async function WorkDetailPage({ params }: ProjectPageProps) {
     <div className="site-shell">
       <SiteHeader />
       <main className="project-page">
-        <h1>{project.title}</h1>
+        <h1>
+          <TypewriterText blinkPeriod text={project.title} />
+        </h1>
         <video
           className="project-video"
           controls

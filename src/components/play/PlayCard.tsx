@@ -14,9 +14,7 @@ export function PlayCard({ index }: { index: number }) {
       onPointerLeave={() => setExpanded(false)}
       tabIndex={0}
     >
-      <h2>
-        <TypewriterText delayMs={700 + (index - 1) * 100} text="Project Name" />
-      </h2>
+      <h2>Project Name</h2>
       <div aria-hidden="true" className={`play-art play-art-${index}`}>
         <span />
       </div>

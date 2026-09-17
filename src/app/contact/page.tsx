@@ -10,7 +10,7 @@ export default function ContactPage() {
       <SiteHeader />
       <main className="contact-page">
         <h1>
-          <TypewriterText text="Let's make something move." />
+          <TypewriterText blinkPeriod text="Let's make something move" />
         </h1>
         <p>
           <TypewriterText text="Contact links will appear here as soon as the final email and social profiles are supplied." />

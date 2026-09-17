@@ -12,8 +12,8 @@ export default function WorkPage() {
       <main className="work-page">
         <h1 className="sr-only">Selected work</h1>
         <div className="work-grid">
-          {workProjects.map((project, index) => (
-            <WorkCard index={index} key={project.slug} project={project} />
+          {workProjects.map((project) => (
+            <WorkCard key={project.slug} project={project} />
           ))}
         </div>
       </main>

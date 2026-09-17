@@ -13,6 +13,7 @@ export default function HomePage() {
       <main className="home-main" id="main-content">
         <h1>
           <TypewriterText
+            blinkPeriod
             text={"Hi I'm Yaad a 2D Motion Designer\nfrom planet Earth"}
           />
         </h1>

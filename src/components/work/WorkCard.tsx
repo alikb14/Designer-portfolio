@@ -2,16 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { TypewriterText } from "@/components/motion/TypewriterText";
 import type { WorkProject } from "@/lib/content/projects";
 
-export function WorkCard({
-  index,
-  project,
-}: {
-  index: number;
-  project: WorkProject;
-}) {
+export function WorkCard({ project }: { project: WorkProject }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [finePointer, setFinePointer] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -63,9 +56,7 @@ export function WorkCard({
             src={project.preview}
           />
         </span>
-        <span className="work-title">
-          <TypewriterText delayMs={700 + index * 100} text={project.title} />
-        </span>
+        <span className="work-title">{project.title}</span>
       </Link>
       <button
         aria-pressed={playing}
