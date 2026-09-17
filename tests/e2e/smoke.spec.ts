@@ -131,6 +131,9 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
   await page.goto("/play");
   const firstCard = page.locator(".play-card").first();
   const liveCopy = firstCard.locator(".play-description .typewriter-text-live");
+  await expect(firstCard).toHaveCSS("animation-name", "play-card-enter");
+  await expect(firstCard).toHaveCSS("animation-delay", "0.7s");
+  await page.waitForTimeout(900);
 
   await page.evaluate(() => window.scrollTo(0, 160));
   const scrollPositionBeforeHover = await page.evaluate(() => window.scrollY);
@@ -147,7 +150,10 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
   await page.waitForTimeout(120);
   const partialText = await liveCopy.textContent();
   expect(partialText?.length).toBeGreaterThan(0);
-  await expect(firstCard.locator(".play-art")).toHaveCSS("transform", /matrix/);
+  await expect(firstCard.locator(".play-art")).toHaveCSS(
+    "transform",
+    /matrix\(1\.022/,
+  );
   await expect
     .poll(() => page.evaluate(() => window.scrollY))
     .toBe(scrollPositionBeforeHover);
