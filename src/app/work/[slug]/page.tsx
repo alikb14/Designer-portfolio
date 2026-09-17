@@ -26,7 +26,7 @@ export default async function WorkDetailPage({ params }: ProjectPageProps) {
       <SiteHeader />
       <main className="project-page">
         <h1>
-          <TypewriterText blinkPeriod text={project.title} />
+          <TypewriterText blinkPeriod delayMs={0} text={project.title} />
         </h1>
         <video
           className="project-video"

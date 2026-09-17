@@ -142,7 +142,7 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
   const liveCopy = firstCard.locator(".play-description .typewriter-text-live");
   await expect(firstCard).toHaveCSS("animation-name", "play-card-enter");
   await expect(firstCard).toHaveCSS("animation-delay", "0.7s");
-  await page.waitForTimeout(900);
+  await page.waitForTimeout(1_500);
 
   await page.evaluate(() => window.scrollTo(0, 160));
   const scrollPositionBeforeHover = await page.evaluate(() => window.scrollY);
@@ -204,7 +204,7 @@ test("page copy types after navigation and Work cards enter smoothly", async ({
   const contactCopy = page
     .locator(".contact-page .typewriter-text-live")
     .first();
-  await page.waitForTimeout(1_050);
+  await page.waitForTimeout(450);
   const partialCopy = await contactCopy.textContent();
   expect(partialCopy?.length).toBeGreaterThan(0);
   expect(partialCopy?.length).toBeLessThan("Let's make something move.".length);

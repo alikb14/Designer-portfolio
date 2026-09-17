@@ -13,6 +13,7 @@ export default function PlayPage() {
         <h1>
           <TypewriterText
             blinkPeriod
+            delayMs={0}
             text="You can download my project files here for free"
           />
         </h1>
