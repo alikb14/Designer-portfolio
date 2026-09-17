@@ -1,9 +1,11 @@
 export type EarthQuality = "high" | "low" | "medium";
 
 export const gridResolutionByQuality: Record<EarthQuality, number> = {
-  high: 84,
-  low: 54,
-  medium: 70,
+  // One tighter grid step keeps the same globe silhouette while bringing
+  // neighboring characters roughly 10% closer together at every quality.
+  high: 93,
+  low: 60,
+  medium: 78,
 };
 
 export type EarthGridPoint = Readonly<{
