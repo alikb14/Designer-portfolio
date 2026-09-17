@@ -294,7 +294,16 @@ button:focus-visible {
   text-decoration: none;
   width: min(63vw, 60rem);
   z-index: 4;
+  overflow: hidden;
   animation: reel-enter 680ms cubic-bezier(0.22, 0.8, 0.25, 1) 260ms both;
+}
+
+.home-reel iframe {
+  border: 0;
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
 }
 
 @keyframes reel-enter {

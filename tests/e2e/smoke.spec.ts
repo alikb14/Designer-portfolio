@@ -11,6 +11,10 @@ test("portfolio home and health endpoint are reachable", async ({
   await expect(
     page.getByRole("img", { name: /two-dimensional ascii earth/i }),
   ).toBeVisible();
+  await expect(page.locator(".home-reel iframe")).toHaveAttribute(
+    "src",
+    "https://player.vimeo.com/video/1227330980?badge=0&autopause=0&player_id=0&app_id=58479",
+  );
 
   const health = await request.get("/api/health");
   await expect(health).toBeOK();
