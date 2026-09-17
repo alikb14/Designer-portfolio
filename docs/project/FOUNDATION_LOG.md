@@ -21,6 +21,7 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - On 2026-09-17, the owner accepted the current Home/Earth, Work, Play, and Vimeo Reel visual state as the baseline for the next Foundation step.
 - Restricted embedded frames through the response Content Security Policy to the application itself and Vimeo's official player origin.
 - On 2026-09-17, the owner selected Cloudflare's free `workers.dev` subdomain for the initial release, confirmed IBM Plex Mono as the final font, deferred Vimeo-domain allowlisting until a production domain exists, and deferred replacing local Work media with Vimeo links until the media is ready.
+- The local `.env.local` was validated on 2026-09-17 without printing or tracking its values: all required public/server variables were present and non-placeholder, no credential-like value used a public prefix, and a native production build loaded the file successfully.
 
 ## Verified locally
 
