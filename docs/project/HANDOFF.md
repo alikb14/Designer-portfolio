@@ -53,7 +53,7 @@ Next actionable stage: `foundation`
 - Repository, locked toolchain, CI, baseline security/configuration, native and Cloudflare-adapter builds, and local interaction tests are established.
 - The owner accepted the current Home/Earth, Work, Play, and Vimeo Reel visual baseline on 2026-09-17.
 - Automated Chromium coverage now verifies the no-Canvas Earth fallback, Vimeo frame-origin policy, and no horizontal overflow across six primary routes at 320, 375, 768, 1024, 1440, and 1920 px; 18 E2E tests pass.
-- Foundation remains in progress. Physical desktop/mobile interaction evidence and real Cloudflare, Sanity, and production Vimeo configuration are still required; no deployment or production-readiness claim is made.
+- Foundation remains in progress. The owner selected the free Cloudflare `workers.dev` subdomain, confirmed IBM Plex Mono, and deferred Vimeo-domain allowlisting and final Vimeo media links. Physical desktop/mobile interaction evidence and real Cloudflare/Sanity configuration are still required; no deployment or production-readiness claim is made.
 
 ## Resume protocol
 
@@ -65,4 +65,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Collect the owner's public Sanity project/dataset values, production or preview site domain, final font confirmation, and media inventory decisions without placing secrets in chat or Git; then configure the non-secret environment boundary and complete one representative physical-mobile interaction check before evaluating the Foundation gate.
+Create the Sanity project under the portfolio owner's account, record its public project/dataset values, configure the free Cloudflare `workers.dev` identity without committing secrets, and complete one representative physical-mobile interaction check before evaluating the Foundation gate.

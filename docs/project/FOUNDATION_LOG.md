@@ -20,6 +20,7 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - Play now uses one left-to-right `play-grid-enter` reveal layer on the grid, starting at 700ms while visible h1 typing starts immediately. The reveal layer owns the clip path, leaving each card's title, Download control, and reserved hover description unclipped and available throughout the interaction. Work-card titles and static Play-card names remain plain text; Play hover descriptions and project-detail names retain typing. The owner explicitly chose to keep all portfolio motion enabled when the operating system reports reduced motion; the CSS override and Typewriter/Earth runtime branches no longer suppress animation in that state.
 - On 2026-09-17, the owner accepted the current Home/Earth, Work, Play, and Vimeo Reel visual state as the baseline for the next Foundation step.
 - Restricted embedded frames through the response Content Security Policy to the application itself and Vimeo's official player origin.
+- On 2026-09-17, the owner selected Cloudflare's free `workers.dev` subdomain for the initial release, confirmed IBM Plex Mono as the final font, deferred Vimeo-domain allowlisting until a production domain exists, and deferred replacing local Work media with Vimeo links until the media is ready.
 
 ## Verified locally
 
@@ -50,5 +51,5 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 ## Required next gate evidence
 
 1. Record measured Earth interaction quality on representative physical desktop and mobile hardware. Automated browser coverage now includes the approved motion policy, no-canvas fallback, and the complete viewport-width matrix.
-2. Obtain owner decisions for Cloudflare account configuration, Sanity project/dataset and token setup, Vimeo domains, final font family confirmation, and media inventory ingestion.
+2. Obtain the Sanity project/dataset and token setup, create the owner's initial `workers.dev` deployment identity, and complete the deferred Vimeo media inventory when final links are available.
 3. Update lifecycle evidence and handoff; only then evaluate Foundation as passed.
