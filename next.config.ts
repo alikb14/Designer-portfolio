@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   allowedDevOrigins: ["127.0.0.1"],
+  images: {
+    remotePatterns: [
+      {
+        hostname: "cdn.sanity.io",
+        pathname: "/images/**",
+        protocol: "https",
+      },
+    ],
+  },
   turbopack: {
     root: projectRoot,
   },

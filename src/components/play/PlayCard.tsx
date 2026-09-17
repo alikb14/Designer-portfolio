@@ -1,26 +1,49 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { TypewriterText } from "@/components/motion/TypewriterText";
+import type { PublishedPlayItem } from "@/sanity/lib/play-content";
 
-export function PlayCard({ index }: { index: number }) {
+type PlayCardProps = {
+  index: number;
+  item: PublishedPlayItem;
+};
+
+export function PlayCard({ index, item }: PlayCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <article
-      aria-label={`Project ${index}`}
+      aria-label={item.title}
       className={expanded ? "play-card is-active" : "play-card"}
       onPointerEnter={() => setExpanded(true)}
       onPointerLeave={() => setExpanded(false)}
       tabIndex={0}
     >
-      <h2>Project Name</h2>
-      <div aria-hidden="true" className={`play-art play-art-${index}`}>
-        <span />
+      <h2>{item.title}</h2>
+      <div className={`play-art play-art-${index}`}>
+        {item.artworkUrl ? (
+          <Image
+            alt={item.artworkAlt ?? ""}
+            fill
+            sizes="(max-width: 680px) 100vw, (max-width: 900px) 50vw, 33vw"
+            src={item.artworkUrl}
+            unoptimized
+          />
+        ) : (
+          <span aria-hidden="true" />
+        )}
       </div>
-      <button className="download-bar" disabled type="button">
-        DOWNLOAD
-      </button>
+      {item.downloadUrl ? (
+        <a className="download-bar" download href={item.downloadUrl}>
+          DOWNLOAD
+        </a>
+      ) : (
+        <button className="download-bar" disabled type="button">
+          DOWNLOAD
+        </button>
+      )}
       <button
         aria-expanded={expanded}
         className="play-details-toggle"
@@ -34,9 +57,10 @@ export function PlayCard({ index }: { index: number }) {
           active={expanded}
           delayMs={40}
           key={expanded ? "expanded" : "collapsed"}
-          text="Project file and description will be published here when the final downloadable asset is ready."
+          text={item.description}
         />
       </p>
+      {item.licenseNote ? <small>{item.licenseNote}</small> : null}
     </article>
   );
 }

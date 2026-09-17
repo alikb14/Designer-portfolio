@@ -53,8 +53,9 @@ Next actionable stage: `foundation`
 - Repository, locked toolchain, CI, baseline security/configuration, native and Cloudflare-adapter builds, and local interaction tests are established.
 - The owner accepted the current Home/Earth, Work, Play, and Vimeo Reel visual baseline on 2026-09-17.
 - Automated Chromium coverage now verifies the no-Canvas Earth fallback, Vimeo frame-origin policy, and no horizontal overflow across six primary routes at 320, 375, 768, 1024, 1440, and 1920 px; 18 E2E tests pass.
-- The official `next-sanity` integration now provides a noindex embedded `/studio` route, validated constrained schemas, and a public-only client. Both Sanity datasets are reachable; interactive Studio login awaits a CORS credential-origin entry for `http://localhost:3000`.
-- Foundation remains in progress. The owner selected the free Cloudflare `workers.dev` subdomain, confirmed IBM Plex Mono, and deferred Vimeo-domain allowlisting and final Vimeo media links. Physical desktop/mobile interaction evidence and real Cloudflare/Sanity configuration are still required; no deployment or production-readiness claim is made.
+- The official `next-sanity` integration now provides a noindex embedded `/studio` route, validated constrained schemas, and a public-only client. Both Sanity datasets are reachable; CORS credential origins for local development and `https://design-portfolio.yaadworld.workers.dev` were verified in a real browser.
+- Published Play records now render from Sanity with controlled asset URLs, preserving the accepted reveal, hover, and typewriter interactions. Chromium confirmed the owner-published test item and artwork render with no console errors.
+- Foundation remains in progress. The owner selected the free Cloudflare `workers.dev` subdomain, confirmed IBM Plex Mono, and deferred Vimeo-domain allowlisting and final Vimeo media links. Physical desktop/mobile interaction evidence and real Cloudflare deployment configuration are still required; no deployment or production-readiness claim is made.
 
 ## Resume protocol
 
@@ -66,4 +67,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Add `http://localhost:3000` with credentials under Sanity Manage → Settings → API settings → CORS Origins; then sign in at `/studio` and report whether the owner can create a draft before configuring the free Cloudflare `workers.dev` identity.
+Implement the next public CMS slice using published-only reads (Home, Work, About, or Contact), then retain draft preview and signed webhook/revalidation as separate server-side slices.

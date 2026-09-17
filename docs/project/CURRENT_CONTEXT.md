@@ -1,6 +1,6 @@
 # Yaad Motion Portfolio — Current Engineering Context
 
-Generated: 2026-09-16T11:34:24+00:00
+Generated: 2026-09-17T20:58:15+00:00
 Delivery class: `production`
 Project type: `generic`
 Active stage: `foundation`
@@ -15,7 +15,7 @@ Next actionable stage: `foundation`
 | `architecture` | `passed` | human | docs\project\ARCHITECTURE.md<br>docs\project\CONTENT_MODEL.md<br>docs\project\adr\001-cms-and-media-platform.md<br>docs\project\adr\002-earth-renderer.md<br>docs\project\REVIEW_FINDINGS.md<br>docs\project\OWNER_DECISION_PACKET.md |
 | `experience-design` | `passed` | human | docs\project\EXPERIENCE_DESIGN.md<br>docs\project\REFERENCE_ANALYSIS.md<br>docs\project\DESIGN.md<br>docs\project\CMS_FLOW_SPEC.md<br>docs\project\INTERACTION_STATE_MATRIX.md |
 | `delivery-plan` | `passed` | human | docs\project\DELIVERY_PLAN.md |
-| `foundation` | `in_progress` | imported | docs\project\FOUNDATION_LOG.md<br>docs\project\adr\003-cloudflare-runtime-adapter.md |
+| `foundation` | `in_progress` | local | docs\project\FOUNDATION_LOG.md<br>docs\project\adr\003-cloudflare-runtime-adapter.md<br>docs\project\FOUNDATION_LOG.md |
 | `implementation` | `not_started` | local | — |
 | `verification` | `not_started` | local | — |
 | `release-readiness` | `not_started` | local | — |
@@ -58,4 +58,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Obtain owner visual acceptance of the corrected Earth motion, Home fold spacing, Work/Play hover treatments, and documented CMS poster-frame workflow; then complete representative physical-device and no-canvas checks before evaluating the Foundation gate.
+<!-- Add the smallest concrete next action before handoff. -->

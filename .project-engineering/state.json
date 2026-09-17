@@ -4,7 +4,7 @@
   "delivery_class": "production",
   "project_type": "generic",
   "created_at": "2026-09-15T19:51:59+00:00",
-  "updated_at": "2026-09-17T14:22:48+00:00",
+  "updated_at": "2026-09-17T20:58:15+00:00",
   "active_stage": "foundation",
   "stages": {
     "ideation": {
@@ -207,7 +207,7 @@
     },
     "foundation": {
       "status": "in_progress",
-      "source": "imported",
+      "source": "local",
       "evidence": [
         {
           "kind": "file",
@@ -220,11 +220,17 @@
           "location": "docs\\project\\adr\\003-cloudflare-runtime-adapter.md",
           "added_at": "2026-09-16T11:34:24+00:00",
           "note": "Cloudflare adapter decision and compatibility boundary."
+        },
+        {
+          "kind": "file",
+          "location": "docs\\project\\FOUNDATION_LOG.md",
+          "added_at": "2026-09-17T20:58:15+00:00",
+          "note": "2026-09-17 Play CMS slice: owner CORS configuration and published-item browser evidence; public Play now renders validated published Sanity data."
         }
       ],
       "notes": [],
       "waiver": null,
-      "updated_at": "2026-09-16T11:34:24+00:00"
+      "updated_at": "2026-09-17T20:58:15+00:00"
     },
     "implementation": {
       "status": "not_started",
@@ -562,6 +568,22 @@
       "at": "2026-09-17T14:22:48+00:00",
       "action": "handoff",
       "output": "docs\\project\\HANDOFF.md"
+    },
+    {
+      "at": "2026-09-17T20:58:15+00:00",
+      "action": "attach",
+      "stage": "foundation",
+      "evidence": {
+        "kind": "file",
+        "location": "docs\\project\\FOUNDATION_LOG.md",
+        "added_at": "2026-09-17T20:58:15+00:00",
+        "note": "2026-09-17 Play CMS slice: owner CORS configuration and published-item browser evidence; public Play now renders validated published Sanity data."
+      }
+    },
+    {
+      "at": "2026-09-17T20:58:15+00:00",
+      "action": "handoff",
+      "output": "docs\\project\\CURRENT_CONTEXT.md"
     }
   ]
 }

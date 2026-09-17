@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import { TypewriterText } from "@/components/motion/TypewriterText";
 import { PlayCard } from "@/components/play/PlayCard";
 import { SiteHeader } from "@/components/site/SiteHeader";
+import { getPublishedPlayItems } from "@/sanity/lib/play";
 
 export const metadata: Metadata = { title: "Play" };
 
-export default function PlayPage() {
+export default async function PlayPage() {
+  const playItems = await getPublishedPlayItems();
+
   return (
     <div className="site-shell play-shell">
       <SiteHeader />
@@ -18,8 +21,8 @@ export default function PlayPage() {
           />
         </h1>
         <div className="play-grid">
-          {[1, 2, 3].map((index) => (
-            <PlayCard index={index} key={index} />
+          {playItems.map((item, index) => (
+            <PlayCard index={index + 1} item={item} key={item.id} />
           ))}
         </div>
       </main>
