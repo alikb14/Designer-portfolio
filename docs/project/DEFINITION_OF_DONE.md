@@ -7,7 +7,7 @@ A change is done only when all applicable conditions are satisfied or explicitly
 - Public behavior and its CMS edit/publish path are completed together for content-driven slices.
 - Hover behavior has keyboard/touch equivalents; reduced-motion and no-canvas fallbacks are covered.
 - Videos are poster-backed, lazy/visibility-aware, correctly delivered, and do not all preload.
-- Earth frame time, cleanup, visibility pause, adaptive quality, and context-loss recovery meet approved targets.
+- Earth frame time, cleanup, visibility pause, stable visual density, and context-loss recovery meet approved targets.
 - Drafts/unpublished content cannot leak; every mutation is provider/server authorized.
 - Uploads, URLs, slugs, rich text, webhooks, downloads, and optional Contact input are validated.
 - Loading, empty, error, permission, processing, degraded, recovery, and not-found states are complete.

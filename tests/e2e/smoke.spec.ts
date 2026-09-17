@@ -22,7 +22,61 @@ test("portfolio home and health endpoint are reachable", async ({
     service: "yaad-motion-portfolio",
     status: "ok",
   });
+
+  const homeResponse = await request.get("/");
+  expect(homeResponse.headers()["content-security-policy"]).toContain(
+    "frame-src 'self' https://player.vimeo.com",
+  );
 });
+
+test("Home provides a static Earth fallback when Canvas is unavailable", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    HTMLCanvasElement.prototype.getContext = () => null;
+  });
+  await page.goto("/");
+
+  await expect(page.getByTestId("earth-status")).toHaveText(
+    "Static Earth fallback",
+  );
+  await expect(page.locator(".earth-fallback").first()).toBeVisible();
+});
+
+for (const viewport of [
+  { height: 568, width: 320 },
+  { height: 667, width: 375 },
+  { height: 1024, width: 768 },
+  { height: 768, width: 1024 },
+  { height: 900, width: 1440 },
+  { height: 1080, width: 1920 },
+]) {
+  test(`primary routes avoid horizontal overflow at ${viewport.width}x${viewport.height}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+
+    for (const route of [
+      "/",
+      "/work",
+      "/play",
+      "/about",
+      "/contact",
+      "/work/project-01",
+    ]) {
+      await page.goto(route);
+      await expect
+        .poll(() =>
+          page.evaluate(
+            () =>
+              document.documentElement.scrollWidth <=
+              document.documentElement.clientWidth,
+          ),
+        )
+        .toBe(true);
+    }
+  });
+}
 
 test("primary portfolio routes match the approved information architecture", async ({
   page,
