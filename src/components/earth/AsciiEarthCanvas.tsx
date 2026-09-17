@@ -6,8 +6,6 @@ import {
   gridResolutionByQuality,
   isLand,
   selectLandGlyph,
-  selectQuality,
-  type EarthQuality,
 } from "@/components/earth/sphere";
 
 type PointerState = {
@@ -85,8 +83,11 @@ export function AsciiEarthCanvas() {
       x: 0,
       y: 0,
     };
-    let quality: EarthQuality = "high";
-    let points = createAsciiGrid(gridResolutionByQuality[quality]);
+    // Keep the visual density stable after the initial render. Changing the
+    // point grid in response to frame timing makes the globe visibly spread
+    // apart a moment after loading, so performance adaptation stays out of
+    // this reference-critical visual.
+    const points = createAsciiGrid(gridResolutionByQuality.high);
     let width = 1;
     let height = 1;
     let visible = true;
@@ -94,8 +95,6 @@ export function AsciiEarthCanvas() {
     let previousTime = performance.now();
     const startedAt = previousTime;
     let rotation = -18;
-    let frameTotal = 0;
-    let frameCount = 0;
 
     const resize = () => {
       const bounds = wrap.getBoundingClientRect();
@@ -197,20 +196,6 @@ export function AsciiEarthCanvas() {
           centerX + x * radius,
           centerY + y * radius,
         );
-      }
-
-      frameTotal += frameMs;
-      frameCount += 1;
-
-      if (frameCount >= 90) {
-        const nextQuality = selectQuality(quality, frameTotal / frameCount);
-        if (nextQuality !== quality) {
-          quality = nextQuality;
-          points = createAsciiGrid(gridResolutionByQuality[quality]);
-          setStatus(`2D Earth · ${quality} detail`);
-        }
-        frameTotal = 0;
-        frameCount = 0;
       }
 
       if (visible && !document.hidden) {
