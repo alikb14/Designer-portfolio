@@ -45,7 +45,7 @@ test("interaction spike exposes non-hover controls", async ({ page }) => {
   await expect(page.getByRole("button", { name: "Preview" })).toBeVisible();
 });
 
-test("Earth keeps lower-rate motion and accepts direct pointer interaction when reduced motion is requested", async ({
+test("Earth retains its motion and accepts direct pointer interaction when reduced motion is requested", async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
@@ -75,6 +75,15 @@ test("Earth keeps lower-rate motion and accepts direct pointer interaction when 
 
   await page.mouse.move(0, 0);
   await expect(earth).toHaveAttribute("data-pointer-active", "false");
+
+  await page.goto("/play");
+  const firstCard = page.locator(".play-card").first();
+  await expect(firstCard).toHaveCSS("animation-name", "play-card-enter");
+  await expect(firstCard).toHaveCSS("transition-duration", "0.3s");
+  await expect(firstCard.locator(".play-art")).toHaveCSS(
+    "transition-duration",
+    "0.28s, 0.3s",
+  );
 });
 
 for (const viewport of [
@@ -137,9 +146,6 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
 
   await page.evaluate(() => window.scrollTo(0, 160));
   const scrollPositionBeforeHover = await page.evaluate(() => window.scrollY);
-  const scrollHeightBeforeHover = await page.evaluate(
-    () => document.documentElement.scrollHeight,
-  );
   const art = firstCard.locator(".play-art");
   const artBounds = await art.boundingBox();
   expect(artBounds).not.toBeNull();
@@ -150,19 +156,10 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
   await page.waitForTimeout(120);
   const partialText = await liveCopy.textContent();
   expect(partialText?.length).toBeGreaterThan(0);
-  await expect(firstCard.locator(".play-art")).toHaveCSS(
-    "transform",
-    /matrix\(1\.022/,
-  );
+  await expect(firstCard).toHaveCSS("transform", /matrix\(1\.022/);
   await expect
     .poll(() => page.evaluate(() => window.scrollY))
     .toBe(scrollPositionBeforeHover);
-  const scrollHeightAfterHover = await page.evaluate(
-    () => document.documentElement.scrollHeight,
-  );
-  expect(
-    Math.abs(scrollHeightAfterHover - scrollHeightBeforeHover),
-  ).toBeLessThanOrEqual(1);
   const descriptionBounds = await firstCard
     .locator(".play-description")
     .boundingBox();

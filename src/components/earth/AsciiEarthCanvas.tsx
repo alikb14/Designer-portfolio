@@ -73,7 +73,6 @@ export function AsciiEarthCanvas() {
       return;
     }
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const coarsePointer = window.matchMedia("(pointer: coarse)");
     const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
     const pointer: PointerState = {
@@ -115,9 +114,8 @@ export function AsciiEarthCanvas() {
       previousTime = time;
 
       // The reference establishes a clearly readable geographic drift rather
-      // than an almost-static globe. Reduced motion keeps that orientation cue
-      // at a lower rate without disabling the pointer-driven render loop.
-      rotation -= frameMs * (reducedMotion.matches ? 0.0048 : 0.0095);
+      // than an almost-static globe.
+      rotation -= frameMs * 0.0095;
 
       const pointerTarget = pointer.active && !coarsePointer.matches ? 1 : 0;
       const seconds = frameMs / 1_000;
@@ -152,10 +150,7 @@ export function AsciiEarthCanvas() {
         (!document.documentElement.dataset.theme && systemDark.matches);
       const ink = dark ? "245, 245, 242" : "13, 13, 12";
       const revealElapsed = time - startedAt;
-      const revealProgress = clamp(
-        revealElapsed /
-          (reducedMotion.matches ? revealDurationMs * 0.52 : revealDurationMs),
-      );
+      const revealProgress = clamp(revealElapsed / revealDurationMs);
 
       context.font = `${fontSize}px "IBM Plex Mono", monospace`;
       context.textAlign = "center";
@@ -254,7 +249,6 @@ export function AsciiEarthCanvas() {
       if (!document.hidden && visible) renderOnce();
     };
 
-    const handleMotionChange = () => renderOnce();
     const handleThemeChange = () => renderOnce();
 
     const observer = new IntersectionObserver(([entry]) => {
@@ -274,11 +268,8 @@ export function AsciiEarthCanvas() {
     wrap.addEventListener("pointerleave", handlePointerLeave);
     document.addEventListener("visibilitychange", handleVisibility);
     window.addEventListener("themechange", handleThemeChange);
-    reducedMotion.addEventListener("change", handleMotionChange);
     systemDark.addEventListener("change", handleThemeChange);
-    setStatus(
-      `2D Earth · high detail${reducedMotion.matches ? " · gentle motion" : ""}`,
-    );
+    setStatus("2D Earth · high detail");
     renderOnce();
 
     return () => {
@@ -289,7 +280,6 @@ export function AsciiEarthCanvas() {
       wrap.removeEventListener("pointerleave", handlePointerLeave);
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("themechange", handleThemeChange);
-      reducedMotion.removeEventListener("change", handleMotionChange);
       systemDark.removeEventListener("change", handleThemeChange);
     };
   }, []);
