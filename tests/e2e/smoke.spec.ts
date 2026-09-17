@@ -201,7 +201,7 @@ test("page copy types after navigation and Work cards enter smoothly", async ({
   const contactCopy = page
     .locator(".contact-page .typewriter-text-live")
     .first();
-  await page.waitForTimeout(850);
+  await page.waitForTimeout(1_050);
   const partialCopy = await contactCopy.textContent();
   expect(partialCopy?.length).toBeGreaterThan(0);
   expect(partialCopy?.length).toBeLessThan("Let's make something move.".length);
