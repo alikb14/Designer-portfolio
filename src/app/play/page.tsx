@@ -11,7 +11,10 @@ export default function PlayPage() {
       <SiteHeader />
       <main className="play-page">
         <h1>
-          <TypewriterText text="You can download my project files here for free." />
+          <TypewriterText
+            blinkPeriod
+            text="You can download my project files here for free"
+          />
         </h1>
         <div className="play-grid">
           {[1, 2, 3].map((index) => (

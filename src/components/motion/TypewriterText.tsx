@@ -5,17 +5,19 @@ import { usePathname } from "next/navigation";
 
 type TypewriterTextProps = {
   active?: boolean;
+  blinkPeriod?: boolean;
   delayMs?: number;
   text: string;
 };
 
-const minimumDurationMs = 1_600;
-const maximumDurationMs = 2_200;
-const millisecondsPerCharacter = 30;
+const minimumDurationMs = 800;
+const maximumDurationMs = 1_100;
+const millisecondsPerCharacter = 15;
 const typingDelayMs = 700;
 
 function TypewriterRun({
   active = true,
+  blinkPeriod = false,
   delayMs = typingDelayMs,
   text,
 }: TypewriterTextProps) {
@@ -46,15 +48,19 @@ function TypewriterRun({
     return () => cancelAnimationFrame(animationFrame);
   }, [active, delayMs, text]);
 
+  const accessibleText = blinkPeriod ? `${text}.` : text;
+
   return (
     <span className="typewriter-text">
       <span aria-hidden="true" className="typewriter-text-measure">
         {text}
+        {blinkPeriod ? <span className="typewriter-period">.</span> : null}
       </span>
       <span aria-hidden="true" className="typewriter-text-live">
         {active ? text.slice(0, visibleCharacters) : ""}
+        {blinkPeriod ? <span className="typewriter-period">.</span> : null}
       </span>
-      <span className="sr-only">{text}</span>
+      <span className="sr-only">{accessibleText}</span>
     </span>
   );
 }
