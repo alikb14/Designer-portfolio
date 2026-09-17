@@ -78,7 +78,15 @@ test("Earth retains its motion and accepts direct pointer interaction when reduc
 
   await page.goto("/play");
   const firstCard = page.locator(".play-card").first();
-  await expect(firstCard).toHaveCSS("animation-name", "play-card-enter");
+  await expect
+    .poll(() =>
+      page
+        .locator(".play-grid")
+        .evaluate(
+          (element) => getComputedStyle(element, "::before").animationName,
+        ),
+    )
+    .toBe("play-grid-enter");
   await expect(firstCard).toHaveCSS("transition-duration", "0.3s");
   await expect(firstCard.locator(".play-art")).toHaveCSS(
     "transition-duration",
@@ -140,8 +148,24 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
   await page.goto("/play");
   const firstCard = page.locator(".play-card").first();
   const liveCopy = firstCard.locator(".play-description .typewriter-text-live");
-  await expect(firstCard).toHaveCSS("animation-name", "play-card-enter");
-  await expect(firstCard).toHaveCSS("animation-delay", "0.7s");
+  await expect
+    .poll(() =>
+      page
+        .locator(".play-grid")
+        .evaluate(
+          (element) => getComputedStyle(element, "::before").animationName,
+        ),
+    )
+    .toBe("play-grid-enter");
+  await expect
+    .poll(() =>
+      page
+        .locator(".play-grid")
+        .evaluate(
+          (element) => getComputedStyle(element, "::before").animationDelay,
+        ),
+    )
+    .toBe("0.7s");
   await page.waitForTimeout(1_500);
 
   await page.evaluate(() => window.scrollTo(0, 160));
