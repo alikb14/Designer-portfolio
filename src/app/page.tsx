@@ -14,6 +14,7 @@ export default function HomePage() {
         <h1>
           <TypewriterText
             blinkPeriod
+            delayMs={0}
             text={"Hi I'm Yaad a 2D Motion Designer\nfrom planet Earth"}
           />
         </h1>
