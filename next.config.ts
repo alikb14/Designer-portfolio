@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: `base-uri 'self'; form-action 'self'; frame-ancestors ${frameAncestors}; object-src 'none'`,
+            value: `base-uri 'self'; form-action 'self'; frame-ancestors ${frameAncestors}; frame-src 'self' https://player.vimeo.com; object-src 'none'`,
           },
           { key: "X-Content-Type-Options", value: "nosniff" },
           {

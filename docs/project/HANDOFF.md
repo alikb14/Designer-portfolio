@@ -1,6 +1,6 @@
 # Yaad Motion Portfolio — Current Engineering Context
 
-Generated: 2026-09-16
+Generated: 2026-09-17T14:22:48+00:00
 Delivery class: `production`
 Project type: `generic`
 Active stage: `foundation`
@@ -51,8 +51,9 @@ Next actionable stage: `foundation`
 ### foundation
 
 - Repository, locked toolchain, CI, baseline security/configuration, native and Cloudflare-adapter builds, and local interaction tests are established.
-- Owner rejected the initial three-dimensional Earth treatment and explicitly corrected it to a flat 2D ASCII circle with local land-glyph attraction. ADR 002 and the implementation were amended accordingly.
-- Owner-requested Home, Work, Play, About, Contact, and project-detail drafts exist, but Foundation remains in progress and no production-readiness claim is made.
+- The owner accepted the current Home/Earth, Work, Play, and Vimeo Reel visual baseline on 2026-09-17.
+- Automated Chromium coverage now verifies the no-Canvas Earth fallback, Vimeo frame-origin policy, and no horizontal overflow across six primary routes at 320, 375, 768, 1024, 1440, and 1920 px; 18 E2E tests pass.
+- Foundation remains in progress. Physical desktop/mobile interaction evidence and real Cloudflare, Sanity, and production Vimeo configuration are still required; no deployment or production-readiness claim is made.
 
 ## Resume protocol
 
@@ -64,4 +65,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Obtain owner visual acceptance of the corrected Earth motion, Home fold spacing, Work/Play hover treatments, and documented CMS poster-frame workflow; then complete representative physical-device and no-canvas checks. Keep the supplied full-site and ASCII-Earth recordings as reference evidence only; use only the Project 1 and Project 2 media for Work previews.
+Collect the owner's public Sanity project/dataset values, production or preview site domain, final font confirmation, and media inventory decisions without placing secrets in chat or Git; then configure the non-secret environment boundary and complete one representative physical-mobile interaction check before evaluating the Foundation gate.

@@ -10,7 +10,8 @@ Foundation is in progress. The approved plan is kept in [`docs/project`](docs/pr
 
 - Next.js App Router foundation with TypeScript, ESLint, Prettier, Vitest, Playwright, and a small health endpoint.
 - Cloudflare Workers compatibility spike through the current `vinext` adapter and Wrangler configuration.
-- A flat, interactive ASCII Earth rendered in 2D Canvas: adaptive grid detail, local land-glyph attraction, elastic return, page-visibility and viewport pausing, reduced-motion behavior, and a no-script fallback.
+- A flat, interactive ASCII Earth rendered in 2D Canvas: stable high-detail character spacing, local land-glyph attraction, elastic return, page-visibility and viewport pausing, and Canvas/no-script fallbacks. Portfolio motion intentionally remains enabled when the operating system requests reduced motion, per the owner's visual direction.
+- A responsive Vimeo reel embed on Home, constrained by the site's Content Security Policy to Vimeo's official player origin.
 - A Work-card MP4 prototype: muted fine-pointer playback, explicit keyboard control, and no hover-only action on touch.
 - Reference-aligned Home, Work, Play, About, Contact, and two local project-detail page drafts using placeholder copy where final content was not supplied.
 - Baseline response headers, safe environment-variable boundaries, structured secret-redacting logs, and CI configuration.

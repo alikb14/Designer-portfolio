@@ -23,7 +23,7 @@ Visual drift, hover-only inaccessible content, poor mobile composition, Earth fr
 ## Unit tests
 
 - Slug generation/collision, schema validation, URL allowlist, filename normalization, publish eligibility, and content mapping.
-- Earth projection, rotation, force falloff, damping/return, adaptive quality, and reduced-motion selection.
+- Earth projection, rotation, force falloff, damping/return, stable visual density, and the owner-approved motion policy.
 
 ## Integration and contract tests
 
