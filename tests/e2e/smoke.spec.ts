@@ -11,7 +11,7 @@ test("portfolio home and health endpoint are reachable", async ({
   await expect(
     page.getByRole("img", { name: /two-dimensional ascii earth/i }),
   ).toBeVisible();
-  const developerCredit = page.getByRole("link", { name: "Ali KB" });
+  const developerCredit = page.getByRole("link", { name: "Alikb14" });
   await expect(developerCredit).toHaveAttribute(
     "href",
     "https://www.linkedin.com/in/ali-kb-141863340/",

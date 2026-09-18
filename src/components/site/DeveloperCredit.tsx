@@ -1,5 +1,5 @@
 const developerLinkedIn = "https://www.linkedin.com/in/ali-kb-141863340/";
-const developerName = "Ali KB";
+const developerName = "Alikb14";
 
 /**
  * Global developer attribution. Keep the destination here rather than in CMS
