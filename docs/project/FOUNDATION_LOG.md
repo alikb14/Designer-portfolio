@@ -26,6 +26,9 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - Verified both `development` and `production` datasets are Public and reachable with and without the server Viewer token. The owner configured CORS with credentials for `http://localhost:3000` and `https://design-portfolio.yaadworld.workers.dev`; browser inspection confirmed the local Studio loads without a CORS console error.
 - Connected the public Play route to published Sanity `playItem` records. Title, artwork, accessible alternative text, hover description, and optional controlled download file now render from Sanity; malformed/unsupported asset URLs are ignored. The existing Play layout, reveal, hover, and typewriter behavior remain intact. The user-published test item rendered successfully in Chromium with a loaded Sanity image and no console errors.
 - Connected the public Home, Work listing/detail, About, and Contact routes to published Sanity records with strict field/media normalization and local fixture fallbacks when no usable record exists. Home accepts a validated Vimeo reel URL, Work accepts Sanity poster/preview assets plus normalized detail Vimeo URLs, About joins Portable Text spans into the existing single typewriter flow, and Contact validates email plus HTTPS social links. The approved page layout and motion behavior remain code-owned; draft preview and webhook revalidation are intentionally separate later slices.
+- Added an optional CMS-controlled About page H1 for semantic/SEO use while preserving the owner-approved visible About composition. Disabled Next.js's development indicator so it cannot appear in the local portfolio viewport.
+- Published the current Cloudflare Worker release on 2026-09-18 at `https://design-portfolio.yaadworld.workers.dev` (Worker version `b357389f-7563-4053-bb3f-71037238c336`). The public `workers.dev` URL is suitable for the initial no-cost launch; it is not a custom production domain.
+- Corrected a Vinext route-matching edge case so the root Home response receives the same CSP and security headers as all other application routes.
 
 ## Verified locally
 
@@ -48,10 +51,12 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 - Browser inspection with `prefers-reduced-motion: reduce` confirmed the sub-second glyph resolve, faster geographic drift, spring-follow attraction, `pointer-active` transition, and elastic return. At 1920×918, Reel measured `y=370.8…910.8` and remained inside the initial viewport.
 - At 1920×918, Work preview playback measured `paused=false`, visible opacity, `scale(1.035)`, and no horizontal overflow. Play hover measured `grayscale(0)`, `scale(1.022)`, and no horizontal overflow.
 - The local Home route successfully loads the owner-supplied Vimeo player embed. Production Vimeo privacy/domain settings remain an external configuration gate.
+- Before publication, `npm run format:check`, `npm run lint`, `npm run typecheck`, and `npm run test` passed. Unit coverage was 7 test files / 11 tests (86.3% statements, 80.17% branches, 82.92% functions, and 86.79% lines). The Cloudflare adapter production build completed successfully; its existing RxJS optimize-import and bundle-size warnings remain non-blocking.
+- Production smoke test on 2026-09-18 returned HTTP 200 for `/`, `/work`, `/play`, `/about`, `/contact`, and `/api/health`. All six responses include `Content-Security-Policy` and `X-Content-Type-Options: nosniff`; the five pages are HTML and the health route is JSON.
 
 ## Not yet verified
 
-- Cloudflare deployment, production headers in the target runtime, Sanity preview/revalidation and poster-frame extraction workflow, production Vimeo privacy/domain configuration, physical-device interaction quality, and production observability.
+- Sanity preview/revalidation and poster-frame extraction workflow, production Vimeo privacy/domain configuration, physical-device interaction quality, and production observability.
 
 ## Constraints and decisions
 
@@ -64,5 +69,5 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 
 1. Record measured Earth interaction quality on representative physical desktop and mobile hardware. Automated browser coverage now includes the approved motion policy, no-canvas fallback, and the complete viewport-width matrix.
 2. Add signed preview/revalidation and the poster-frame extraction workflow only after their server-side contracts are implemented and tested; the four public content routes now have published-only reads.
-3. Configure the Cloudflare production variables and explicitly approve a deployment only after representative device checks and the remaining release-readiness work are complete.
+3. Run representative physical-device checks against `https://design-portfolio.yaadworld.workers.dev`, then add production observability and any release-readiness evidence required for the intended public launch.
 4. Update lifecycle evidence and handoff; only then evaluate Foundation as passed.

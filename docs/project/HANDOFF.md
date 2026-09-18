@@ -1,6 +1,6 @@
 # Yaad Motion Portfolio — Current Engineering Context
 
-Generated: 2026-09-17T14:22:48+00:00
+Generated: 2026-09-18T00:00:00+00:00
 Delivery class: `production`
 Project type: `generic`
 Active stage: `foundation`
@@ -57,7 +57,8 @@ Next actionable stage: `foundation`
 - Published Play records now render from Sanity with controlled asset URLs, preserving the accepted reveal, hover, and typewriter interactions. Chromium confirmed the owner-published test item and artwork render with no console errors.
 - Home, Work listing/detail, About, and Contact now read published Sanity records with strict URL/asset normalization and local fixture fallbacks when no usable record exists. The existing visual system and motion remain code-owned; draft preview, signed webhook revalidation, and poster-frame extraction are not yet implemented.
 - After the all-page CMS slice, formatting, lint, TypeScript, unit tests (7 files / 11 tests), native production build, Cloudflare adapter build, and 19 Chromium E2E scenarios passed. The adapter's existing RxJS optimize-import warnings are non-blocking.
-- Foundation remains in progress. The owner selected the free Cloudflare `workers.dev` subdomain, confirmed IBM Plex Mono, and deferred Vimeo-domain allowlisting and final Vimeo media links. Physical desktop/mobile interaction evidence and real Cloudflare deployment configuration are still required; no deployment or production-readiness claim is made.
+- The current Worker is published at `https://design-portfolio.yaadworld.workers.dev` (version `b357389f-7563-4053-bb3f-71037238c336`). The production smoke test returned HTTP 200 for the five public pages and `/api/health`; every tested response includes CSP and `nosniff` headers. This is a verified public Workers URL, not a production-readiness claim.
+- Foundation remains in progress. The owner selected the free Cloudflare `workers.dev` subdomain, confirmed IBM Plex Mono, and deferred Vimeo-domain allowlisting and final Vimeo media links. Physical desktop/mobile interaction evidence, Vimeo privacy configuration, preview/revalidation, and observability remain required.
 
 ## Resume protocol
 
@@ -69,4 +70,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Implement signed draft preview and webhook/revalidation as separate server-side slices, then verify poster-frame extraction and production deployment configuration.
+Run representative physical-device checks against the public Workers URL, then implement signed draft preview and webhook/revalidation as separate server-side slices.

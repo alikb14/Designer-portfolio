@@ -1,6 +1,6 @@
 # Yaad Motion Portfolio — Current Engineering Context
 
-Generated: 2026-09-17T22:59:42+00:00
+Generated: 2026-09-18T00:00:00+00:00
 Delivery class: `production`
 Project type: `generic`
 Active stage: `foundation`
@@ -52,7 +52,8 @@ Next actionable stage: `foundation`
 - Repository, locked toolchain, CI, baseline configuration, native and Cloudflare-adapter builds, and local interaction tests are established.
 - Published-only Sanity reads now power Home, Work listing/detail, Play, About, and Contact with strict asset/Vimeo/email normalization and local fixture fallbacks where applicable. Draft preview, signed webhook revalidation, and poster-frame extraction remain separate later slices.
 - Formatting, lint, TypeScript, 7 unit-test files / 11 unit tests, native production build, Cloudflare adapter build, and 19 Chromium E2E scenarios passed. The adapter's existing RxJS optimize-import warnings are non-blocking.
-- Foundation remains in progress because physical desktop/mobile evidence, production Cloudflare configuration, Vimeo privacy/domain settings, preview/revalidation, and observability are not yet verified.
+- Cloudflare Worker version `b357389f-7563-4053-bb3f-71037238c336` is published at `https://design-portfolio.yaadworld.workers.dev`. A production smoke test returned HTTP 200 for Home, Work, Play, About, Contact, and `/api/health`; all six responses included CSP and `nosniff` headers.
+- Foundation remains in progress because physical desktop/mobile evidence, Vimeo privacy/domain settings, preview/revalidation, and observability are not yet verified.
 
 ## Resume protocol
 
@@ -64,4 +65,4 @@ Next actionable stage: `foundation`
 
 ## Exact next action
 
-Implement signed draft preview and webhook/revalidation as separate server-side slices, then verify poster-frame extraction and production deployment configuration.
+Run representative physical-device checks against the public Workers URL, then implement signed draft preview and webhook/revalidation as separate server-side slices.
