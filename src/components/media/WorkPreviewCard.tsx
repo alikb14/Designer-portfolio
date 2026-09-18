@@ -1,44 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useVideoPreview } from "./useVideoPreview";
 
 export function WorkPreviewCard() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [finePointer, setFinePointer] = useState(false);
-  const [isPreviewing, setIsPreviewing] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const update = () => setFinePointer(mediaQuery.matches);
-
-    update();
-    mediaQuery.addEventListener("change", update);
-
-    return () => mediaQuery.removeEventListener("change", update);
-  }, []);
-
-  const stop = () => {
-    const video = videoRef.current;
-
-    if (!video) return;
-
-    video.pause();
-    video.currentTime = 0;
-    setIsPreviewing(false);
-  };
-
-  const start = async () => {
-    const video = videoRef.current;
-
-    if (!video) return;
-
-    try {
-      await video.play();
-      setIsPreviewing(true);
-    } catch {
-      setIsPreviewing(false);
-    }
-  };
+  const {
+    videoRef,
+    finePointer,
+    playing: isPreviewing,
+    start,
+    stop,
+  } = useVideoPreview();
 
   const toggleKeyboardPreview = () => {
     if (isPreviewing) stop();
@@ -48,6 +19,9 @@ export function WorkPreviewCard() {
   return (
     <article
       className="preview-card"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) stop();
+      }}
       onPointerEnter={() => {
         if (finePointer) void start();
       }}
@@ -66,6 +40,7 @@ export function WorkPreviewCard() {
           }
           loop
           muted
+          onError={stop}
           playsInline
           preload="none"
           ref={videoRef}

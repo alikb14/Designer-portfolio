@@ -10,4 +10,6 @@ export const sanityClient = createClient({
     enabled: false,
   },
   useCdn: true,
+  timeout: 10_000,
+  maxRetries: 1,
 });

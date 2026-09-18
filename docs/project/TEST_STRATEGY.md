@@ -1,6 +1,6 @@
 # Yaad Motion Portfolio — Test Strategy
 
-Status: **Planning baseline; exact commands belong to the later implementation repository**.
+Status: **Foundation automated baseline implemented; release and physical-device evidence remains open**.
 
 ## Quality risks
 
@@ -56,6 +56,10 @@ Visual drift, hover-only inaccessible content, poor mobile composition, Earth fr
 ## Test environments and data
 
 Local/preview nonproduction and production use separate datasets, credentials, webhooks, origins, and media environments. Use synthetic media and representative near-limit files, never private data or secrets. Approve one desktop and one mid-range mobile reference device before the spike.
+
+The checked-in browser suite starts an isolated development server on port 3100 and intercepts only the reserved `fixture1` Sanity hostname inside the test process. This makes layout, failure, and route assertions deterministic without mutating or depending on the owner's live CMS records. Live CMS and deployed-Worker smoke checks remain separate integration evidence.
+
+As of 2026-09-18, 19 unit tests cover media normalization, malformed-sibling isolation, outage fallbacks, download disposition, CSP-origin validation, Vimeo privacy hashes, logger redaction, schema guards, theme/header behavior, preview lifecycle, and Earth math. Twenty-seven Chromium scenarios cover six public routes, HTTP status/content before geometry, 320–1920 px widths, tablet portrait/landscape, multi-row Play content, keyboard/touch behavior, no-JavaScript navigation/content, theme storage denial, preview pausing, Canvas fallback, and 404 behavior.
 
 ## Manual verification
 

@@ -31,7 +31,7 @@ describe("published Play content", () => {
         artworkAlt: "A geometric project artwork",
         artworkUrl: "https://cdn.sanity.io/images/project/dataset/image.png",
         description: "A downloadable motion study.",
-        downloadUrl: "https://cdn.sanity.io/files/project/dataset/file.zip",
+        downloadUrl: "https://cdn.sanity.io/files/project/dataset/file.zip?dl=",
         id: "valid-item",
         licenseNote: undefined,
         title: "Motion study",

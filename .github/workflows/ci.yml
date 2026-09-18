@@ -12,6 +12,9 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      NEXT_PUBLIC_SANITY_PROJECT_ID: fixture1
+      NEXT_PUBLIC_SANITY_DATASET: testing
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -24,6 +27,10 @@ jobs:
       - run: npm run typecheck
       - run: npm run test
       - run: npm run build
+        env:
+          NODE_OPTIONS: --import=./test/fixtures/sanity-fetch.mjs
       - run: npm run build:vinext
+        env:
+          NODE_OPTIONS: --import=./test/fixtures/sanity-fetch.mjs
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e

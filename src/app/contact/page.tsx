@@ -27,7 +27,9 @@ export default async function ContactPage() {
         </p>
         {contact ? (
           <div className="contact-links">
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            <a href={`mailto:${encodeURIComponent(contact.email)}`}>
+              {contact.email}
+            </a>
             {contact.socialLinks.map((link) => (
               <a href={link.url} key={link.url} rel="noreferrer">
                 {link.label}

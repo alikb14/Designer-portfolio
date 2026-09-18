@@ -16,10 +16,16 @@ const playItemsQuery = `*[_type == "playItem"] | order(order asc, _createdAt asc
   licenseNote
 }`;
 
-export async function getPublishedPlayItems(): Promise<PublishedPlayItem[]> {
-  const entries = await sanityClient.fetch<
-    Parameters<typeof toPublishedPlayItems>[0]
-  >(playItemsQuery, {}, { cache: "no-store" });
+export async function getPublishedPlayItems(): Promise<
+  PublishedPlayItem[] | null
+> {
+  try {
+    const entries = await sanityClient.fetch<
+      Parameters<typeof toPublishedPlayItems>[0]
+    >(playItemsQuery, {}, { cache: "no-store" });
 
-  return toPublishedPlayItems(entries);
+    return toPublishedPlayItems(entries);
+  } catch {
+    return null;
+  }
 }

@@ -156,6 +156,24 @@ button:focus-visible {
   visibility: hidden;
 }
 
+.typewriter-text.is-static .typewriter-text-measure {
+  visibility: visible;
+}
+.typewriter-text.is-static .typewriter-text-live {
+  display: none;
+}
+
+main,
+.typewriter-text,
+.work-title,
+.play-card,
+.about-copy,
+.contact-links a,
+.project-copy {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .typewriter-period {
   animation: typewriter-period-blink 1s steps(2, start) infinite;
 }
@@ -245,6 +263,7 @@ button:focus-visible {
 
 .home-main {
   min-height: calc(100svh - 6rem);
+  padding-block-end: 2rem;
   padding-block-start: clamp(3rem, 7vh, 5.5rem);
   position: relative;
 }
@@ -290,7 +309,12 @@ button:focus-visible {
   inset-inline-start: 0;
   justify-content: center;
   max-width: 60rem;
-  position: absolute;
+  position: relative;
+  inset-block-start: auto;
+  margin-block-start: max(
+    3rem,
+    calc(clamp(14rem, 31vh, 21rem) - clamp(3rem, 7vh, 5.5rem) - 2.5em)
+  );
   text-decoration: none;
   width: min(63vw, 60rem);
   z-index: 4;
@@ -447,6 +471,7 @@ button:focus-visible {
 .play-page h1 {
   font-size: clamp(1.35rem, 2.2vw, 2.35rem);
   font-weight: 400;
+  line-height: 1.3;
   margin: 0 0 clamp(2rem, 4vh, 3.5rem);
 }
 
@@ -461,7 +486,25 @@ button:focus-visible {
   display: grid;
   gap: clamp(2rem, 3.7vw, 4.5rem);
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: auto -1rem 0;
+  --play-columns: 3;
+  --play-gap: clamp(2rem, 3.7vw, 4.5rem);
+  --play-art-size: calc(
+    (
+        100vw - 2 * clamp(1.5rem, 6vw, 7.5rem) - (var(--play-columns) - 1) *
+          var(--play-gap)
+      ) /
+      var(--play-columns)
+  );
+  margin: 0 -1rem;
+  margin-block-start: max(
+    2rem,
+    calc(
+      100svh - clamp(1.5rem, 2.2vw, 2.75rem) - 2.75rem -
+        clamp(2.5rem, 5vh, 4rem) - clamp(1.35rem, 2.2vw, 2.35rem) * 1.3 -
+        clamp(2rem, 4vh, 3.5rem) - clamp(1rem, 1.45vw, 1.45rem) * 1.4 - 0.8rem -
+        var(--play-art-size) - 2rem
+    )
+  );
   overflow: visible;
   padding: 1rem 1rem 0.5rem;
   position: relative;
@@ -475,22 +518,6 @@ button:focus-visible {
   position: absolute;
   z-index: 10;
   animation: play-grid-enter 720ms cubic-bezier(0.22, 0.8, 0.25, 1) 700ms both;
-}
-
-/* Keep the first row's artwork and actions in the reference rhythm when a
-   fourth project creates a second desktop row. */
-.play-grid:has(> .play-card:nth-child(4)) {
-  transform: translateY(clamp(6rem, 14vh, 10rem));
-}
-
-.play-grid:has(> .play-card:nth-child(4)) .download-bar {
-  inset-block-start: calc(100% + clamp(8.5rem, 12vh, 10rem));
-}
-
-.play-grid:has(> .play-card:nth-child(4)) .play-description {
-  inset-block-start: calc(
-    100% + clamp(8.5rem, 12vh, 10rem) + clamp(4.4rem, 5vw, 5rem) + 0.75rem
-  );
 }
 
 .play-card {
@@ -519,6 +546,7 @@ button:focus-visible {
 .play-card h2 {
   font-size: clamp(1rem, 1.45vw, 1.45rem);
   font-weight: 400;
+  line-height: 1.4;
   margin: 0 0 0.8rem;
   position: relative;
   transform: scale(1);
@@ -619,13 +647,12 @@ button:focus-visible {
   display: flex;
   font-size: clamp(1.05rem, 1.7vw, 1.65rem);
   min-height: 4.4rem;
-  inset-inline: 0;
-  inset-block-start: calc(100% + clamp(2.5rem, 4vh, 3rem));
+  inset: auto;
   justify-content: center;
-  margin: 0;
+  margin: clamp(2.5rem, 4vh, 3rem) 0 0;
   opacity: 1;
   padding-inline: 1rem;
-  position: absolute;
+  position: relative;
   text-align: center;
   transform: scale(1);
   transform-origin: center bottom;
@@ -654,18 +681,6 @@ button:focus-visible {
   z-index: 4;
 }
 
-@media (min-width: 681px) {
-  .play-card:nth-child(n + 4) {
-    top: clamp(6rem, 10vh, 9rem);
-  }
-}
-
-@media (min-width: 681px) and (max-width: 900px) {
-  .play-card:nth-child(n + 3) {
-    top: clamp(6rem, 10vh, 9rem);
-  }
-}
-
 .play-details-toggle {
   background: transparent;
   border: 1px solid currentColor;
@@ -677,23 +692,15 @@ button:focus-visible {
 
 .play-description {
   background: var(--soft-panel);
-  inset-block-start: calc(
-    100% + clamp(2.5rem, 4vh, 3rem) + clamp(4.4rem, 5vw, 5rem) + 0.75rem
-  );
-  inset-inline: 0;
-  height: 6rem;
-  margin: 0;
-  max-height: none;
+  min-height: 6rem;
+  margin: 0.75rem 0 0;
   opacity: 0;
-  overflow: clip;
   padding: 0.75rem;
-  pointer-events: none;
-  position: absolute;
+  position: relative;
   transition: opacity 180ms ease;
 }
 
-.play-card.is-active .play-description,
-.play-card:focus-within .play-description {
+.play-card.is-active .play-description {
   opacity: 1;
 }
 
@@ -738,9 +745,10 @@ button:focus-visible {
   }
 
   .about-media {
-    height: min(46rem, calc(100dvh - 11rem));
+    max-height: min(46rem, calc(100dvh - 11rem));
     justify-self: start;
-    width: auto;
+    width: 100%;
+    max-width: calc((100dvh - 11rem) * 0.82);
   }
 }
 
@@ -841,17 +849,19 @@ button:focus-visible {
   }
 
   .home-reel {
-    inset-block-start: 26rem;
+    inset-block-start: auto;
+    margin-block-start: 16rem;
     width: 72vw;
   }
 
   .play-grid {
+    --play-columns: 2;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .about-page {
     gap: 4rem;
-    grid-template-columns: minmax(16rem, 0.85fr) 1fr;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
   }
 }
 
@@ -881,7 +891,8 @@ button:focus-visible {
   }
 
   .home-reel {
-    inset-block-start: 36rem;
+    inset-block-start: auto;
+    margin-block-start: 24rem;
     width: calc(100vw - 2.5rem);
   }
 
@@ -904,41 +915,16 @@ button:focus-visible {
     row-gap: 2rem;
   }
 
-  .play-grid:has(> .play-card:nth-child(4)) {
-    transform: none;
-  }
-
-  .play-card:nth-child(n + 4) {
-    top: 0;
-  }
-
   .download-bar {
-    inset: auto;
     margin-block-start: 1rem;
-    position: static;
   }
 
   .play-description {
-    height: auto;
-    inset: auto;
-    max-height: 0;
-    padding-inline: 0.75rem;
-    position: static;
-    transform: none;
-    transition:
-      max-height 220ms ease,
-      opacity 180ms ease,
-      padding 220ms ease;
+    display: none;
+    min-height: 0;
   }
-
-  .play-grid:has(> .play-card:nth-child(4)) .play-description {
-    inset: auto;
-  }
-
-  .play-card.is-active .play-description,
-  .play-card:focus-within .play-description {
-    max-height: 12rem;
-    padding-block: 0.75rem;
+  .play-card.is-active .play-description {
+    display: block;
   }
 
   .work-preview-control,
@@ -1215,5 +1201,17 @@ button:focus-visible {
 
   .earth-spike-section .earth-prototype {
     order: -1;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .work-preview-control,
+  .play-details-toggle {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    position: static;
+    margin-block-start: 0.75rem;
+    width: 100%;
   }
 }

@@ -1,6 +1,6 @@
 # Yaad Motion Portfolio — Security and Threat Model
 
-Status: **Approved security planning baseline (2026-09-16)**. Provider-specific configuration and runtime controls remain unimplemented and unverified.
+Status: **Approved planning baseline with Foundation implementation evidence through 2026-09-18**. Provider account controls and release controls remain unverified.
 
 ## Assets and data classification
 
@@ -71,8 +71,12 @@ Before observability or analytics is enabled, record fields collected (including
 
 Independent security review before architecture approval and pre-release; authorization negative tests; secret/dependency scan; CSP/header validation; upload, webhook, XSS, URL, and optional Contact tests.
 
+Foundation verification on 2026-09-18 established published-only tokenless public reads, per-record runtime normalization, strict Vimeo video/hash parsing, forced Sanity CDN attachment URLs, validated CSP origin construction, unavailable-CMS recovery, and safe rejection of malformed asset/slug/URL data. A refreshed `npm audit` exposed 14 transitive Sanity CLI advisories; narrow compatible overrides upgraded `adm-zip`, `js-yaml`, `smol-toml`, and `uuid`, after which the audit reported zero known advisories. A pattern scan across all 56 reachable local commits found no private-key, GitHub-token, or AWS access-key pattern. These are point-in-time checks, not guarantees against future advisories or credentials outside Git history.
+
 Webhook verification must use the provider-documented algorithm over the raw request body, enforce timestamp tolerance, accepted event types, request-size/rate limits, idempotency/duplicate storage, bounded invalidation, failure responses, and secret rotation with negative tests.
 
 ## Accepted risks
 
 The owner explicitly accepted Sanity Free's hard caps, public datasets, Administrator-only editing role, and the Vimeo-full-video/Sanity-MP4-preview split on 2026-09-16 in exchange for a $0 site-infrastructure ceiling. This is an accepted architecture risk, not evidence that runtime controls have been verified. Sanity/Vimeo/Cloudflare availability, Vimeo privacy/branding/account limits, provider lock-in, Administrator compromise, cap exhaustion, and redistribution of public downloads remain tracked residual risks requiring implementation and release review.
+
+Before release, record and enforce Play download formats and size limits plus malware-scanning or explicit non-scanning acceptance; verify Sanity and Cloudflare account MFA/least privilege; implement and test signed preview/revalidation if those endpoints are added; verify Vimeo domain/privacy settings with final media; and decide whether the public site and embedded Studio should be separated so a stricter script/style CSP can protect public routes without breaking Studio. No production deployment or provider-setting change was made by the 2026-09-18 hardening work.

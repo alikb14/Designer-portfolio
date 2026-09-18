@@ -2,6 +2,7 @@ import { toVimeoPlayerUrl } from "@/lib/media/vimeo";
 import type { WorkProject } from "@/lib/content/projects";
 import { isSanityAssetUrl } from "@/sanity/lib/assets";
 import { sanityClient } from "@/sanity/lib/client";
+import { record, text, isWorkSlug } from "@/sanity/lib/validation";
 
 type SanityWorkProject = {
   _id: string;
@@ -33,27 +34,28 @@ export type PublishedWorkProject = WorkProject & {
   posterAlt?: string;
 };
 
-function normalizeWorkProject(
-  entry: SanityWorkProject,
+export function normalizeWorkProject(
+  value: unknown,
 ): PublishedWorkProject | null {
-  const title = entry.title?.trim();
-  const slug = entry.slug?.current?.trim();
+  const entry = record(value);
+  const title = text(entry.title);
+  const slug = text(record(entry.slug).current);
   const poster = isSanityAssetUrl(entry.posterUrl, "/images/")
     ? entry.posterUrl
     : isSanityAssetUrl(entry.previewPosterUrl, "/images/")
       ? entry.previewPosterUrl
       : undefined;
 
-  if (!title || !slug || !poster) {
+  if (!title || !isWorkSlug(slug) || !poster) {
     return null;
   }
 
   return {
     credits: [],
-    description: entry.summary?.trim() || "",
+    description: text(entry.summary) || "",
     detailVimeoUrl: toVimeoPlayerUrl(entry.detailVimeoUrl),
     poster,
-    posterAlt: entry.posterAlt?.trim() || undefined,
+    posterAlt: text(entry.posterAlt),
     preview: isSanityAssetUrl(entry.previewUrl, "/files/")
       ? entry.previewUrl
       : undefined,
@@ -71,9 +73,13 @@ export async function getPublishedWorkProjects(): Promise<
       {},
       { cache: "no-store" },
     );
+    if (!Array.isArray(entries)) return [];
+    const seen = new Set<string>();
     return entries.flatMap((entry) => {
       const project = normalizeWorkProject(entry);
-      return project ? [project] : [];
+      if (!project || seen.has(project.slug)) return [];
+      seen.add(project.slug);
+      return [project];
     });
   } catch {
     return [];

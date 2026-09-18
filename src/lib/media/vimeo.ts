@@ -7,22 +7,29 @@ export function toVimeoPlayerUrl(value: unknown): string | undefined {
     const source = new URL(value);
     if (
       source.protocol !== "https:" ||
-      (source.hostname !== "vimeo.com" &&
-        !source.hostname.endsWith(".vimeo.com"))
+      source.username ||
+      source.password ||
+      source.port ||
+      !["vimeo.com", "www.vimeo.com", "player.vimeo.com"].includes(
+        source.hostname,
+      )
     ) {
       return undefined;
     }
 
-    const id =
-      source.pathname.match(
-        /(?:^|\/)video\/(\d+)|(?:^|\/)(\d+)(?:\/|$)/,
-      )?.[1] ?? source.pathname.match(/(?:^|\/)(\d+)(?:\/|$)/)?.[1];
+    const match =
+      source.hostname === "player.vimeo.com"
+        ? source.pathname.match(/^\/video\/(\d+)\/?$/)
+        : source.pathname.match(/^\/(\d+)(?:\/([a-zA-Z0-9]+))?\/?$/);
+    const id = match?.[1];
     if (!id) {
       return undefined;
     }
 
     const player = new URL(`https://player.vimeo.com/video/${id}`);
-    const hash = source.searchParams.get("h");
+    const hash = source.searchParams.get("h") ?? match?.[2];
+    if (hash !== undefined && hash !== null && !/^[a-zA-Z0-9]+$/.test(hash))
+      return undefined;
     if (hash) {
       player.searchParams.set("h", hash);
     }

@@ -1,3 +1,4 @@
+import { record, text } from "@/sanity/lib/validation";
 import { sanityClient } from "@/sanity/lib/client";
 
 type SanityContactPage = {
@@ -23,7 +24,8 @@ function isHttpsUrl(value: unknown): value is string {
     return false;
   }
   try {
-    return new URL(value).protocol === "https:";
+    const url = new URL(value);
+    return url.protocol === "https:" && !url.username && !url.password;
   } catch {
     return false;
   }
@@ -31,26 +33,29 @@ function isHttpsUrl(value: unknown): value is string {
 
 export async function getPublishedContactPage(): Promise<PublishedContactPage | null> {
   try {
-    const entry = await sanityClient.fetch<SanityContactPage | null>(
+    const response = await sanityClient.fetch<SanityContactPage | null>(
       contactPageQuery,
       {},
       { cache: "no-store" },
     );
-    if (!entry) {
+    if (!response) {
       return null;
     }
-    const invitation = entry?.invitation?.trim();
-    const email = entry?.email?.trim();
+    const entry = record(response);
+    const invitation = text(entry.invitation);
+    const email = text(entry.email);
     if (!invitation || !isEmail(email)) {
       return null;
     }
 
-    const socialLinks =
-      entry.socialLinks?.flatMap((link) => {
-        const label = link.label?.trim();
-        const url = link.url?.trim();
-        return label && isHttpsUrl(url) ? [{ label, url }] : [];
-      }) ?? [];
+    const socialLinks = Array.isArray(entry.socialLinks)
+      ? entry.socialLinks.flatMap((value) => {
+          const link = record(value);
+          const label = text(link.label);
+          const url = text(link.url);
+          return label && isHttpsUrl(url) ? [{ label, url }] : [];
+        })
+      : [];
 
     return { email, invitation, socialLinks };
   } catch {

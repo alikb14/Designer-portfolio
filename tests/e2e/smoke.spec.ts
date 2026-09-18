@@ -73,7 +73,13 @@ for (const viewport of [
       "/contact",
       "/work/project-01",
     ]) {
-      await page.goto(route);
+      const response = await page.goto(route);
+      expect(response?.status()).toBe(200);
+      await expect(page.locator("main")).toBeVisible();
+      await expect(page.locator("main h1")).toHaveCount(1);
+      await expect(
+        page.getByText("Something went wrong", { exact: true }),
+      ).toHaveCount(0);
       await expect
         .poll(() =>
           page.evaluate(

@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { hasAllowedVimeoUrl } from "./shared";
+import { isWorkSlug } from "../lib/validation";
 
 export const workProject = defineType({
   fields: [
@@ -14,7 +15,12 @@ export const workProject = defineType({
       title: "Slug",
       type: "slug",
       options: { source: "title", maxLength: 96 },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.required().custom((value) =>
+          isWorkSlug(value?.current)
+            ? true
+            : "Use lowercase letters, numbers and single hyphens (maximum 96 characters).",
+        ),
     }),
     defineField({
       name: "order",

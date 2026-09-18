@@ -18,6 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <noscript>
+          <style>{`.site-nav { display: flex !important; position: static !important; flex-wrap: wrap; } .site-header { display: flex; flex-wrap: wrap; gap: 1rem; } .menu-toggle, .theme-toggle, .work-preview-control, .play-details-toggle { display: none !important; } .play-description { display: block !important; opacity: 1 !important; max-height: none !important; }`}</style>
+        </noscript>
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('yaad-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t}catch(e){}})()`,

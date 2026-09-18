@@ -1,3 +1,4 @@
+import { record, text } from "@/sanity/lib/validation";
 import { sanityClient } from "@/sanity/lib/client";
 import { toVimeoPlayerUrl } from "@/lib/media/vimeo";
 
@@ -17,22 +18,23 @@ const homePageQuery = `*[_type == "homePage"][0]{intro, reelLabel, reelVimeoUrl}
 
 export async function getPublishedHomePage(): Promise<PublishedHomePage | null> {
   try {
-    const entry = await sanityClient.fetch<SanityHomePage | null>(
+    const response = await sanityClient.fetch<SanityHomePage | null>(
       homePageQuery,
       {},
       { cache: "no-store" },
     );
-    if (!entry) {
+    if (!response) {
       return null;
     }
-    const intro = entry?.intro?.trim();
+    const entry = record(response);
+    const intro = text(entry.intro);
     if (!intro) {
       return null;
     }
 
     return {
       intro,
-      reelLabel: entry.reelLabel?.trim() || undefined,
+      reelLabel: text(entry.reelLabel) || undefined,
       reelVimeoUrl: toVimeoPlayerUrl(entry.reelVimeoUrl),
     };
   } catch {

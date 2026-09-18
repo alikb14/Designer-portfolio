@@ -3,6 +3,7 @@
 
 # Next.js and Cloudflare build output
 /.next/
+/.next-e2e/
 /out/
 /.vinext/
 /.open-next/

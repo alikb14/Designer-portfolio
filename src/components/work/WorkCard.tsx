@@ -1,42 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useVideoPreview } from "@/components/media/useVideoPreview";
 import type { WorkProject } from "@/lib/content/projects";
 
 export function WorkCard({ project }: { project: WorkProject }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [finePointer, setFinePointer] = useState(false);
-  const [playing, setPlaying] = useState(false);
-
-  useEffect(() => {
-    const query = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const update = () => setFinePointer(query.matches);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, []);
-
-  const start = async () => {
-    try {
-      await videoRef.current?.play();
-      setPlaying(true);
-    } catch {
-      setPlaying(false);
-    }
-  };
-
-  const stop = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.pause();
-    video.currentTime = 0;
-    setPlaying(false);
-  };
+  const { videoRef, finePointer, playing, start, stop } = useVideoPreview();
 
   return (
     <article
       className="work-card"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) stop();
+      }}
       onPointerEnter={() => finePointer && void start()}
       onPointerLeave={() => finePointer && stop()}
     >
@@ -50,6 +26,7 @@ export function WorkCard({ project }: { project: WorkProject }) {
               className={playing ? "is-playing" : undefined}
               loop
               muted
+              onError={stop}
               playsInline
               poster={project.poster}
               preload="none"

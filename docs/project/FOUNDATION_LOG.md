@@ -67,6 +67,15 @@ Scope: repository setup, risk correction, and owner-requested reference-aligned 
 
 ## Required next gate evidence
 
+### 2026-09-18 security, reliability, and responsive hardening
+
+- Normalized untrusted CMS values per record so malformed fields or siblings cannot crash Play or replace an otherwise valid Work collection. Restricted Work slugs, Vimeo hosts/video formats/privacy hashes, Sanity asset origins, contact URLs, download attachment URLs, and the configured Studio frame origin.
+- Added bounded Sanity request timeout/retry behavior and explicit Play empty/outage states. Download links now request Sanity CDN attachment disposition; release still requires an approved format/size/scanning policy.
+- Made previews stop off-screen, on page hiding, on focus exit, and after failed/stale play attempts. Made Play descriptions keyboard-readable, touch-tablet actions visible, mobile navigation escape-aware, and essential copy/navigation usable without JavaScript. Theme selection now survives storage denial and tracks system changes until the user chooses an override.
+- Corrected Home reel clipping, About tablet overlap, Play row/action overlap, long-copy clipping, and wrapping of CMS-controlled text while preserving the approved visual direction and always-on portfolio motion policy.
+- Added deterministic test-only Sanity transport and CI configuration. A refreshed audit exposed 14 transitive Sanity CLI advisories; compatible `adm-zip`, `js-yaml`, `smol-toml`, and `uuid` overrides reduced the final `npm audit` result to 0 known vulnerabilities without downgrading Sanity. The 56-commit secret-pattern scan found no matches; format, lint, type checking, 19 unit tests, native and Cloudflare builds, Sanity schema validation, and 27 Chromium scenarios passed. Independent security, QA, and UX reviews produced the addressed findings; the requested post-fix re-review could not run because the reviewer workspace exhausted its credits.
+- No production deploy or provider/account setting was changed. Foundation remains in progress pending physical-device evidence, final Vimeo privacy/domain configuration, signed preview/revalidation, observability, file-policy enforcement, and later release-readiness review.
+
 1. Record measured Earth interaction quality on representative physical desktop and mobile hardware. Automated browser coverage now includes the approved motion policy, no-canvas fallback, and the complete viewport-width matrix.
 2. Add signed preview/revalidation and the poster-frame extraction workflow only after their server-side contracts are implemented and tested; the four public content routes now have published-only reads.
 3. Run representative physical-device checks against `https://design-portfolio.yaadworld.workers.dev`, then add production observability and any release-readiness evidence required for the intended public launch.

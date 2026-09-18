@@ -1,3 +1,4 @@
+import { record, text } from "@/sanity/lib/validation";
 import { sanityClient } from "@/sanity/lib/client";
 import { isSanityAssetUrl } from "@/sanity/lib/assets";
 
@@ -28,22 +29,30 @@ const aboutPageQuery = `*[_type == "aboutPage"][0]{
 
 export async function getPublishedAboutPage(): Promise<PublishedAboutPage | null> {
   try {
-    const entry = await sanityClient.fetch<SanityAboutPage | null>(
+    const response = await sanityClient.fetch<SanityAboutPage | null>(
       aboutPageQuery,
       {},
       { cache: "no-store" },
     );
-    if (!entry) {
+    if (!response) {
       return null;
     }
-    const paragraphs = entry?.biography
-      ?.map((block) =>
-        block.children
-          ?.map((child) => child.text ?? "")
-          .join("")
-          .trim(),
-      )
-      .filter((paragraph): paragraph is string => Boolean(paragraph));
+    const entry = record(response);
+    const paragraphs = Array.isArray(entry.biography)
+      ? entry.biography.flatMap((value) => {
+          const block = record(value);
+          const paragraph = Array.isArray(block.children)
+            ? block.children
+                .map((child) => {
+                  const value = record(child).text;
+                  return typeof value === "string" ? value : "";
+                })
+                .join("")
+                .trim()
+            : "";
+          return paragraph ? [paragraph] : [];
+        })
+      : [];
 
     if (!paragraphs?.length) {
       return null;
@@ -51,8 +60,8 @@ export async function getPublishedAboutPage(): Promise<PublishedAboutPage | null
 
     return {
       biography: paragraphs.join("\n\n"),
-      heading: entry.heading?.trim() || undefined,
-      portraitAlt: entry.portraitAlt?.trim() || undefined,
+      heading: text(entry.heading) || undefined,
+      portraitAlt: text(entry.portraitAlt) || undefined,
       portraitUrl: isSanityAssetUrl(entry.portraitUrl, "/images/")
         ? entry.portraitUrl
         : undefined,

@@ -1,14 +1,14 @@
 import type { NextConfig } from "next";
 import { fileURLToPath } from "node:url";
+import { frameAncestors } from "./src/lib/security/headers";
 
 const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 
 const studioOrigin = process.env.SANITY_STUDIO_ORIGIN;
-const frameAncestors = studioOrigin ? `'self' ${studioOrigin}` : "'self'";
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
-    value: `base-uri 'self'; form-action 'self'; frame-ancestors ${frameAncestors}; frame-src 'self' https://player.vimeo.com; object-src 'none'`,
+    value: `base-uri 'self'; form-action 'self'; frame-ancestors ${frameAncestors(studioOrigin)}; frame-src 'self' https://player.vimeo.com; object-src 'none'`,
   },
   { key: "X-Content-Type-Options", value: "nosniff" },
   {
@@ -22,6 +22,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  distDir: process.env.PLAYWRIGHT_TEST === "1" ? ".next-e2e" : ".next",
   devIndicators: false,
   poweredByHeader: false,
   reactStrictMode: true,

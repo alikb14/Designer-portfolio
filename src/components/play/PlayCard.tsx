@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import Image from "next/image";
 import { TypewriterText } from "@/components/motion/TypewriterText";
 import type { PublishedPlayItem } from "@/sanity/lib/play-content";
@@ -11,14 +11,31 @@ type PlayCardProps = {
 };
 
 export function PlayCard({ index, item }: PlayCardProps) {
-  const [expanded, setExpanded] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const descriptionId = useId();
+  const expanded = hovered || focused || detailsOpen;
 
   return (
     <article
       aria-label={item.title}
       className={expanded ? "play-card is-active" : "play-card"}
-      onPointerEnter={() => setExpanded(true)}
-      onPointerLeave={() => setExpanded(false)}
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse") setHovered(true);
+      }}
+      onPointerLeave={() => setHovered(false)}
+      onFocus={(event) => {
+        if (
+          event.target.matches(":focus-visible") &&
+          !event.target.closest(".play-details-toggle")
+        )
+          setFocused(true);
+      }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget))
+          setFocused(false);
+      }}
       tabIndex={0}
     >
       <h2>{item.title}</h2>
@@ -40,19 +57,29 @@ export function PlayCard({ index, item }: PlayCardProps) {
           DOWNLOAD
         </a>
       ) : (
-        <button className="download-bar" disabled type="button">
+        <button
+          className="download-bar"
+          disabled
+          title="No download is available for this project yet."
+          type="button"
+        >
           DOWNLOAD
         </button>
       )}
       <button
-        aria-expanded={expanded}
+        aria-expanded={detailsOpen}
+        aria-controls={descriptionId}
         className="play-details-toggle"
-        onClick={() => setExpanded((current) => !current)}
+        onClick={() => {
+          setFocused(false);
+          setHovered(false);
+          setDetailsOpen((current) => !current);
+        }}
         type="button"
       >
-        {expanded ? "HIDE DETAILS" : "DETAILS"}
+        {detailsOpen ? "HIDE DETAILS" : "DETAILS"}
       </button>
-      <p className="play-description">
+      <p className="play-description" id={descriptionId}>
         <TypewriterText
           active={expanded}
           delayMs={40}

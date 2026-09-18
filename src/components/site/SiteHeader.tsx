@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 
 const routes = [
@@ -15,12 +15,21 @@ const routes = [
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLButtonElement>(null);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="site-header">
+    <header
+      className="site-header"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          menuRef.current?.focus();
+        }
+      }}
+    >
       <Link
         aria-current={isActive("/") ? "page" : undefined}
         className="home-link"
@@ -32,8 +41,10 @@ export function SiteHeader() {
 
       <button
         aria-expanded={open}
+        aria-controls="primary-navigation"
         aria-label="Toggle navigation"
         className="menu-toggle"
+        ref={menuRef}
         onClick={() => setOpen((current) => !current)}
         type="button"
       >
@@ -42,6 +53,7 @@ export function SiteHeader() {
 
       <nav
         aria-label="Primary"
+        id="primary-navigation"
         className={open ? "site-nav is-open" : "site-nav"}
       >
         {routes.map((route) => (

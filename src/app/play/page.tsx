@@ -20,11 +20,19 @@ export default async function PlayPage() {
             text="You can download my project files here for free"
           />
         </h1>
-        <div className="play-grid">
-          {playItems.map((item, index) => (
-            <PlayCard index={index + 1} item={item} key={item.id} />
-          ))}
-        </div>
+        {playItems === null ? (
+          <p role="status">
+            Projects could not be loaded. <a href="/play">Try again</a>.
+          </p>
+        ) : playItems.length === 0 ? (
+          <p>No projects are available yet. Please check back soon.</p>
+        ) : (
+          <div className="play-grid">
+            {playItems.map((item, index) => (
+              <PlayCard index={index + 1} item={item} key={item.id} />
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
