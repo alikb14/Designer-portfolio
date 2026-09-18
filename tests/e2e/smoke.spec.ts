@@ -298,6 +298,32 @@ test("Play hover copy restarts cleanly and page scrolling remains available", as
     .toBeGreaterThan(0);
 });
 
+test("Play hover presentation is disabled at mobile width", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 700, width: 390 });
+  await page.goto("/play");
+  await page.waitForTimeout(1_500);
+
+  const firstCard = page.locator(".play-card").first();
+  const art = firstCard.locator(".play-art");
+  const artBounds = await art.boundingBox();
+  expect(artBounds).not.toBeNull();
+
+  await page.mouse.move(
+    (artBounds?.x ?? 0) + (artBounds?.width ?? 0) / 2,
+    (artBounds?.y ?? 0) + (artBounds?.height ?? 0) / 2,
+  );
+
+  await expect(firstCard).not.toHaveClass(/is-active/);
+  await expect(art).toHaveCSS("filter", "grayscale(1)");
+  await expect(firstCard).toHaveCSS("transform", /matrix\(1, 0, 0, 1, 0, 0\)/);
+
+  await firstCard.getByRole("button", { name: "DETAILS" }).click();
+  await expect(firstCard.locator(".play-description")).toBeVisible();
+  await expect(art).toHaveCSS("filter", "grayscale(1)");
+});
+
 test("page copy types after navigation and Work cards enter smoothly", async ({
   page,
 }) => {

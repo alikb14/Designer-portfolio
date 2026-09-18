@@ -22,7 +22,11 @@ export function PlayCard({ index, item }: PlayCardProps) {
       aria-label={item.title}
       className={expanded ? "play-card is-active" : "play-card"}
       onPointerEnter={(event) => {
-        if (event.pointerType === "mouse") setHovered(true);
+        if (
+          event.pointerType === "mouse" &&
+          window.matchMedia("(min-width: 681px)").matches
+        )
+          setHovered(true);
       }}
       onPointerLeave={() => setHovered(false)}
       onFocus={(event) => {

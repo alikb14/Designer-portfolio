@@ -948,6 +948,29 @@ main,
     display: block;
   }
 
+  /* Preserve touch details while suppressing desktop hover presentation. */
+  .play-card:hover,
+  .play-card:focus-within,
+  .play-card.is-active {
+    transform: scale(1);
+    z-index: 1;
+  }
+
+  .play-card:hover .play-art,
+  .play-card:focus-within .play-art,
+  .play-card.is-active .play-art {
+    filter: grayscale(1);
+  }
+
+  .play-card:hover h2,
+  .play-card:focus-within h2,
+  .play-card.is-active h2,
+  .play-card:hover .download-bar,
+  .play-card:focus-within .download-bar,
+  .play-card.is-active .download-bar {
+    transform: scale(1);
+  }
+
   .work-preview-control,
   .play-details-toggle {
     display: block;
