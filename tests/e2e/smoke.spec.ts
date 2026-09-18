@@ -11,6 +11,12 @@ test("portfolio home and health endpoint are reachable", async ({
   await expect(
     page.getByRole("img", { name: /two-dimensional ascii earth/i }),
   ).toBeVisible();
+  const developerCredit = page.getByRole("link", { name: "Ali KB" });
+  await expect(developerCredit).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/in/ali-kb-141863340/",
+  );
+  await expect(developerCredit).toHaveAttribute("rel", /author/);
   await expect(page.locator(".home-reel iframe")).toHaveAttribute(
     "src",
     /https:\/\/player\.vimeo\.com\/video\/\d+/,

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageTransition } from "@/components/motion/PageTransition";
+import { DeveloperCredit } from "@/components/site/DeveloperCredit";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -28,7 +29,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <PageTransition>{children}</PageTransition>
+        <PageTransition>
+          {children}
+          <DeveloperCredit />
+        </PageTransition>
       </body>
     </html>
   );
