@@ -13,7 +13,7 @@ export default async function AboutPage() {
   const about = await getPublishedAboutPage();
 
   return (
-    <div className="site-shell">
+    <div className="site-shell about-shell">
       <SiteHeader />
       <main className="about-page">
         <h1 className="sr-only">{about?.heading ?? fallbackHeading}</h1>
