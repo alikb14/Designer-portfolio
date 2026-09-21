@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <noscript>
-          <style>{`.site-nav { display: flex !important; position: static !important; flex-wrap: wrap; } .site-header { display: flex; flex-wrap: wrap; gap: 1rem; } .menu-toggle, .theme-toggle, .work-preview-control, .play-details-toggle { display: none !important; } .play-description { display: block !important; opacity: 1 !important; max-height: none !important; }`}</style>
+          <style>{`.site-nav { display: flex !important; position: static !important; flex-wrap: wrap; } .site-header { display: flex; flex-wrap: wrap; gap: 1rem; } .menu-toggle, .theme-toggle, .work-preview-control, .play-details-toggle { display: none !important; } .play-description { display: block !important; opacity: 1 !important; max-height: none !important; } .typewriter-text-measure { visibility: visible !important; } .typewriter-text-live { display: none !important; }`}</style>
         </noscript>
         <script
           dangerouslySetInnerHTML={{

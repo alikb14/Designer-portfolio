@@ -176,13 +176,6 @@ button:focus-visible {
   visibility: hidden;
 }
 
-.typewriter-text.is-static .typewriter-text-measure {
-  visibility: visible;
-}
-.typewriter-text.is-static .typewriter-text-live {
-  display: none;
-}
-
 main,
 .typewriter-text,
 .work-title,

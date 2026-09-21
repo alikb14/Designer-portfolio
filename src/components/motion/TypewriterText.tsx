@@ -1,38 +1,34 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 type TypewriterTextProps = {
   active?: boolean;
   blinkPeriod?: boolean;
   delayMs?: number;
+  durationMs?: number;
   text: string;
 };
 
-const defaultDurationMs = 400;
+const defaultDurationMs = 350;
 const typingDelayMs = 0;
-const subscribeHydration = () => () => {};
 
 function TypewriterRun({
   active = true,
   blinkPeriod = false,
   delayMs = typingDelayMs,
+  durationMs = defaultDurationMs,
   text,
 }: TypewriterTextProps) {
   const [visibleCharacters, setVisibleCharacters] = useState(0);
-  const hydrated = useSyncExternalStore(
-    subscribeHydration,
-    () => true,
-    () => false,
-  );
 
   useEffect(() => {
     if (!active) {
       return;
     }
 
-    const duration = defaultDurationMs;
+    const duration = durationMs;
     const startedAt = performance.now() + delayMs;
     let animationFrame = 0;
 
@@ -47,14 +43,12 @@ function TypewriterRun({
 
     animationFrame = requestAnimationFrame(update);
     return () => cancelAnimationFrame(animationFrame);
-  }, [active, delayMs, text]);
+  }, [active, delayMs, durationMs, text]);
 
   const accessibleText = blinkPeriod ? `${text}.` : text;
 
   return (
-    <span
-      className={hydrated ? "typewriter-text" : "typewriter-text is-static"}
-    >
+    <span className="typewriter-text">
       <span aria-hidden="true" className="typewriter-text-measure">
         {text}
         {blinkPeriod ? <span className="typewriter-period">.</span> : null}

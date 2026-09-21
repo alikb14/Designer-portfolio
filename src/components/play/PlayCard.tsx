@@ -87,6 +87,7 @@ export function PlayCard({ index, item }: PlayCardProps) {
         <TypewriterText
           active={expanded}
           delayMs={40}
+          durationMs={200}
           key={expanded ? "expanded" : "collapsed"}
           text={item.description}
         />
