@@ -55,7 +55,9 @@ function TypewriterRun({
       </span>
       <span aria-hidden="true" className="typewriter-text-live">
         {active ? text.slice(0, visibleCharacters) : ""}
-        {blinkPeriod ? <span className="typewriter-period">.</span> : null}
+        {blinkPeriod && visibleCharacters > 0 ? (
+          <span className="typewriter-period">.</span>
+        ) : null}
       </span>
       <span className="sr-only">{accessibleText}</span>
     </span>
