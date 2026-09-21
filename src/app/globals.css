@@ -347,17 +347,19 @@ main,
   height: auto;
   inset-inline-start: 0;
   justify-content: center;
-  max-width: 60rem;
+  max-width: 58rem;
   position: relative;
   margin-block-start: clamp(1.75rem, 8.796vh, 5.9375rem);
+  margin-block-end: clamp(2rem, 4.5vh, 3.75rem);
   text-decoration: none;
   width: min(
-    63vw,
-    60rem,
+    58vw,
+    58rem,
     calc(
       (
-          100svh - clamp(3rem, 14.81vh, 10rem) - clamp(1rem, 2.5vh, 2rem) - 2 *
-            clamp(1.5rem, 2.2vw, 2.75rem) - 2.75rem - 7.5rem
+          100svh - clamp(3rem, 14.81vh, 10rem) -
+            clamp(1.75rem, 8.796vh, 5.9375rem) - 7.5rem - 2 *
+            clamp(1.5rem, 2.2vw, 2.75rem) - 2.75rem - clamp(2.5rem, 5.5vh, 5rem)
         ) *
         16 / 9
     )
@@ -435,7 +437,7 @@ main,
 @keyframes work-card-enter {
   from {
     opacity: 0;
-    translate: 0 36px;
+    translate: 0 80px;
   }
 
   to {
@@ -934,12 +936,13 @@ main,
 
   .home-reel {
     margin-block-start: clamp(1.5rem, 3.5vh, 3.5rem);
+    margin-block-end: clamp(1.5rem, 3vh, 2.5rem);
     width: min(
       72vw,
       calc(
         (
-            100svh - clamp(2.5rem, 5vh, 4rem) - clamp(1rem, 2.5vh, 2rem) - 2 *
-              1.5rem - 2.75rem - 6.5rem
+            100svh - clamp(2.5rem, 5vh, 4rem) - clamp(1.5rem, 3.5vh, 3.5rem) -
+              7rem - 2 * 1.5rem - 2.75rem - clamp(1.75rem, 3.5vh, 3rem)
           ) *
           16 / 9
       )
@@ -988,12 +991,13 @@ main,
 
   .home-reel {
     margin-block-start: clamp(1.5rem, 3vh, 2.5rem);
+    margin-block-end: clamp(1.25rem, 2.5vh, 2rem);
     width: min(
       calc(100vw - 2.5rem),
       calc(
         (
-            100svh - clamp(2rem, 4vh, 3.5rem) - clamp(1rem, 2.5vh, 2rem) -
-              2.5rem - 2.75rem - 7.5rem
+            100svh - clamp(2rem, 4vh, 3.5rem) - clamp(1.5rem, 3vh, 2.5rem) -
+              6.5rem - 2.5rem - 2.75rem - clamp(1.5rem, 3vh, 2.5rem)
           ) *
           16 / 9
       )
