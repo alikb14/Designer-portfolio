@@ -302,29 +302,31 @@ main,
 
 .theme-toggle-track-icon {
   align-items: center;
-  color: currentColor;
   display: flex;
-  height: 0.75rem;
+  height: 0.8rem;
   justify-content: center;
-  opacity: 0.35;
-  transition: opacity 220ms ease;
-  width: 0.75rem;
-}
-
-:root[data-theme="dark"] .theme-toggle-track-icon.theme-toggle-sun {
-  opacity: 0.4;
-}
-
-:root[data-theme="dark"] .theme-toggle-track-icon.theme-toggle-moon {
-  opacity: 0.12;
+  transition:
+    opacity 220ms ease,
+    color 220ms ease;
+  width: 0.8rem;
 }
 
 :root:not([data-theme="dark"]) .theme-toggle-track-icon.theme-toggle-sun {
-  opacity: 0.12;
+  opacity: 0;
 }
 
 :root:not([data-theme="dark"]) .theme-toggle-track-icon.theme-toggle-moon {
-  opacity: 0.4;
+  color: #000;
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .theme-toggle-track-icon.theme-toggle-sun {
+  color: #fff;
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .theme-toggle-track-icon.theme-toggle-moon {
+  opacity: 0;
 }
 
 .theme-toggle-dot {

@@ -24,7 +24,7 @@ function SunIcon({ className }: { className?: string }) {
     <svg
       aria-hidden="true"
       className={className}
-      fill="none"
+      fill="currentColor"
       height="12"
       stroke="currentColor"
       strokeLinecap="round"
@@ -33,7 +33,7 @@ function SunIcon({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       width="12"
     >
-      <circle cx="12" cy="12" r="4" />
+      <circle cx="12" cy="12" r="4" fill="currentColor" />
       <path d="M12 2v2" />
       <path d="M12 20v2" />
       <path d="m4.93 4.93 1.41 1.41" />
@@ -51,16 +51,16 @@ function MoonIcon({ className }: { className?: string }) {
     <svg
       aria-hidden="true"
       className={className}
-      fill="none"
+      fill="currentColor"
       height="12"
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth="2"
+      strokeWidth="1.5"
       viewBox="0 0 24 24"
       width="12"
     >
-      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" fill="currentColor" />
     </svg>
   );
 }
