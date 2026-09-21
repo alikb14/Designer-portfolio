@@ -10,10 +10,8 @@ type TypewriterTextProps = {
   text: string;
 };
 
-const minimumDurationMs = 800;
-const maximumDurationMs = 1_100;
-const millisecondsPerCharacter = 15;
-const typingDelayMs = 700;
+const defaultDurationMs = 400;
+const typingDelayMs = 0;
 const subscribeHydration = () => () => {};
 
 function TypewriterRun({
@@ -34,10 +32,7 @@ function TypewriterRun({
       return;
     }
 
-    const duration = Math.min(
-      maximumDurationMs,
-      Math.max(minimumDurationMs, text.length * millisecondsPerCharacter),
-    );
+    const duration = defaultDurationMs;
     const startedAt = performance.now() + delayMs;
     let animationFrame = 0;
 
