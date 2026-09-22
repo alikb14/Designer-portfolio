@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 
 const routes = [
@@ -19,6 +19,22 @@ export function SiteHeader() {
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  useEffect(() => {
+    const nav = document.getElementById("primary-navigation");
+    if (!nav) return;
+    const updateNavWidth = () => {
+      document.documentElement.style.setProperty(
+        "--site-nav-width",
+        `${nav.getBoundingClientRect().width}px`
+      );
+    };
+    updateNavWidth();
+    if (typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(updateNavWidth);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header
