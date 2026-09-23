@@ -43,7 +43,7 @@
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.54.10",
+    "@cloudflare/vite-plugin": "^1.56.0",
     "@playwright/test": "^1.63.0",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
